@@ -21,7 +21,7 @@ const LOGIN_SIZE = { width: 960, height: 640 }
 
 const SCREENSHOT_ROUTES = [
   '/subject/excavate', '/market-trend/main', '/market-trend/stock/quotation/300152', '/trend', '/fav',
-  '/subject/periodic', '/subject/all', '/buy-vip', '/buy-svip', '/buy-qz', '/subject/detail/1', '/svip-lead-stock', '/svip-subject-main/monitoring/lead', '/svip-subject-main/monitoring/continuous', '/svip-ding-loong', '/svip-subject-main/svip', '/svip-subject-main/svip-longhu', '/svip-subject-main/call-auction', '/user/profile', '/user/order', '/user/pwd', '/dpu', '/login', '/update', '/message'
+  '/subject/periodic', '/subject/all', '/buy-vip', '/buy-svip', '/buy-qz', '/subject/detail/1', '/research-report', '/lecturer', '/live', '/user-complain', '/svip-lead-stock', '/svip-subject-main/monitoring/lead', '/svip-subject-main/monitoring/continuous', '/svip-ding-loong', '/svip-subject-main/svip', '/svip-subject-main/svip-longhu', '/svip-subject-main/call-auction', '/user/profile', '/user/order', '/user/pwd', '/dpu', '/login', '/update', '/message'
 ]
 
 let mainWindow = null

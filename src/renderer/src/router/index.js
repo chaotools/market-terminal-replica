@@ -34,6 +34,10 @@ import BuyPage from '../views/BuyPage.vue'
 import LeadStockPage from '../views/LeadStockPage.vue'
 import SubjectMonitorPage from '../views/SubjectMonitorPage.vue'
 import SvipSimplePage from '../views/SvipSimplePage.vue'
+import ResearchReportPage from '../views/ResearchReportPage.vue'
+import LecturerPage from '../views/LecturerPage.vue'
+import LivePage from '../views/LivePage.vue'
+import ComplainPage from '../views/ComplainPage.vue'
 
 const placeholder = (title, stage, apis, notes, origin) => ({
   name: title,
@@ -57,8 +61,8 @@ const routes = [
 
       { path: 'poster', ...placeholder('海报', 'P2', [], ['原始：iframe 显示 ?url= 海报页'], '/poster'), meta: { title: '海报', auth: 1, hidden: true, stage: 'P2' } },
       { path: 'issues', ...placeholder('问董秘', 'P1', ['/app/stock/qa', '/app/stock/qa/v2', '/app/stock/qa/rank'], ['问答列表（增量拉取 10 条）', '排名视图']), meta: { title: '问董秘', auth: 1, stage: 'P1' } },
-      { path: 'research-report', ...placeholder('研究报告', 'P1', ['/app/stock-report/v2/list', '/app/stock-report/v2/rank'], ['研报列表：keyword/日期区间/分页', 'rows 含 title/content/pdfUrl，可用 openPDF 打开']), meta: { title: '研究报告', auth: 1, stage: 'P1' } },
-      { path: 'live', ...placeholder('播放', 'P2', ['/app/lecturer/live-info/:id', '/app/video/vod-play-info/:vid', '/app/video/watch-time/end'], ['Aliplayer 直播/点播', 'broadcast-room 直播事件总线']), meta: { title: '播放', auth: 0, stage: 'P2' } },
+      { path: 'research-report', name: 'ResearchReportIndex', component: ResearchReportPage, meta: { title: '研究报告', auth: 1, stage: 'P2' } },
+      { path: 'live', name: 'Live', component: LivePage, meta: { title: '播放', auth: 0, stage: 'P2' } },
       { path: 'course-his', ...placeholder('历史课程', 'P2', ['/app/lecturer/his/course/list'], ['课程历史列表']), meta: { title: '历史课程', auth: 0, stage: 'P2' } },
       { path: 'fav', name: 'FavMain', component: FavPage, meta: { title: '自选股', auth: 1, stage: 'P0' } },
       { path: 'fav/grid', ...placeholder('自选股多股同列', 'P1', ['/app/self-optional/group/stock-list', '/app/stock/realtime'], ['多股同列网格']), meta: { title: '自选股', auth: 1, stage: 'P1' } },
@@ -72,9 +76,9 @@ const routes = [
 
       { path: 'trend', name: 'TrendMain', component: TrendMain, meta: { title: '市场走势', auth: 1, stage: 'P0' } },
       { path: 'monitors-market', ...placeholder('甄选盯盘', 'P2', ['/app/stock/single-yellow/v2', '/app/realtime/stock-realtime-data'], ['甄选版盯盘页']), meta: { title: '甄选盯盘', auth: 1, stage: 'P2' } },
-      { path: 'lecturer', ...placeholder('投资圈', 'P2', ['/app/lecturer/subscribe', '/app/lecturer/article', '/app/lecturer/course/list'], ['讲师主页/文章/课程/直播']), meta: { title: '投资圈', auth: 1, stage: 'P2' } },
-      { path: 'practical-train', ...placeholder('实训团', 'P2', [], ['复用讲师组件 lecturer-id=3']), meta: { title: '实训团', auth: 1, stage: 'P2' } },
-      { path: 'investment-train', ...placeholder('智投团', 'P2', [], ['复用讲师组件 lecturer-id=10']), meta: { title: '智投团', auth: 1, stage: 'P2' } },
+      { path: 'lecturer', name: 'Lecturer', component: LecturerPage, meta: { title: '投资圈', auth: 1, stage: 'P2' } },
+      { path: 'practical-train', name: 'PracticalTrain', component: LecturerPage, meta: { title: '实训团', auth: 1, stage: 'P2', lecturerId: 3 } },
+      { path: 'investment-train', name: 'InvestmentTrain', component: LecturerPage, meta: { title: '智投团', auth: 1, stage: 'P2', lecturerId: 10 } },
 
       { path: 'subject', redirect: '/subject/excavate' },
       { path: 'subject/excavate', name: 'SubjectViewExcavate', component: SubjectExcavatePage, meta: { title: '题材掘金', auth: 1, stage: 'P0' } },
@@ -111,7 +115,7 @@ const routes = [
       { path: 'user/profile', name: 'UserProfile', component: UserProfilePage, meta: { title: '我的资料', auth: 1, stage: 'P1' } },
       { path: 'user/order', name: 'UserOrder', component: UserOrderPage, meta: { title: '我的订单', auth: 1, stage: 'P1' } },
       { path: 'user/pwd', name: 'UserPwd', component: UserPwdPage, meta: { title: '修改密码', auth: 1, stage: 'P1' } },
-      { path: 'user-complain', ...placeholder('一键投诉', 'P2', ['/app/complaint-link/list', '/app/complaint-link/menu-click-log'], ['原始 webview 加载 BC_PC 投诉链接']), meta: { title: '一键投诉', auth: 1, stage: 'P2' } },
+      { path: 'user-complain', name: 'UserComplain', component: ComplainPage, meta: { title: '一键投诉', auth: 1, stage: 'P2' } },
 
       { path: 'privacy', ...placeholder('隐私政策', 'P1', [], ['本地复刻版说明：不收集、不上传任何数据；所有数据来自本地 API 契约 server。']), meta: { title: '隐私政策', auth: 0, hidden: true, plain: false, stage: 'P1' } }
     ]
