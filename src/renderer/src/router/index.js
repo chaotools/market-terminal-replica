@@ -40,6 +40,11 @@ import LivePage from '../views/LivePage.vue'
 import ComplainPage from '../views/ComplainPage.vue'
 import IssuesPage from '../views/IssuesPage.vue'
 import PosterPage from '../views/PosterPage.vue'
+import MonitorMarketPage from '../views/MonitorMarketPage.vue'
+import SubjectPeriodogramPage from '../views/SubjectPeriodogramPage.vue'
+import CourseHisPage from '../views/CourseHisPage.vue'
+import FavGridPage from '../views/FavGridPage.vue'
+import IndexQuotationPage from '../views/IndexQuotationPage.vue'
 
 const placeholder = (title, stage, apis, notes, origin) => ({
   name: title,
@@ -65,19 +70,19 @@ const routes = [
       { path: 'issues', name: 'IssuesIndex', component: IssuesPage, meta: { title: '问董秘', auth: 1, stage: 'P2' } },
       { path: 'research-report', name: 'ResearchReportIndex', component: ResearchReportPage, meta: { title: '研究报告', auth: 1, stage: 'P2' } },
       { path: 'live', name: 'Live', component: LivePage, meta: { title: '播放', auth: 0, stage: 'P2' } },
-      { path: 'course-his', ...placeholder('历史课程', 'P2', ['/app/lecturer/his/course/list'], ['课程历史列表']), meta: { title: '历史课程', auth: 0, stage: 'P2' } },
+      { path: 'course-his', name: 'CourseHis', component: CourseHisPage, meta: { title: '历史课程', auth: 0, stage: 'P2' } },
       { path: 'fav', name: 'FavMain', component: FavPage, meta: { title: '自选股', auth: 1, stage: 'P0' } },
-      { path: 'fav/grid', ...placeholder('自选股多股同列', 'P1', ['/app/self-optional/group/stock-list', '/app/stock/realtime'], ['多股同列网格']), meta: { title: '自选股', auth: 1, stage: 'P1' } },
+      { path: 'fav/grid', name: 'FavGrid', component: FavGridPage, meta: { title: '自选股', auth: 1, stage: 'P2' } },
 
       { path: 'market-trend', redirect: '/market-trend/main' },
       { path: 'market-trend/main', name: 'MarketTrendMain', component: MarketTrendMain, meta: { title: '全部A股', auth: 1, stage: 'P0' } },
       { path: 'market-trend/stock/quotation/:id', name: 'StockQuotation', component: StockQuotationPage, meta: { title: '股票详情', auth: 1, stage: 'P0' } },
-      { path: 'market-trend/subject/quotation/:id', ...placeholder('题材详情报价', 'P1', ['/app/subject/query/:id'], ['题材维度报价页']), meta: { title: '题材详情', auth: 1, stage: 'P1' } },
-      { path: 'market-trend/composite-index/quotation/:id', ...placeholder('指数详情', 'P1', ['/app/stock/indexConstituentStocks', '/API/IndexCalculate'], ['指数行情与成分股']), meta: { title: '指数详情', auth: 1, stage: 'P1' } },
+      { path: 'market-trend/subject/quotation/:id', name: 'SubjectQuotation', component: SubjectDetailPage, meta: { title: '题材详情', auth: 1, stage: 'P2', tab: 'rank' } },
+      { path: 'market-trend/composite-index/quotation/:id', name: 'CompositeIndexQuotation', component: IndexQuotationPage, meta: { title: '指数详情', auth: 1, stage: 'P2' } },
       { path: 'market-trend/test', ...placeholder('test', 'P2', [], ['原始调试页，用途未明']), meta: { title: 'test', auth: 1, hidden: true, stage: 'P2' } },
 
       { path: 'trend', name: 'TrendMain', component: TrendMain, meta: { title: '市场走势', auth: 1, stage: 'P0' } },
-      { path: 'monitors-market', ...placeholder('甄选盯盘', 'P2', ['/app/stock/single-yellow/v2', '/app/realtime/stock-realtime-data'], ['甄选版盯盘页']), meta: { title: '甄选盯盘', auth: 1, stage: 'P2' } },
+      { path: 'monitors-market', name: 'MonitorsMarket', component: MonitorMarketPage, meta: { title: '甄选盯盘', auth: 1, stage: 'P2' } },
       { path: 'lecturer', name: 'Lecturer', component: LecturerPage, meta: { title: '投资圈', auth: 1, stage: 'P2' } },
       { path: 'practical-train', name: 'PracticalTrain', component: LecturerPage, meta: { title: '实训团', auth: 1, stage: 'P2', lecturerId: 3 } },
       { path: 'investment-train', name: 'InvestmentTrain', component: LecturerPage, meta: { title: '智投团', auth: 1, stage: 'P2', lecturerId: 10 } },
@@ -92,10 +97,13 @@ const routes = [
       { path: 'subject/detail/:subjectId/vip-tree', name: 'SubjectDetailVipTree', component: SubjectDetailPage, meta: { title: '题材图谱', auth: 1, stage: 'P1', tab: 'tree' } },
       { path: 'subject/detail/:subjectId/svip-rank', name: 'SubjectDetailSvipRank', component: SubjectDetailPage, meta: { title: '题材排名', auth: 1, stage: 'P1', tab: 'rank' } },
       { path: 'subject/detail/:subjectId/kline', name: 'SubjectDetailKline', component: SubjectDetailPage, meta: { title: '题材K线', auth: 1, stage: 'P1', tab: 'rank' } },
-      { path: 'subject-periodogram', ...placeholder('题材周期图', 'P2', ['/app/subject/history-cycle/:type'], ['上证/深证/创业板周期图']), meta: { title: '题材周期图', auth: 1, stage: 'P2' } },
+      { path: 'subject-periodogram', name: 'SubjectPeriodogram', component: SubjectPeriodogramPage, meta: { title: '题材周期图', auth: 1, stage: 'P2' } },
 
-      { path: 'svip-subject/detail/:subjectId', ...placeholder('甄选题材详情', 'P2', ['/app/selected-subject/query/:id', '/app/subject/all-lead-times'], ['desc/table/stock/kline 四个子页签']), meta: { title: '甄选题材详情', auth: 1, stage: 'P2' } },
-      { path: 'svip-subject/detail/:subjectId/table', ...placeholder('甄选题材排名', 'P2', ['/app/selected-subject/main/list/v2'], ['排名表']), meta: { title: '甄选题材排名', auth: 1, stage: 'P2' } },
+      { path: 'svip-subject/detail/:subjectId', name: 'SvipSubjectDetailIndex', component: SubjectDetailPage, meta: { title: '甄选题材详情', auth: 1, stage: 'P2', tab: 'rank' } },
+      { path: 'svip-subject/detail/:subjectId/desc', name: 'SvipSubjectDetailDesc', component: SubjectDetailPage, meta: { title: '甄选题材介绍', auth: 1, stage: 'P2', tab: 'intro' } },
+      { path: 'svip-subject/detail/:subjectId/table', name: 'SvipSubjectDetailVipTable', component: SubjectDetailPage, meta: { title: '甄选题材排名', auth: 1, stage: 'P2', tab: 'rank' } },
+      { path: 'svip-subject/detail/:subjectId/stock', name: 'SvipSubjectDetailStock', component: SubjectDetailPage, meta: { title: '甄选题材个股', auth: 1, stage: 'P2', tab: 'rank' } },
+      { path: 'svip-subject/detail/:subjectId/kline', name: 'SvipSubjectDetailKline', component: SubjectDetailPage, meta: { title: '题材K线', auth: 1, stage: 'P2', tab: 'rank' } },
       { path: 'svip-lead-stock', name: 'SvipLeadStock', component: LeadStockPage, meta: { title: '甄选股池', auth: 1, stage: 'P2' } },
       { path: 'svip-ding-loong', name: 'SvipDingLoong', component: SvipSimplePage, meta: { title: '二板定龙', auth: 1, stage: 'P2', svipKind: 'dingloong' } },
       { path: 'svip-subject-main/svip', name: 'SvipSubjectMain', component: SvipSimplePage, meta: { title: '甄选题材', auth: 1, stage: 'P2', svipKind: 'subject' } },

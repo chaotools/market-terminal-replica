@@ -26,7 +26,7 @@ const LOGIN_SIZE = { width: 960, height: 640 }
 
 const SCREENSHOT_ROUTES = [
   '/subject/excavate', '/market-trend/main', '/market-trend/stock/quotation/300152', '/trend', '/fav',
-  '/subject/periodic', '/subject/all', '/buy-vip', '/buy-svip', '/buy-qz', '/subject/detail/1', '/research-report', '/issues', '/poster', '/lecturer', '/live', '/user-complain', '/svip-lead-stock', '/svip-subject-main/monitoring/lead', '/svip-subject-main/monitoring/continuous', '/svip-ding-loong', '/svip-subject-main/svip', '/svip-subject-main/svip-longhu', '/svip-subject-main/call-auction', '/user/profile', '/user/order', '/user/pwd', '/dpu', '/login', '/update', '/message'
+  '/subject/periodic', '/subject/all', '/buy-vip', '/buy-svip', '/buy-qz', '/subject/detail/1', '/research-report', '/issues', '/poster', '/monitors-market', '/subject-periodogram', '/course-his', '/fav/grid', '/market-trend/composite-index/quotation/1', '/svip-subject/detail/1/desc', '/lecturer', '/live', '/user-complain', '/svip-lead-stock', '/svip-subject-main/monitoring/lead', '/svip-subject-main/monitoring/continuous', '/svip-ding-loong', '/svip-subject-main/svip', '/svip-subject-main/svip-longhu', '/svip-subject-main/call-auction', '/user/profile', '/user/order', '/user/pwd', '/dpu', '/login', '/update', '/message'
 ]
 
 let mainWindow = null
@@ -363,14 +363,33 @@ async function runSmokeMode(loadingCreated) {
     await delay(1500)
     record('main_window', Boolean(mainWindow && !mainWindow.isDestroyed()), mainWindow ? mainWindow.getTitle() : 'null')
     if (mainWindow) {
+      // 等待渲染层就绪（打包态首启较慢，避免初始路由 setMainSize 覆盖测试调用）
+      for (let i = 0; i < 20; i++) {
+        try {
+          const ready = await mainWindow.webContents.executeJavaScript("document.readyState === 'complete' && location.hash.length > 1").catch(() => false)
+          if (ready) break
+        } catch { /* retry */ }
+        await delay(300)
+      }
+      await delay(600)
       const before = mainWindow.getSize()
-      await mainWindow.webContents.executeJavaScript("window.electron.invoke('setLoginSize')").catch(() => null)
-      await delay(700)
-      const login = mainWindow.getSize()
-      await mainWindow.webContents.executeJavaScript("window.electron.invoke('setMainSize')").catch(() => null)
-      await delay(700)
-      const main = mainWindow.getSize()
-      record('window_size_switch', login[0] !== before[0] || login[1] !== before[1], 'before=' + before + ' login=' + login + ' main=' + main)
+      let login = before
+      for (let i = 0; i < 8; i++) {
+        await mainWindow.webContents.executeJavaScript("window.electron.invoke('setLoginSize')").catch(() => null)
+        await delay(250)
+        login = mainWindow.getSize()
+        if (login[0] <= 980 && login[1] <= 660) break
+      }
+      let main = login
+      for (let i = 0; i < 8; i++) {
+        await mainWindow.webContents.executeJavaScript("window.electron.invoke('setMainSize')").catch(() => null)
+        await delay(250)
+        main = mainWindow.getSize()
+        if (main[0] >= 1270 && main[1] >= 810) break
+      }
+      const loginOk = login[0] === 960 && login[1] === 640
+      const mainOk = main[0] === 1280 && main[1] === 820
+      record('window_size_switch', loginOk && mainOk, 'before=' + before + ' login=' + login + ' main=' + main)
       await mainWindow.webContents.executeJavaScript("window.__smokeTimerCount = 0; window.electron.on('timer#1s', () => { window.__smokeTimerCount++ });").catch(() => null)
       await delay(2600)
       const timerCount = await mainWindow.webContents.executeJavaScript('window.__smokeTimerCount').catch(() => -1)
