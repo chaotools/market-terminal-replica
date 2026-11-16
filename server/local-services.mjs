@@ -267,6 +267,8 @@ function route(pathname, query) {
 
 function handle8080(req, res) {
   const url = new URL(req.url || '/', 'http://127.0.0.1')
+  // 本地 API 契约层：仿真原始应用 https://app.txcfgl.com/api 的响应形状
+  if (url.pathname.startsWith('/api/')) return handleApi(req, res, url)
   if (url.pathname === '/push') {
     res.writeHead(200, {
       'content-type': 'text/event-stream; charset=utf-8',
@@ -284,10 +286,131 @@ function handle8080(req, res) {
   return json(res, result)
 }
 
+/**
+ * 本地 API 契约层（仿真 app.txcfgl.com/api）。
+ * 响应统一为 { code: 200, msg: 'success', data }；401 语义由前端协议层处理。
+ * 原则：不伪造业务数据——行情/题材来自真实数据源（Lumi），未连接时返回空集合。
+ */
+function tradeDates(n, base = new Date()) {
+  const days = []
+  const cursor = new Date(base)
+  while (days.length < n) {
+    const week = cursor.getDay()
+    if (week !== 0 && week !== 6) days.push(cursor.toISOString().slice(0, 10))
+    cursor.setDate(cursor.getDate() - 1)
+  }
+  return days
+}
+
+function apiData(pathname, query) {
+  const snap = snapshot()
+  const market = snap.market || {}
+  const subjects = snap.subjects || []
+  const stocks = Object.values(state.stocks || {})
+  const parts = pathname.split('/').filter(Boolean).slice(1) // 去掉 api
+  const joined = '/' + parts.join('/')
+  const tail = parts[parts.length - 1] || ''
+
+  if (joined === '/app/config/app-version') {
+    return { pcVersion: 100, curVersion: 100, pcDownloadUrl: '', pcResourceUrl: '', updateContent: ['本地复刻版更新通道（不下载第三方安装包）'], pcForceUpdate: 0 }
+  }
+  if (joined === '/app/config/info') {
+    return {
+      riskInfo: '本页面为逐项复刻演示，不构成任何投资建议。',
+      sourceInfo: '数据来自本地 API 契约 server；未连接真实行情源时为空。'
+    }
+  }
+  if (joined === '/app/ad/pc') return []
+  if (joined === '/app/user/info/v2') {
+    return {
+      userId: 'local-demo',
+      nickName: '本地复刻用户',
+      avatar: '',
+      phone: '',
+      vip: { isVip: false, isTempVip: false, vipTime: null },
+      svip: { isVip: false, isTempVip: false, svipTime: null },
+      ssvip: { isVip: false },
+      trainingCampVip: { isVip: false },
+      pcLogincount: 0,
+      pcLoginLimitCount: 1,
+      unionId: ''
+    }
+  }
+  if (parts[0] === 'trade-date' && parts[1] === 'recent') {
+    return { list: tradeDates(Number(parts[2]) || 10) }
+  }
+  if (joined === '/app/subject/list/v2') return { list: subjects, total: subjects.length }
+  if (parts[0] === 'app' && parts[1] === 'subject' && parts[2] === 'query') {
+    const id = parts[3] || query.get('subjectId') || ''
+    return subjectDetail(id) || { error: 'not_found', subjectId: id }
+  }
+  if (joined === '/app/subject/realtime') return { list: subjects, updatedAt: snap.updatedAt }
+  if (joined === '/app/stock/realtime') return { list: stocks }
+  if (joined === '/app/stock/realtime-rank/v2') {
+    return {
+      list: [...subjects].sort((a, b) => (b.changePct || 0) - (a.changePct || 0)).slice(0, 50),
+      total: subjects.length
+    }
+  }
+  if (joined === '/app/stock/summary/pctChg') {
+    const up = subjects.filter((s) => (s.changePct || 0) > 0).length
+    const down = subjects.filter((s) => (s.changePct || 0) < 0).length
+    return { up, down, flat: substances(subjects, up, down), limitUp: subjects.filter((s) => (s.limitUpCount || 0) > 0).length }
+  }
+  if (joined === '/app/realtime/market/time') {
+    const now = new Date()
+    const date = now.toISOString().slice(0, 10)
+    return { tradeDate: date, now: snap.meta?.asOf || null, isTradeTime: Boolean(snap.meta?.isTradeTime) }
+  }
+  if (joined === '/app/realtime/index-amount') {
+    return { amount: null, amountLabel: '—', addAmount: null, addAmountLabel: '—', source: snap.meta?.source || 'none' }
+  }
+  if (joined === '/app/realtime/index/v2') return { list: [] }
+  if (joined === '/app/stock/realtime/{id}') return { list: stocks }
+  if (joined === '/app/self-optional/listGroup') {
+    return {
+      list: [
+        { groupId: 'g-main', groupName: '主线关注', objectType: 1 },
+        { groupId: 'g-watch', groupName: '异动观察', objectType: 1 }
+      ]
+    }
+  }
+  if (joined === '/app/self-optional/group/stock-list') return { list: limitUpStocks(1) }
+  if (joined === '/app/search/v2') {
+    const keyword = String(query.get('keyword') || '').trim()
+    if (!keyword) return { list: [], total: 0 }
+    const hit = subjects.filter((s) => String(s.subjectName || '').includes(keyword))
+    return { list: hit, total: hit.length }
+  }
+  if (joined === '/app/push-message/type') return [{ typeId: 1, typeName: '系统通知' }, { typeId: 2, typeName: '题材提醒' }]
+  if (joined === '/app/push-message') return { rows: [], total: 0 }
+  if (joined === '/app/stock/qa/v2') return { rows: [], total: 0 }
+  if (joined === '/app/stock-report/v2/list') return { rows: [], total: 0 }
+  if (joined === '/app/lecturer/subscribe') return { rows: [], total: 0 }
+  if (joined === '/dpu/condition-stock') return { rows: [], total: 0 }
+  if (joined === '/app/stock/kline/config/list') return { list: [] }
+  if (joined === '/app/vip-order/' || joined === '/app/vip-order') return { rows: [], total: 0 }
+  return null
+}
+
+function substances(subjects, up, down) {
+  return Math.max(0, subjects.length - up - down)
+}
+
+function handleApi(req, res, url) {
+  let body = ''
+  req.on('data', (chunk) => { body += chunk; if (body.length > 1_000_000) req.destroy() })
+  req.on('end', () => {
+    const data = apiData(url.pathname, url.searchParams)
+    if (data === null) return json(res, { code: 404, msg: 'not_found', data: null })
+    return json(res, { code: 200, msg: 'success', data })
+  })
+}
+
 function start(port) {
   const server = http.createServer((req, res) => {
     try {
-      if (port === 8080) return handle8080(req, res)
+      if (port === PORTS[0]) return handle8080(req, res)
       if (port === 8087) return json(res, { role: 'cache', ...snapshot() })
       if (port === 8088) return json(res, { role: 'pyindex', ...snapshot().market, quadrants: snapshot().quadrants.counts })
       if (port === 8886) return json(res, { role: 'reserved', note: '预留端口，暂无服务' })

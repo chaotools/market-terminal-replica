@@ -10,16 +10,17 @@ const props = defineProps({
 const desktop = isDesktop()
 const act = (channel) => desktop && desktopInvoke(channel)
 const label = computed(() => ({
+  local: '本地 API 契约',
   lumi: 'Lumi 实时行情',
   none: '未连接行情源'
 }[props.source] || '未知来源'))
-const dotClass = computed(() => (props.source === 'lumi' ? 'live' : 'off'))
+const dotClass = computed(() => (props.source === 'none' ? 'off' : 'live'))
 </script>
 
 <template>
   <header class="titlebar">
-    <div class="brand drag"><span class="mark"></span><span>Market Terminal Replica</span></div>
-    <span class="tag drag">演示数据 · 非真实行情</span>
+    <div class="brand drag"><span class="mark"></span><span>久赢恒丰 · 逐项复刻</span></div>
+    <span class="tag drag">复刻版 · 本地数据</span>
     <div class="spacer drag"></div>
     <div class="conn no-drag">
       <span class="dot" :class="dotClass"></span>
