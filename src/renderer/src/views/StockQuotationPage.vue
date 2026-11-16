@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { api } from '../api/client.js'
 import { useAppStore } from '../stores.js'
@@ -190,6 +190,7 @@ onMounted(async () => {
   if (canvasRef.value) observed.observe(canvasRef.value.parentElement)
 })
 
+watch([minute, quote], () => requestAnimationFrame(draw), { deep: true })
 onUnmounted(() => {
   clearInterval(timer)
   observed?.disconnect()

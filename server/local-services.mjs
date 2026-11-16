@@ -5,6 +5,7 @@ import {
 } from '../shared/domain.mjs'
 import { createLiveEngine, refreshLive, liveMeta, pushHistoryRow } from './live-source.mjs'
 import { loadBridgeFixtures, buildBridgeState } from './bridge-source.mjs'
+import { createPublicEngine } from './public-source.mjs'
 
 const PORTS = (process.env.REPLICA_PORTS || '8080,8087,8088,8886')
   .split(',')
@@ -17,7 +18,9 @@ const emptyState = () => ({ subjectDefs: [], stocks: {}, flow: {}, history: [], 
 let state = emptyState()
 let live = null
 let bridge = null
+let publicEngine = null
 const BRIDGE_ENABLED = process.env.REPLICA_BRIDGE === '1'
+const PUBLIC_ENABLED = process.env.REPLICA_PUBLIC === '1'
 let meta = {
   source: 'none',
   sessionState: 'unknown',
@@ -35,7 +38,8 @@ let lastAggregate = null
 // 列表/推送只带聚合结果，不携带全量股票池
 const aggregate = () => {
   const base = { ...toSnapshot(state, { includeEngine: false }), meta }
-  if (bridge?.market) base.market = { ...base.market, ...bridge.market }
+  const extraMarket = bridge?.market || publicEngine?.market
+  if (extraMarket) base.market = { ...base.market, ...extraMarket }
   return base
 }
 const snapshot = () => ({ ...aggregate(), events: eventLog.slice(-40) })
@@ -108,6 +112,18 @@ async function initSource() {
       bridge = null
     }
   }
+  if (PUBLIC_ENABLED) {
+    try {
+      publicEngine = await createPublicEngine({ onProgress: (message) => console.log('[public] ' + message) })
+      state = publicEngine.state
+      meta = publicEngine.meta
+      console.log(`[source] 公开数据源 · ${meta.subjectCount} 个题材 / ${meta.stockCount} 只成分股 · ${meta.asOf}`)
+      return true
+    } catch (error) {
+      console.error('[public] 公开数据源初始化失败:', error.message)
+      publicEngine = null
+    }
+  }
   try {
     live = await createLiveEngine({
       force: process.env.REPLICA_LIVE_FORCE === '1',
@@ -169,14 +185,18 @@ if (bridge?.fixtures?.events?.length) {
 }
 const subjectById = (id) => snapshot().subjects.find((s) => String(s.subjectId) === String(id)) || null
 
-function subjectDetail(id) {
+async function subjectDetail(id) {
   const subject = subjectById(id)
   if (!subject) return null
+  let candles = bridge?.subjectDaily?.[id] || bridge?.subjectDaily?.[String(id)] || []
+  if (!candles.length && publicEngine) {
+    try { candles = (await publicEngine.boardKline(id)).candles } catch { candles = [] }
+  }
   return {
     ...subject,
     ladder: deriveLadder(state, id),
     stocks: deriveSubjectStocks(state, id),
-    candles: bridge?.subjectDaily?.[id] || bridge?.subjectDaily?.[String(id)] || []
+    candles
   }
 }
 
@@ -211,7 +231,7 @@ function json(res, body, status = 200) {
   res.end(payload)
 }
 
-function route(pathname, query) {
+async function route(pathname, query) {
   const snap = snapshot()
   const id = query.get('subjectId') || query.get('id') || ''
   const code = query.get('code') || ''
@@ -242,13 +262,16 @@ function route(pathname, query) {
   // 题材详情族
   if (parts[0] === 'app' && parts[1] === 'subject') {
     const subjectId = parts[3] || id
-    if (parts[2] === 'query') return subjectDetail(subjectId)
+    if (parts[2] === 'query') return await subjectDetail(subjectId)
     if (parts[2] === 'child-stock-tree') return { subjectId, stocks: deriveSubjectStocks(state, subjectId) }
     if (parts[2] === 'realtime') return subjectById(subjectId) || { error: 'not_found' }
     if (parts[2] === 'lead-days') return { subjectId, leadDays: subjectById(subjectId)?.sustainDays || 0 }
     if (parts[2] === 'stock-subject-lead') return { subjectId, leadStock: subjectById(subjectId)?.leadStock || null }
     if (parts[2] === 'daily') {
-      const candles = bridge?.subjectDaily?.[subjectId] || bridge?.subjectDaily?.[String(subjectId)] || []
+      let candles = bridge?.subjectDaily?.[subjectId] || bridge?.subjectDaily?.[String(subjectId)] || []
+      if (!candles.length && publicEngine) {
+        try { candles = (await publicEngine.boardKline(subjectId)).candles } catch { /* ignore */ }
+      }
       return { subjectId, date: tail, candles, history: snap.rotation }
     }
     if (parts[2] === 'parents') {
@@ -319,7 +342,7 @@ function route(pathname, query) {
   return null
 }
 
-function handle8080(req, res) {
+async function handle8080(req, res) {
   const url = new URL(req.url || '/', 'http://127.0.0.1')
   // 本地 API 契约层：仿真原始应用 https://app.txcfgl.com/api 的响应形状
   if (url.pathname.startsWith('/api/')) return handleApi(req, res, url)
@@ -335,7 +358,7 @@ function handle8080(req, res) {
     req.on('close', () => sseClients.delete(res))
     return
   }
-  const result = route(url.pathname, url.searchParams)
+  const result = await route(url.pathname, url.searchParams)
   if (result === null) return json(res, { error: 'not_found', pathname: url.pathname }, 404)
   return json(res, result)
 }
@@ -356,7 +379,7 @@ function tradeDates(n, base = new Date()) {
   return days
 }
 
-function apiData(pathname, query, body) {
+async function apiData(pathname, query, body) {
   const snap = snapshot()
   const market = snap.market || {}
   const subjects = snap.subjects || []
@@ -431,11 +454,27 @@ function apiData(pathname, query, body) {
     const stockId = String(query.get('stockId') || '')
     const bridged = bridge?.minutes?.[stockId]
     if (bridged) return { ...bridged, stockId }
+    if (publicEngine) {
+      try {
+        const minute = await publicEngine.stockMinute(stockId)
+        if (minute) return { ...minute, stockId }
+      } catch (error) {
+        console.error('[public] minute failed:', error.message)
+      }
+    }
     return { data: [], open: 0, preClose: 0 }
   }
   if (joined === '/app/realtime/stock-realtime-data') {
     const stockId = String(query.get('stockId') || '')
     const bridgedQuote = bridge?.quotes?.[stockId]
+    if (!bridgedQuote && publicEngine) {
+      try {
+        const quote = await publicEngine.stockQuote(stockId)
+        if (quote) return quote
+      } catch (error) {
+        console.error('[public] quote failed:', error.message)
+      }
+    }
     if (bridgedQuote) {
       const preClose = Number(bridgedQuote.preClose) || null
       const current = Number(bridgedQuote.current) || null
@@ -472,12 +511,21 @@ function apiData(pathname, query, body) {
     }
   }
   if (joined === '/app/realtime/index-amount') {
-    return { amount: bridge?.market?.amount ?? 0, addAmount: bridge?.market?.addAmount ?? 0 }
+    return {
+      amount: bridge?.market?.amount ?? publicEngine?.market?.amount ?? 0,
+      addAmount: bridge?.market?.addAmount ?? publicEngine?.market?.addAmount ?? 0
+    }
   }
   if (joined === '/app/realtime/market/time') {
-    return { data: bridge?.market?.series || [], updatedAt: bridge?.market?.updatedAt || null }
+    return {
+      data: bridge?.market?.series || publicEngine?.market?.series || [],
+      updatedAt: bridge?.market?.updatedAt || publicEngine?.market?.updatedAt || null
+    }
   }
-  if (joined === '/app/realtime/index/v2') return bridge?.market?.indices?.length ? bridge.market.indices : []
+  if (joined === '/app/realtime/index/v2') {
+    const indices = bridge?.market?.indices || publicEngine?.market?.indices || []
+    return indices
+  }
   if (joined === '/app/self-optional/listGroup') {
     return {
       list: [
@@ -562,19 +610,23 @@ function stockRankRows() {
   ])
 }
 
-function handleApi(req, res, url) {
+async function handleApi(req, res, url) {
   let bodyText = ''
   req.on('data', (chunk) => { bodyText += chunk; if (bodyText.length > 1_000_000) req.destroy() })
-  req.on('end', () => {
-    let body = null
-    try { body = bodyText ? JSON.parse(bodyText) : null } catch { body = null }
-    const data = apiData(url.pathname, url.searchParams, body)
-    if (data === null) return json(res, { code: 404, msg: 'not_found', data: null })
-    if (data && data.__envelope) {
-      const { __envelope, ...rest } = data
-      return json(res, { code: 200, msg: '操作成功', ...rest })
+  req.on('end', async () => {
+    try {
+      let body = null
+      try { body = bodyText ? JSON.parse(bodyText) : null } catch { body = null }
+      const data = await apiData(url.pathname, url.searchParams, body)
+      if (data === null) return json(res, { code: 404, msg: 'not_found', data: null })
+      if (data && data.__envelope) {
+        const { __envelope, ...rest } = data
+        return json(res, { code: 200, msg: '操作成功', ...rest })
+      }
+      return json(res, { code: 200, msg: '操作成功', data })
+    } catch (error) {
+      return json(res, { code: 500, msg: error.message, data: null })
     }
-    return json(res, { code: 200, msg: '操作成功', data })
   })
 }
 
@@ -604,6 +656,14 @@ let lastRetryAt = 0
 setInterval(async () => {
   if (BRIDGE_ENABLED && bridge) {
     // 桥接模式：静态快照，不重连外部数据源
+  } else if (PUBLIC_ENABLED && publicEngine) {
+    try {
+      await publicEngine.refresh()
+      state = publicEngine.state
+      meta = publicEngine.meta
+    } catch (error) {
+      meta = { ...meta, lastError: error.message, stale: true }
+    }
   } else if (!live) {
     // 数据源断开时定期重连，不做本地数据兜底
     if (Date.now() - lastRetryAt > RETRY_MS) {

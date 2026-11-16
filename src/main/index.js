@@ -100,7 +100,7 @@ function startLocalServices(options = {}) {
   }
   try {
     serviceProcess = fork(entry, [], {
-      env: { ...process.env, ELECTRON_RUN_AS_NODE: '1', REPLICA_PORTS: '8080,8087,8088,8886', REPLICA_BRIDGE: options.bridge ? '1' : process.env.REPLICA_BRIDGE },
+      env: { ...process.env, ELECTRON_RUN_AS_NODE: '1', REPLICA_PORTS: '8080,8087,8088,8886', REPLICA_BRIDGE: options.bridge ? '1' : process.env.REPLICA_BRIDGE, REPLICA_PUBLIC: options.public ? '1' : process.env.REPLICA_PUBLIC },
       stdio: ['ignore', 'pipe', 'pipe', 'ipc']
     })
     serviceProcess.stdout?.on('data', (chunk) => {
@@ -528,7 +528,7 @@ function startTimers() {
 }
 
 function parseFlags() {
-  const flags = { screenshot: '', out: '', hidden: false, smoke: false, bridge: false }
+  const flags = { screenshot: '', out: '', hidden: false, smoke: false, bridge: false, public: false }
   for (const arg of process.argv.slice(1)) {
     if (arg === '--screenshot' || arg.startsWith('--screenshot=')) {
       flags.screenshot = arg.includes('=') ? arg.split('=').slice(1).join('=') : 'default'
@@ -540,6 +540,8 @@ function parseFlags() {
       flags.smoke = true
     } else if (arg === '--bridge') {
       flags.bridge = true
+    } else if (arg === '--public') {
+      flags.public = true
     }
   }
   return flags
@@ -570,7 +572,7 @@ async function runScreenshotMode(flags) {
   for (const route of routes) {
     try {
       await win.loadFile(RENDERER_ENTRY, { hash: route })
-      await delay(1600)
+      await delay(flags.public ? 9000 : 1600)
       try {
         const debug = await win.webContents.executeJavaScript(`(() => {
           const el = document.querySelector('#app')
@@ -639,7 +641,7 @@ if (!gotLock) {
     if (flags.screenshot) {
       startLocalServices(flags)
       await checkVersion()
-      await delay(1200)
+      await delay(flags.public ? 8000 : (flags.bridge ? 2500 : 1200))
       return runScreenshotMode(flags)
     }
 
