@@ -46,6 +46,7 @@ const layout = computed(() => {
       stockId: node.stockId, subjectId: node.subjectId,
       business: node.business, top: node.top, raw: node,
       hasChildren: !!childNodes.length,
+      isCollapsed,
       col, x: 30 + col * COL_GAP, y: 0, children
     }
     nodes.push(n)
@@ -85,7 +86,7 @@ const nodeBg = (n) => n.level === 0 ? '#fff2f2' : n.stockId ? '#f7f9fc' : '#fff'
 const badge = (n) => n.business && n.top ? '情绪/行业' : n.business ? '行业' : n.top ? '情绪' : ''
 const displayName = (n) => props.hiddenNames && (n.stockId || n.level > 1) ? '******' : n.name
 
-function toggle(n) { collapsed.value = { ...collapsed.value, [n.key]: !collapsed.value[n.key] }; collapAll.value = false }
+function toggle(n) { collapsed.value = { ...collapsed.value, [n.key]: !n.isCollapsed }; collapAll.value = false }
 function toggleAll() { collapAll.value = !collapAll.value; if (!collapAll.value) collapsed.value = {} }
 function zoom(d) { scale.value = Math.min(1.8, Math.max(0.4, Math.round((scale.value + d) * 10) / 10)) }
 function resetView() { scale.value = 1; offset.value = { x: 0, y: 0 } }
@@ -130,7 +131,7 @@ watch(() => props.tree, () => { selected.value = null; collapsed.value = {}; col
           <span v-if="badge(n)" class="gt-badge">{{ badge(n) }}</span>
           <span class="gt-name">{{ displayName(n) }}</span>
           <span class="gt-pct" :style="{ color: nodeColor(n) }">{{ formatPct(n.pctChg) }}</span>
-          <span v-if="n.hasChildren" class="gt-toggle" @click.stop="toggle(n)">{{ (collapAll || collapsed[n.key]) ? '+' : '−' }}</span>
+          <span v-if="n.hasChildren" class="gt-toggle" @click.stop="toggle(n)">{{ n.isCollapsed ? '+' : '−' }}</span>
         </div>
         <div v-for="n in layout.nodes" :key="'r-' + n.key" v-show="n.reason" class="gt-reason"
              :style="{ left: (n.x + NODE_W + 14) + 'px', top: (n.y + 4) + 'px' }">{{ n.reason }}</div>

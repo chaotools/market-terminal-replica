@@ -50,16 +50,8 @@ export async function loadSnapshot() {
   return emptySnapshot()
 }
 
-export async function fetchSubjectDetail(subjectId) {
-  try {
-    return await fetchJson(`/app/subject/query/${encodeURIComponent(subjectId)}`)
-  } catch {
-    return null
-  }
-}
-
 /** 题材详情：由服务端按题材现算；服务不可用时返回空结果，不做本地推演 */
-export async function fetchDetail(snapshot, subjectId, stockCode) {
+export async function fetchDetail(_snapshot, subjectId, stockCode) {
   try {
     let data = await fetchJson(`/app/subject/query/${encodeURIComponent(subjectId)}`, { timeout: 6000 })
     if (data && data.data && typeof data.data === 'object') data = data.data

@@ -9,8 +9,8 @@
     "dev": "vite --host 127.0.0.1",
     "serve": "node scripts/serve.mjs",
     "start": "electron .",
-    "check": "node --check src/main/index.js && node --check src/preload/index.js && node --check server/local-services.mjs && node --check shared/domain.mjs && node --check scripts/build.mjs && node --check scripts/serve.mjs && node --check scripts/test-domain.mjs && node --check scripts/test-api.mjs && node --check server/bridge-source.mjs && node --check scripts/build-bridge-fixtures.mjs && node --check server/public-source.mjs",
-    "test": "node --test scripts/test-domain.mjs scripts/test-api.mjs",
+    "check": "node --check src/main/index.js && node --check src/preload/index.js && node --check server/local-services.mjs && node --check shared/domain.mjs && node --check scripts/build.mjs && node --check scripts/serve.mjs && node --check scripts/test-domain.mjs && node --check scripts/test-api.mjs && node --check server/bridge-source.mjs && node --check scripts/build-bridge-fixtures.mjs && node --check server/public-source.mjs && node --check server/demo-source.mjs && node --check scripts/test-regression.mjs",
+    "test": "node --test scripts/test-domain.mjs scripts/test-api.mjs scripts/test-regression.mjs",
     "screenshot": "electron . --screenshot=default --out=out/screens",
     "smoke": "electron . --smoke",
     "dist": "npm run build && electron-builder --win --x64",
@@ -18,7 +18,9 @@
     "bridge": "electron . --bridge",
     "bridge:fixtures": "node scripts/build-bridge-fixtures.mjs",
     "public": "electron . --public",
-    "public:serve": "node server/local-services.mjs"
+    "public:serve": "node server/local-services.mjs",
+    "demo": "electron . --demo",
+    "demo:serve": "REPLICA_DEMO=1 node server/local-services.mjs"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.0",

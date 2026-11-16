@@ -68,18 +68,20 @@ export function deriveSubjects(state) {
       return n + (row.subjects[def.id]?.heat === Math.max(...heats) ? 1 : 0)
     }, 0)
 
+    // 阶段判定：主线是「持续高温」的稳态，优先于短期波动的分歧/退潮；
+    // 分歧需同时具备高位与走弱迹象，不能仅凭 heat 高 + delta 小就判（那会把正常横盘的主线误判）。
     let stage = '萌芽'
-    if (limitUpHeight >= 4 && delta > 1.5 && limitUpCount >= 2) stage = '加速'
+    if (sustainDays >= 3 && heat >= 60) stage = '主线'
+    else if (limitUpHeight >= 4 && delta > 1.5 && limitUpCount >= 2) stage = '加速'
     else if (delta > 2 && limitUpCount >= 2) stage = '发酵'
     else if (delta < -5 && limitUpCount <= 2 && limitUpHeight <= 2) stage = '退潮'
-    else if (heat >= 55 && delta < 0.5) stage = '分歧'
-    else if (sustainDays >= 3 && heat >= 55) stage = '主线'
+    else if (heat >= 60 && delta < 0 && limitUpCount <= 3) stage = '分歧'
 
     return {
       subjectId: def.id,
       subjectName: def.name,
       sector: def.sector,
-      subjectType: heat >= 62 && sustainDays >= 3 ? '主线题材' : '普通题材',
+      subjectType: stage === '主线' ? '主线题材' : '普通题材',
       changePct,
       heat,
       heatDelta: delta,
@@ -208,6 +210,8 @@ export function deriveSubjectGraph(state, subjectId, options = {}) {
   const subjects = deriveSubjects(state)
   const center = subjects.find((s) => String(s.subjectId) === sid)
   if (!center) return []
+  // 供成分股节点生成「关联题材」说明（数据源不一定提供 subjectNames）
+  const nameOf = new Map(subjectDefsOf(state).map((d) => [String(d.id), d.name]))
 
   // 中心题材成分股集合
   const centerStocks = new Set(all.filter((s) => s.subjectIds?.some((id) => String(id) === sid)).map((s) => s.code))
@@ -241,14 +245,14 @@ export function deriveSubjectGraph(state, subjectId, options = {}) {
     limitUpHeight: sub.limitUpHeight,
     reason: `与「${center.subjectName}」共享 ${shared} 只成分股`,
     business: sub.sector === '行业' ? 1 : 0,
-    top: sub.top ? 1 : 0,
+    top: sub.stage === '主线' ? 1 : 0,
     stocks: stocksOf(members).map((s) => ({
       stockId: s.code,
       name: s.name,
       pctChg: s.changePct,
       price: s.price,
       limitUpStreak: s.limitUpStreak,
-      reason: s.subjectNames || undefined,
+      reason: (s.subjectIds || []).map((id) => nameOf.get(String(id))).filter(Boolean).join('、') || undefined,
       subjectIds: s.subjectIds
     })),
     children: []
@@ -263,7 +267,7 @@ export function deriveSubjectGraph(state, subjectId, options = {}) {
     limitUpCount: center.limitUpCount,
     limitUpHeight: center.limitUpHeight,
     business: center.sector === '行业' ? 1 : 0,
-    top: 0,
+    top: center.stage === '主线' ? 1 : 0,
     children,
     stocks: stocksOf(centerStocks).map((s) => ({
       stockId: s.code,
@@ -271,7 +275,7 @@ export function deriveSubjectGraph(state, subjectId, options = {}) {
       pctChg: s.changePct,
       price: s.price,
       limitUpStreak: s.limitUpStreak,
-      reason: s.subjectNames || undefined,
+      reason: (s.subjectIds || []).map((id) => nameOf.get(String(id))).filter(Boolean).join('、') || undefined,
       subjectIds: s.subjectIds
     }))
   }
@@ -297,12 +301,13 @@ export function detectEvents(prev, next) {
     const pct = `${s.changePct > 0 ? '+' : ''}${round(s.changePct, 2)}%`
 
     if (p.stage !== s.stage) {
+      const verb = s.heat >= p.heat ? '升至' : '降至'
       events.push({
         type: 'stage',
         subjectId: s.subjectId,
         subjectName: s.subjectName,
         title: `【驱动因素：${s.subjectName}进入${s.stage}阶段】`,
-        body: `板块热度由 ${p.heat} 升至 ${s.heat}，当前涨幅 ${pct}，涨停 ${s.limitUpCount} 家，最高 ${s.limitUpHeight} 板，龙头 ${lead}。`,
+        body: `板块热度由 ${p.heat} ${verb} ${s.heat}，当前涨幅 ${pct}，涨停 ${s.limitUpCount} 家，最高 ${s.limitUpHeight} 板，龙头 ${lead}。`,
         text: `阶段切换 ${p.stage} → ${s.stage}，热度 ${p.heat} → ${s.heat}`,
         tone: s.stage === '加速' || s.stage === '发酵' ? 'up' : s.stage === '退潮' ? 'down' : ''
       })

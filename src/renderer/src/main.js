@@ -3,7 +3,7 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router, { installGuards } from './router/index.js'
 import { setUnauthorizedHandler } from './api/client.js'
-import { useUserStore, useTagsViewStore } from './stores.js'
+import { useUserStore, useTagsViewStore, useAppStore } from './stores.js'
 import './style.css'
 import './layout.css'
 import './pages.css'
@@ -15,8 +15,9 @@ app.use(router)
 
 const user = useUserStore(pinia)
 const tags = useTagsViewStore(pinia)
+const appStore = useAppStore(pinia)
 user.restoreToken()
-installGuards(router, { user, tags })
+installGuards(router, { user, tags, app: appStore })
 
 setUnauthorizedHandler(() => {
   user.logout()

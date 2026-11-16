@@ -1,6 +1,7 @@
 /**
  * Pinia stores：对齐原始应用的 app / user / config / tagsView 四个 store。
  * 角色（role）在本复刻中是本地可切换的模拟态，不接任何真实鉴权。
+ * 权限等级的唯一来源是 useAppStore.role；user.userInfo 仅保存展示用资料，不参与权限判断。
  */
 import { defineStore } from 'pinia'
 
@@ -59,9 +60,8 @@ export const useUserStore = defineStore('user', {
   }),
   getters: {
     isLogin: (state) => Boolean(state.token),
-    isVip: (state) => Boolean(state.userInfo.vip?.isVip || state.userInfo.svip?.isVip),
-    isSvip: (state) => Boolean(state.userInfo.svip?.isVip || state.userInfo.ssvip?.isVip),
     exceedLoginCount: (state) => (state.userInfo.pcLogincount || 0) > (state.userInfo.pcLoginLimitCount || 1)
+    // 注：会员等级请看 useAppStore.role，user.userInfo 里的 vip/svip 字段仅为协议占位，不参与权限
   },
   actions: {
     setToken(token) {
