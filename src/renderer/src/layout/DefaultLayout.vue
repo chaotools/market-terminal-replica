@@ -54,7 +54,13 @@ onUnmounted(() => {
       <TagsView />
     </template>
     <div class="route-host">
-      <router-view />
+      <!-- 工程化：keep-alive 缓存主界面（对齐原版 Vue 工程实践）；plain 子窗页面不缓存 -->
+      <router-view v-slot="{ Component, route: current }">
+        <keep-alive :max="12">
+          <component :is="Component" v-if="!current.meta.plain" :key="current.name" />
+        </keep-alive>
+        <component :is="Component" v-if="current.meta.plain" :key="current.name" />
+      </router-view>
     </div>
     <StatusBar v-if="!plain" />
   </div>
