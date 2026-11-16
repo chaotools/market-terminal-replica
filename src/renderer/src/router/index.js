@@ -8,7 +8,6 @@
  */
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { desktopInvoke } from '../data.js'
-
 import DefaultLayout from '../layout/DefaultLayout.vue'
 import HomeRedirect from '../views/HomeRedirect.vue'
 import PagePlaceholder from '../views/PagePlaceholder.vue'
@@ -18,11 +17,14 @@ import MessagePage from '../views/MessagePage.vue'
 import FindPwdPage from '../views/FindPwdPage.vue'
 import PdfPage from '../views/PdfPage.vue'
 import NotFoundPage from '../views/NotFoundPage.vue'
-import SubjectWorkbench from '../views/SubjectWorkbench.vue'
+
 import SubjectDetailPage from '../views/SubjectDetailPage.vue'
 import TrendMain from '../views/TrendMain.vue'
 import MarketTrendMain from '../views/MarketTrendMain.vue'
 import FavPage from '../views/FavPage.vue'
+import SubjectExcavatePage from '../views/SubjectExcavatePage.vue'
+import SubjectPeriodicPage from '../views/SubjectPeriodicPage.vue'
+import SubjectAllPage from '../views/SubjectAllPage.vue'
 
 const placeholder = (title, stage, apis, notes, origin) => ({
   name: title,
@@ -49,7 +51,6 @@ const routes = [
       { path: 'research-report', ...placeholder('研究报告', 'P1', ['/app/stock-report/v2/list', '/app/stock-report/v2/rank'], ['研报列表：keyword/日期区间/分页', 'rows 含 title/content/pdfUrl，可用 openPDF 打开']), meta: { title: '研究报告', auth: 1, stage: 'P1' } },
       { path: 'live', ...placeholder('播放', 'P2', ['/app/lecturer/live-info/:id', '/app/video/vod-play-info/:vid', '/app/video/watch-time/end'], ['Aliplayer 直播/点播', 'broadcast-room 直播事件总线']), meta: { title: '播放', auth: 0, stage: 'P2' } },
       { path: 'course-his', ...placeholder('历史课程', 'P2', ['/app/lecturer/his/course/list'], ['课程历史列表']), meta: { title: '历史课程', auth: 0, stage: 'P2' } },
-
       { path: 'fav', name: 'FavMain', component: FavPage, meta: { title: '自选股', auth: 1, stage: 'P0' } },
       { path: 'fav/grid', ...placeholder('自选股多股同列', 'P1', ['/app/self-optional/group/stock-list', '/app/stock/realtime'], ['多股同列网格']), meta: { title: '自选股', auth: 1, stage: 'P1' } },
 
@@ -67,9 +68,9 @@ const routes = [
       { path: 'investment-train', ...placeholder('智投团', 'P2', [], ['复用讲师组件 lecturer-id=10']), meta: { title: '智投团', auth: 1, stage: 'P2' } },
 
       { path: 'subject', redirect: '/subject/excavate' },
-      { path: 'subject/excavate', name: 'SubjectViewExcavate', component: SubjectWorkbench, meta: { title: '题材掘金', auth: 1, stage: 'P0' } },
-      { path: 'subject/periodic', ...placeholder('题材轮动', 'P1', ['/app/subject/sustain-subject/v2', '/app/subject/top-history', '/app/subject/history-cycle/latest/:orderBy'], ['题材轮动周期视图', '持续题材与历史热度']), meta: { title: '题材轮动', auth: 1, stage: 'P1' } },
-      { path: 'subject/all', ...placeholder('全部题材', 'P1', ['/app/subject/list/v2', '/app/subject/child-tree/v2/:id', '/app/subject/topDig', '/app/subject/topLimitUp', '/app/subject/topPctChg'], ['题材树表', '挖掘/涨停/涨幅排行']), meta: { title: '全部题材', auth: 1, stage: 'P1' } },
+      { path: 'subject/excavate', name: 'SubjectViewExcavate', component: SubjectExcavatePage, meta: { title: '题材掘金', auth: 1, stage: 'P0' } },
+      { path: 'subject/periodic', name: 'SubjectViewPeriodic', component: SubjectPeriodicPage, meta: { title: '题材轮动', auth: 1, stage: 'P0' } },
+      { path: 'subject/all', name: 'SubjectViewAll', component: SubjectAllPage, meta: { title: '全部题材', auth: 1, stage: 'P0' } },
       { path: 'subject/detail/:subjectId', name: 'SubjectDetailIndex', component: SubjectDetailPage, meta: { title: '题材详情', auth: 1, stage: 'P0' } },
       { path: 'subject-periodogram', ...placeholder('题材周期图', 'P2', ['/app/subject/history-cycle/:type'], ['上证/深证/创业板周期图']), meta: { title: '题材周期图', auth: 1, stage: 'P2' } },
 

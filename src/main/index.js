@@ -21,7 +21,7 @@ const LOGIN_SIZE = { width: 960, height: 640 }
 
 const SCREENSHOT_ROUTES = [
   '/subject/excavate', '/market-trend/main', '/trend', '/fav',
-  '/subject/periodic', '/dpu', '/user/profile', '/login', '/update', '/message'
+  '/subject/periodic', '/subject/all', '/dpu', '/user/profile', '/login', '/update', '/message'
 ]
 
 let mainWindow = null
