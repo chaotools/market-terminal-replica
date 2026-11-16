@@ -10,7 +10,7 @@
 
 - Electron 主进程 + preload 桥 + 本地打包的 Vue 3 SPA
 - `shared/domain.mjs`：纯计算的题材领域引擎（热度、连板梯队、龙头、阶段、象限、轮动）
-- `server/live-source.mjs`：把真实行情映射成领域 state 的数据源适配层
+- `server/public-source.mjs` / `server/bridge-source.mjs`：把公开行情 / 桥接快照映射成领域 state 的数据源适配层
 - 主进程拉起本地服务，按契约同形的 REST + SSE 推送聚合快照
 - 单实例、托盘、窗口控制 IPC、版本检查、启动日志、打包/更新配置
 - 题材工作台：题材树、题材详情、连板梯队、成分股、四象限、轮动日历、情报流

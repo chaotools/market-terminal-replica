@@ -2,7 +2,7 @@
  * 题材领域引擎（纯计算层）
  *
  * 这里只有派生逻辑，没有任何内置数据：
- * 输入 state 由数据源适配层提供（见 server/live-source.mjs），
+ * 输入 state 由数据源适配层提供（见 server/public-source.mjs / server/bridge-source.mjs），
  * 结构为 { subjectDefs, stocks, flow, history, day, tick }。
  * 数据源不可用时 state 为空对象，所有派生函数返回空结果而不是演示数据。
  */
