@@ -13,6 +13,9 @@ export const useAppStore = defineStore('app', {
     asOf: null,
     sessionState: 'unknown',
     role: 'vip',
+    activeGroup: 1,
+    indices: [],
+    indexAmount: null,
     hasNewMsg: false,
     isLiving: false,
     isTradeTime: false,
@@ -26,6 +29,9 @@ export const useAppStore = defineStore('app', {
       if (meta.source) this.source = meta.source
     },
     setRole(role) { this.role = role },
+    setActiveGroup(index) { this.activeGroup = index },
+    setIndices(list) { this.indices = Array.isArray(list) ? list : [] },
+    setIndexAmount(amount) { this.indexAmount = amount || null },
     setVersion(info = {}) {
       this.version = info.version || ''
       this.build = info.build || 0

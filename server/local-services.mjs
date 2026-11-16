@@ -316,8 +316,9 @@ function apiData(pathname, query) {
   }
   if (joined === '/app/config/info') {
     return {
-      riskInfo: '本页面为逐项复刻演示，不构成任何投资建议。',
-      sourceInfo: '数据来自本地 API 契约 server；未连接真实行情源时为空。'
+      type: '行情',
+      riskInfo: '软件局限性说明:技术指标将随市场行情实时动态更新，决策时点所观测信号可能因行情演变而调整;特定交易策略仅严格适用于对应操作场景。本页面为逐项复刻演示，不构成任何投资建议。',
+      sourceInfo: '数据来源说明：基于本地 API 契约 server；未连接真实行情源时为空，不伪造数据。'
     }
   }
   if (joined === '/app/ad/pc') return []
@@ -340,33 +341,43 @@ function apiData(pathname, query) {
     return { list: tradeDates(Number(parts[2]) || 10) }
   }
   if (joined === '/app/subject/list/v2') return { list: subjects, total: subjects.length }
+  if (parts[0] === 'app' && parts[1] === 'subject' && parts[2] === 'realtime' && parts[3]) {
+    const subject = subjectById(parts[3])
+    if (!subject) return null
+    return {
+      subjectId: subject.subjectId,
+      fullName: subject.subjectName,
+      preClose: null, open: null, high: null, low: null, close: null,
+      changeCount: null, pctChg: subject.changePct, amount: subject.turnover,
+      tradeDate: new Date().toISOString().slice(0, 10), time: null,
+      createTime: null, subjectDailyId: null, updateBy: null, updateTime: null
+    }
+  }
   if (parts[0] === 'app' && parts[1] === 'subject' && parts[2] === 'query') {
     const id = parts[3] || query.get('subjectId') || ''
     return subjectDetail(id) || { error: 'not_found', subjectId: id }
   }
-  if (joined === '/app/subject/realtime') return { list: subjects, updatedAt: snap.updatedAt }
-  if (joined === '/app/stock/realtime') return { list: stocks }
+  if (joined === '/app/subject/realtime') return subjects.map((s) => ({ subjectId: s.subjectId, pctChg: s.changePct }))
+  if (joined === '/app/stock/realtime') {
+    return stocks.map((s) => ({ stockId: s.code, current: s.price, pctChg: s.changePct }))
+  }
   if (joined === '/app/stock/realtime-rank/v2') {
-    return {
-      list: [...subjects].sort((a, b) => (b.changePct || 0) - (a.changePct || 0)).slice(0, 50),
-      total: subjects.length
-    }
+    return { __envelope: true, rows: stockRankRows(), total: Object.keys(state.stocks || {}).length }
   }
   if (joined === '/app/stock/summary/pctChg') {
-    const up = subjects.filter((s) => (s.changePct || 0) > 0).length
-    const down = subjects.filter((s) => (s.changePct || 0) < 0).length
-    return { up, down, flat: substances(subjects, up, down), limitUp: subjects.filter((s) => (s.limitUpCount || 0) > 0).length }
+    const stocks = Object.values(state.stocks || {})
+    const up = stocks.filter((s) => (s.changePct || 0) > 0).length
+    const down = stocks.filter((s) => (s.changePct || 0) < 0).length
+    const limitUp = stocks.filter((s) => (s.limitUpStreak || 0) > 0).length
+    const limitDown = stocks.filter((s) => (s.changePct || 0) <= -9.9).length
+    return { up, down, flat: Math.max(0, stocks.length - up - down), limitUp, limitDown, total: stocks.length }
   }
-  if (joined === '/app/realtime/market/time') {
-    const now = new Date()
-    const date = now.toISOString().slice(0, 10)
-    return { tradeDate: date, now: snap.meta?.asOf || null, isTradeTime: Boolean(snap.meta?.isTradeTime) }
-  }
+  if (joined === '/app/realtime/market/time') return []
+  if (joined === '/app/realtime/stock-minute-data') return { data: [], open: 0, preClose: 0 }
   if (joined === '/app/realtime/index-amount') {
-    return { amount: null, amountLabel: '—', addAmount: null, addAmountLabel: '—', source: snap.meta?.source || 'none' }
+    return { amount: 0, addAmount: 0 }
   }
-  if (joined === '/app/realtime/index/v2') return { list: [] }
-  if (joined === '/app/stock/realtime/{id}') return { list: stocks }
+  if (joined === '/app/realtime/index/v2') return []
   if (joined === '/app/self-optional/listGroup') {
     return {
       list: [
@@ -397,13 +408,57 @@ function substances(subjects, up, down) {
   return Math.max(0, subjects.length - up - down)
 }
 
+function formatAmountShort(value) {
+  const n = Number(value)
+  if (!Number.isFinite(n) || n === 0) return '--'
+  const abs = Math.abs(n)
+  if (abs >= 1e8) return (n / 1e8).toFixed(2) + '亿'
+  if (abs >= 1e4) return (n / 1e4).toFixed(1) + '万'
+  return String(Math.round(n))
+}
+
+/** 全部A股表格行（与原始 15 列可见口径对齐；未知列以 '--' 表示）。 */
+function stockRankRows() {
+  const defs = state.subjectDefs || []
+  const nameOf = (id) => defs.find((d) => d.id === id)?.name || id
+  const rows = Object.values(state.stocks || {}).map((s) => {
+    const subj = s.subjectIds || []
+    return {
+      code: s.code, name: s.name, price: s.price, changePct: s.changePct,
+      limitUpStreak: s.limitUpStreak, changeCount: (s.price || 0) - (s.prevClose || 0),
+      subjectCount: subj.length, subjectNames: subj.slice(0, 4).map(nameOf).join('、'),
+      amount: s.turnover, turnover: s.turnover,
+      marketCap: s.marketCap, volume: s.volume
+    }
+  }).sort((a, b) => (b.changePct || 0) - (a.changePct || 0))
+  return rows.map((row, index) => [
+    String(index + 1), row.name, row.code,
+    Number.isFinite(row.price) ? row.price.toFixed(2) : '--',
+    Number.isFinite(row.changePct) ? row.changePct.toFixed(2) : '--',
+    '--',
+    row.limitUpStreak ? String(row.limitUpStreak) : '--',
+    '--',
+    Number.isFinite(row.changeCount) ? row.changeCount.toFixed(2) : '--',
+    formatAmountShort(row.marketCap),
+    String(row.subjectCount),
+    row.subjectNames || '--',
+    formatAmountShort(row.volume),
+    formatAmountShort(row.amount),
+    '--'
+  ])
+}
+
 function handleApi(req, res, url) {
   let body = ''
   req.on('data', (chunk) => { body += chunk; if (body.length > 1_000_000) req.destroy() })
   req.on('end', () => {
     const data = apiData(url.pathname, url.searchParams)
     if (data === null) return json(res, { code: 404, msg: 'not_found', data: null })
-    return json(res, { code: 200, msg: 'success', data })
+    if (data && data.__envelope) {
+      const { __envelope, ...rest } = data
+      return json(res, { code: 200, msg: '操作成功', ...rest })
+    }
+    return json(res, { code: 200, msg: '操作成功', data })
   })
 }
 

@@ -6,6 +6,7 @@ import { setUnauthorizedHandler } from './api/client.js'
 import { useUserStore, useTagsViewStore } from './stores.js'
 import './style.css'
 import './layout.css'
+import './pages.css'
 
 const app = createApp(App)
 const pinia = createPinia()

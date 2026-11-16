@@ -84,7 +84,7 @@ export async function request(path, { method = 'GET', params = null, data = null
     let raw
     try { raw = text ? JSON.parse(text) : {} } catch { throw new ApiError('响应不是合法 JSON', 'BAD_JSON') }
     const payload = raw.code === undefined ? apiDecode(raw) : raw
-    if (payload.code === 200) return payload.data
+    if (payload.code === 200) return payload.data !== undefined ? payload.data : payload
     if (payload.code === 401) {
       unauthorizedHandler?.()
       throw new ApiError(payload.msg || '登录状态已过期，请重新登录', 401)
@@ -112,6 +112,8 @@ export const api = {
   getIndexAmount: () => request('/app/realtime/index-amount'),
   getIndexRealtime: () => request('/app/realtime/index/v2'),
   getRealtimeRank: (params) => request('/app/stock/realtime-rank/v2', { params }),
+  getStockSummaryPctChg: () => request('/app/stock/summary/pctChg'),
+  getMarketMinute: (stockId, date) => request('/app/realtime/stock-minute-data', { params: { stockId, date } }),
   getSelfOptionalGroups: (type = 1) => request('/app/self-optional/listGroup', { params: { type } }),
   getSelfOptionalStockList: (groupId) => request('/app/self-optional/group/stock-list', { params: { groupId } }),
   getSearch: (keyword) => request('/app/search/v2', { params: { keyword } }),

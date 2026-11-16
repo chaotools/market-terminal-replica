@@ -1,16 +1,16 @@
 <script setup>
-import { computed, onMounted, onUnmounted, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import TitleBar from '../components/TitleBar.vue'
-import TopNav from './TopNav.vue'
+import GroupNav from './GroupNav.vue'
 import TagsView from './TagsView.vue'
 import StatusBar from './StatusBar.vue'
 import { useAppStore, useUserStore, useTagsViewStore } from '../stores.js'
 import { desktopInvoke } from '../data.js'
 
 const route = useRoute()
-const app = useAppStore()
 const user = useUserStore()
+const app = useAppStore()
 const tags = useTagsViewStore()
 
 const plain = computed(() => Boolean(route.meta?.plain))
@@ -30,10 +30,6 @@ onMounted(async () => {
   if (info) app.setVersion(info)
   const status = await desktopInvoke('getServiceStatus')
   if (status) app.setServiceReady(status.ready)
-
-  const tick = () => app.setClock(new Date().toLocaleTimeString('zh-CN', { hour12: false }))
-  tick()
-  clockTimer = setInterval(tick, 1000)
   statusTimer = setInterval(async () => {
     const next = await desktopInvoke('getServiceStatus')
     if (next) app.setServiceReady(next.ready)
@@ -48,9 +44,9 @@ onUnmounted(() => {
 
 <template>
   <div class="app-shell layout-shell">
-    <TitleBar :source="app.source" :version="app.version || '0.1.0'" />
+    <TitleBar />
     <template v-if="!plain">
-      <TopNav />
+      <GroupNav />
       <TagsView />
     </template>
     <div class="route-host">

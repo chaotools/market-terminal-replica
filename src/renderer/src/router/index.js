@@ -20,6 +20,9 @@ import PdfPage from '../views/PdfPage.vue'
 import NotFoundPage from '../views/NotFoundPage.vue'
 import SubjectWorkbench from '../views/SubjectWorkbench.vue'
 import SubjectDetailPage from '../views/SubjectDetailPage.vue'
+import TrendMain from '../views/TrendMain.vue'
+import MarketTrendMain from '../views/MarketTrendMain.vue'
+import FavPage from '../views/FavPage.vue'
 
 const placeholder = (title, stage, apis, notes, origin) => ({
   name: title,
@@ -47,17 +50,17 @@ const routes = [
       { path: 'live', ...placeholder('播放', 'P2', ['/app/lecturer/live-info/:id', '/app/video/vod-play-info/:vid', '/app/video/watch-time/end'], ['Aliplayer 直播/点播', 'broadcast-room 直播事件总线']), meta: { title: '播放', auth: 0, stage: 'P2' } },
       { path: 'course-his', ...placeholder('历史课程', 'P2', ['/app/lecturer/his/course/list'], ['课程历史列表']), meta: { title: '历史课程', auth: 0, stage: 'P2' } },
 
-      { path: 'fav', ...placeholder('自选股', 'P0', ['/app/self-optional/listGroup', '/app/self-optional/group/stock-list', '/app/self-optional/check', '/app/self-optional/export-stock-excel'], ['自选股/自选题材/自选甄选题材 + 分组', '分组增删改与排序', '导出 Excel']), meta: { title: '自选股', auth: 1, stage: 'P0' } },
+      { path: 'fav', name: 'FavMain', component: FavPage, meta: { title: '自选股', auth: 1, stage: 'P0' } },
       { path: 'fav/grid', ...placeholder('自选股多股同列', 'P1', ['/app/self-optional/group/stock-list', '/app/stock/realtime'], ['多股同列网格']), meta: { title: '自选股', auth: 1, stage: 'P1' } },
 
       { path: 'market-trend', redirect: '/market-trend/main' },
-      { path: 'market-trend/main', ...placeholder('全部A股', 'P0', ['/app/realtime/index/v2', '/app/stock/realtime-rank/v2', '/app/stock/summary/pctChg', '/app/realtime/index-amount', '/app/realtime/market/time'], ['指数行情轮询', '涨跌排行与统计', '市场成交额']), meta: { title: '全部A股', auth: 1, stage: 'P0' } },
+      { path: 'market-trend/main', name: 'MarketTrendMain', component: MarketTrendMain, meta: { title: '全部A股', auth: 1, stage: 'P0' } },
       { path: 'market-trend/stock/quotation/:id', ...placeholder('股票详情', 'P0', ['/app/stock/realtime', '/app/realtime/stock-realtime-data', '/app/realtime/stock-minute-data', '/API/KLine2', '/API/KLine3', '/API/StockDetail', '/app/stock/qa/v2'], ['盘口/分时/K线/问答/研报', 'HQChart 图表引擎接入']), meta: { title: '股票详情', auth: 1, stage: 'P0' } },
       { path: 'market-trend/subject/quotation/:id', ...placeholder('题材详情报价', 'P1', ['/app/subject/query/:id'], ['题材维度报价页']), meta: { title: '题材详情', auth: 1, stage: 'P1' } },
       { path: 'market-trend/composite-index/quotation/:id', ...placeholder('指数详情', 'P1', ['/app/stock/indexConstituentStocks', '/API/IndexCalculate'], ['指数行情与成分股']), meta: { title: '指数详情', auth: 1, stage: 'P1' } },
       { path: 'market-trend/test', ...placeholder('test', 'P2', [], ['原始调试页，用途未明']), meta: { title: 'test', auth: 1, hidden: true, stage: 'P2' } },
 
-      { path: 'trend', ...placeholder('市场走势', 'P0', ['/API/MarketHeat', '/API/MarketAttention', '/API/FactorTiming', '/API/QuadrantCalculate', '/app/realtime/market/calendar/:a/:b'], ['今日/历史走势、涨跌分布、连板', '四象限指标计算']), meta: { title: '市场走势', auth: 1, stage: 'P0' } },
+      { path: 'trend', name: 'TrendMain', component: TrendMain, meta: { title: '市场走势', auth: 1, stage: 'P0' } },
       { path: 'monitors-market', ...placeholder('甄选盯盘', 'P2', ['/app/stock/single-yellow/v2', '/app/realtime/stock-realtime-data'], ['甄选版盯盘页']), meta: { title: '甄选盯盘', auth: 1, stage: 'P2' } },
       { path: 'lecturer', ...placeholder('投资圈', 'P2', ['/app/lecturer/subscribe', '/app/lecturer/article', '/app/lecturer/course/list'], ['讲师主页/文章/课程/直播']), meta: { title: '投资圈', auth: 1, stage: 'P2' } },
       { path: 'practical-train', ...placeholder('实训团', 'P2', [], ['复用讲师组件 lecturer-id=3']), meta: { title: '实训团', auth: 1, stage: 'P2' } },
