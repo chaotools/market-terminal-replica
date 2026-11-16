@@ -432,7 +432,7 @@ async function apiData(pathname, query, body) {
   }
   if (parts[0] === 'app' && parts[1] === 'subject' && parts[2] === 'query') {
     const id = parts[3] || query.get('subjectId') || ''
-    return subjectDetail(id) || { error: 'not_found', subjectId: id }
+    return (await subjectDetail(id)) || { error: 'not_found', subjectId: id }
   }
   if (joined === '/app/subject/realtime') return subjects.map((s) => ({ subjectId: s.subjectId, pctChg: s.changePct }))
   if (joined === '/app/stock/realtime') {
