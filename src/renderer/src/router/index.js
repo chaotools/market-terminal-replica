@@ -8,7 +8,22 @@
  */
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { desktopInvoke } from '../data.js'
+import { MENU_GROUPS, canAccess } from '../menu.js'
 import DefaultLayout from '../layout/DefaultLayout.vue'
+
+// 菜单是权限定义的唯一来源：把 path→minAuth 建成表，路由守卫据此拦截。
+// 菜单里带 query 的路径（如 /trend?his=1）取其 path 部分。
+const PATH_MIN_AUTH = new Map()
+for (const group of MENU_GROUPS) {
+  for (const item of group.items || []) {
+    if (!item.path) continue
+    const clean = item.path.split('?')[0]
+    const rank = { none: 0, vip: 1, training: 2, svip: 3, ssvip: 4 }[item.minAuth || 'none'] ?? 0
+    // 同一路径多条时取最高门槛
+    PATH_MIN_AUTH.set(clean, Math.max(PATH_MIN_AUTH.get(clean) || 0, rank))
+  }
+}
+const AUTH_RANK = ['none', 'vip', 'training', 'svip', 'ssvip']
 
 
 
@@ -139,11 +154,25 @@ const router = createRouter({
   scrollBehavior: () => ({ top: 0 })
 })
 
-export function installGuards(routerInstance, { user, tags }) {
+export function installGuards(routerInstance, { user, tags, app }) {
+  const appRole = () => app?.role || 'none'
   routerInstance.beforeEach((to) => {
     const needAuth = to.meta?.auth !== 0
     if (needAuth && !user.token) {
       return { path: '/login', query: { redirect: to.fullPath } }
+    }
+    // 会员等级：按菜单定义拦截（含 /svip-subject-main/* 等子路由的前缀匹配）
+    // 演示项目里 app.role 可自由切换，这里只保证「菜单锁住的页面 URL 也锁住」。
+    let minRank = 0
+    const path = to.path
+    if (PATH_MIN_AUTH.has(path)) minRank = PATH_MIN_AUTH.get(path)
+    else {
+      for (const [prefix, rank] of PATH_MIN_AUTH) {
+        if (path.startsWith(prefix + '/')) minRank = Math.max(minRank, rank)
+      }
+    }
+    if (minRank > 0 && !canAccess(appRole(), AUTH_RANK[minRank])) {
+      return { path: minRank >= 3 ? '/buy-svip' : '/buy-vip' }
     }
     // 允许已登录用户直接访问 /login（便于验证登录页与切换账号）
     return true

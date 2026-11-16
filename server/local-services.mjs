@@ -5,6 +5,7 @@ import {
 } from '../shared/domain.mjs'
 import { loadBridgeFixtures, buildBridgeState } from './bridge-source.mjs'
 import { createPublicEngine } from './public-source.mjs'
+import { createDemoEngine } from './demo-source.mjs'
 
 const PORTS = (process.env.REPLICA_PORTS || '8080,8087,8088,8886')
   .split(',')
@@ -17,8 +18,14 @@ const emptyState = () => ({ subjectDefs: [], stocks: {}, flow: {}, history: [], 
 let state = emptyState()
 let bridge = null
 let publicEngine = null
+let demoEngine = null
 const BRIDGE_ENABLED = process.env.REPLICA_BRIDGE === '1'
 const PUBLIC_ENABLED = process.env.REPLICA_PUBLIC === '1'
+const DEMO_ENABLED = process.env.REPLICA_DEMO === '1'
+// 开源默认：未显式指定数据源时用确定性演示源，保证 clone 下来开箱即用
+const DEFAULT_DEMO = !BRIDGE_ENABLED && !PUBLIC_ENABLED && !DEMO_ENABLED && process.env.REPLICA_SOURCE !== 'none'
+// 统一实时引擎：public 与 demo 接口同形，下面的兜底逻辑共用
+const liveEngine = () => publicEngine || demoEngine
 let meta = {
   source: 'none',
   sessionState: 'unknown',
@@ -36,7 +43,7 @@ let lastAggregate = null
 // 列表/推送只带聚合结果，不携带全量股票池
 const aggregate = () => {
   const base = { ...toSnapshot(state, { includeEngine: false }), meta }
-  const extraMarket = bridge?.market || publicEngine?.market
+  const extraMarket = bridge?.market || liveEngine()?.market
   if (extraMarket) base.market = { ...base.market, ...extraMarket }
   return base
 }
@@ -122,12 +129,24 @@ async function initSource() {
       publicEngine = null
     }
   }
+  if (DEMO_ENABLED || DEFAULT_DEMO) {
+    try {
+      demoEngine = await createDemoEngine({ onProgress: (message) => console.log('[demo] ' + message) })
+      state = demoEngine.state
+      meta = demoEngine.meta
+      console.log(`[source] 演示数据源 · ${meta.subjectCount} 个题材 / ${meta.stockCount} 只成分股 · ${meta.asOf}`)
+      return true
+    } catch (error) {
+      console.error('[demo] 演示数据源初始化失败:', error.message)
+      demoEngine = null
+    }
+  }
   state = emptyState()
   meta = {
     source: 'none',
     sessionState: 'idle',
     asOf: null,
-    notes: ['未连接数据源；可用 --public（公开行情源）或 --bridge（快照桥接）']
+    notes: ['未连接数据源；默认演示源 --demo，或 --public（公开行情源）/ --bridge（快照桥接）']
   }
   return false
 }
@@ -171,8 +190,8 @@ async function subjectDetail(id) {
   const subject = subjectById(id)
   if (!subject) return null
   let candles = bridge?.subjectDaily?.[id] || bridge?.subjectDaily?.[String(id)] || []
-  if (!candles.length && publicEngine) {
-    try { candles = (await publicEngine.boardKline(id)).candles } catch { candles = [] }
+  if (!candles.length && liveEngine()) {
+    try { candles = (await liveEngine().boardKline(id)).candles } catch { candles = [] }
   }
   return {
     ...subject,
@@ -213,6 +232,12 @@ function json(res, body, status = 200) {
   res.end(payload)
 }
 
+/**
+ * 内部聚合路由（8080 根路径，返回裸对象/数组）。
+ * 消费方：src/renderer/src/data.js（fetchSnapshot/fetchDetail/fetchGraph）。
+ * 注意：/api/* 前缀走 handleApi→apiData（envelope {code,msg,data}），两套路径刻意隔离，
+ * 新增接口时请明确归属于哪一层，不要在两层重复实现同一路径。
+ */
 async function route(pathname, query) {
   const snap = snapshot()
   const id = query.get('subjectId') || query.get('id') || ''
@@ -252,8 +277,8 @@ async function route(pathname, query) {
     if (parts[2] === 'stock-subject-lead') return { subjectId, leadStock: subjectById(subjectId)?.leadStock || null }
     if (parts[2] === 'daily') {
       let candles = bridge?.subjectDaily?.[subjectId] || bridge?.subjectDaily?.[String(subjectId)] || []
-      if (!candles.length && publicEngine) {
-        try { candles = (await publicEngine.boardKline(subjectId)).candles } catch { /* ignore */ }
+      if (!candles.length && liveEngine()) {
+        try { candles = (await liveEngine().boardKline(subjectId)).candles } catch { /* ignore */ }
       }
       return { subjectId, date: tail, candles, history: snap.rotation }
     }
@@ -362,6 +387,10 @@ function tradeDates(n, base = new Date()) {
   return days
 }
 
+/**
+ * 契约仿真层（/api/app/*，统一 envelope {code,msg,data}）。
+ * 消费方：src/renderer/src/api/client.js。与上面的 route() 内部聚合层刻意分离。
+ */
 async function apiData(pathname, query, body) {
   const snap = snapshot()
   const market = snap.market || {}
@@ -382,6 +411,17 @@ async function apiData(pathname, query, body) {
     }
   }
   if (joined === '/app/ad/pc') return []
+  // 演示源控制：手动推进交易日，便于查看阶段切换与事件流
+  if (joined === '/app/demo/advance') {
+    if (demoEngine?.advance) {
+      const steps = Math.max(1, Math.min(10, Number(query.get('steps') || body?.steps || 1)))
+      await demoEngine.advance(steps)
+      state = demoEngine.state
+      meta = { ...demoEngine.meta, stale: false }
+      return { ok: true, steps, day: demoEngine.state.day }
+    }
+    return { ok: false, error: 'demo engine not active' }
+  }
   if (joined === '/app/user/info/v2') {
     return {
       userId: 'local-demo',
@@ -437,12 +477,12 @@ async function apiData(pathname, query, body) {
     const stockId = String(query.get('stockId') || '')
     const bridged = bridge?.minutes?.[stockId]
     if (bridged) return { ...bridged, stockId }
-    if (publicEngine) {
+    if (liveEngine()) {
       try {
-        const minute = await publicEngine.stockMinute(stockId)
+        const minute = await liveEngine().stockMinute(stockId)
         if (minute) return { ...minute, stockId }
       } catch (error) {
-        console.error('[public] minute failed:', error.message)
+        console.error('[engine] minute failed:', error.message)
       }
     }
     return { data: [], open: 0, preClose: 0 }
@@ -450,12 +490,12 @@ async function apiData(pathname, query, body) {
   if (joined === '/app/realtime/stock-realtime-data') {
     const stockId = String(query.get('stockId') || '')
     const bridgedQuote = bridge?.quotes?.[stockId]
-    if (!bridgedQuote && publicEngine) {
+    if (!bridgedQuote && liveEngine()) {
       try {
-        const quote = await publicEngine.stockQuote(stockId)
+        const quote = await liveEngine().stockQuote(stockId)
         if (quote) return quote
       } catch (error) {
-        console.error('[public] quote failed:', error.message)
+        console.error('[engine] quote failed:', error.message)
       }
     }
     if (bridgedQuote) {
@@ -495,18 +535,18 @@ async function apiData(pathname, query, body) {
   }
   if (joined === '/app/realtime/index-amount') {
     return {
-      amount: bridge?.market?.amount ?? publicEngine?.market?.amount ?? 0,
-      addAmount: bridge?.market?.addAmount ?? publicEngine?.market?.addAmount ?? 0
+      amount: bridge?.market?.amount ?? liveEngine()?.market?.amount ?? 0,
+      addAmount: bridge?.market?.addAmount ?? liveEngine()?.market?.addAmount ?? 0
     }
   }
   if (joined === '/app/realtime/market/time') {
     return {
-      data: bridge?.market?.series || publicEngine?.market?.series || [],
-      updatedAt: bridge?.market?.updatedAt || publicEngine?.market?.updatedAt || null
+      data: bridge?.market?.series || liveEngine()?.market?.series || [],
+      updatedAt: bridge?.market?.updatedAt || liveEngine()?.market?.updatedAt || null
     }
   }
   if (joined === '/app/realtime/index/v2') {
-    const indices = bridge?.market?.indices || publicEngine?.market?.indices || []
+    const indices = bridge?.market?.indices || liveEngine()?.market?.indices || []
     return indices
   }
   if (joined === '/app/self-optional/listGroup') {
@@ -637,12 +677,15 @@ const REFRESH_MS = 8000
 setInterval(async () => {
   if (BRIDGE_ENABLED && bridge) {
     // 桥接模式：静态快照，不重连外部数据源
-  } else if (PUBLIC_ENABLED && publicEngine) {
+  } else if (liveEngine()) {
+    const engine = liveEngine()
     try {
-      await publicEngine.refresh()
-      state = publicEngine.state
-      meta = publicEngine.meta
+      await engine.refresh()
+      // 始终经 getter 读取，避免 rebuildState 替换内部引用后滞后一个周期
+      state = engine.state
+      meta = { ...engine.meta, stale: false }
     } catch (error) {
+      // 刷新失败：保留上一帧数据并显式标记过期，让前端能提示
       meta = { ...meta, lastError: error.message, stale: true }
     }
   }

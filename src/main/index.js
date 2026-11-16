@@ -100,7 +100,7 @@ function startLocalServices(options = {}) {
   }
   try {
     serviceProcess = fork(entry, [], {
-      env: { ...process.env, ELECTRON_RUN_AS_NODE: '1', REPLICA_PORTS: '8080,8087,8088,8886', REPLICA_BRIDGE: options.bridge ? '1' : process.env.REPLICA_BRIDGE, REPLICA_PUBLIC: options.public ? '1' : process.env.REPLICA_PUBLIC },
+      env: { ...process.env, ELECTRON_RUN_AS_NODE: '1', REPLICA_PORTS: '8080,8087,8088,8886', REPLICA_BRIDGE: options.bridge ? '1' : (process.env.REPLICA_BRIDGE || '0'), REPLICA_PUBLIC: options.public ? '1' : (process.env.REPLICA_PUBLIC || '0'), REPLICA_DEMO: options.demo ? '1' : (process.env.REPLICA_DEMO || '0'), REPLICA_SOURCE: process.env.REPLICA_SOURCE || '' },
       stdio: ['ignore', 'pipe', 'pipe', 'ipc']
     })
     serviceProcess.stdout?.on('data', (chunk) => {
@@ -342,6 +342,14 @@ function readLocalFile(payload) {
   if (typeof file !== 'string' || !file) return { ok: false, error: 'missing path' }
   const abs = path.resolve(file)
   if (!/\.pdf$/i.test(abs)) return { ok: false, error: 'only .pdf files are allowed' }
+  // 安全约束：只允许读取示例 PDF 所在目录（out/resources）或 userData 下的文件，
+  // 防止渲染层/webview 借该通道读取本机任意 PDF。
+  const allowedRoots = [path.dirname(SAMPLE_PDF_ENTRY), app.getPath('userData')]
+  const inAllowed = allowedRoots.some((root) => {
+    const rel = path.relative(root, abs)
+    return rel && !rel.startsWith('..') && !path.isAbsolute(rel)
+  })
+  if (!inAllowed) return { ok: false, error: 'path outside allowed directories' }
   try {
     const stat = fs.statSync(abs)
     if (!stat.isFile()) return { ok: false, error: 'not a file' }
@@ -528,7 +536,7 @@ function startTimers() {
 }
 
 function parseFlags() {
-  const flags = { screenshot: '', out: '', hidden: false, smoke: false, bridge: false, public: false }
+  const flags = { screenshot: '', out: '', hidden: false, smoke: false, bridge: false, public: false, demo: false }
   for (const arg of process.argv.slice(1)) {
     if (arg === '--screenshot' || arg.startsWith('--screenshot=')) {
       flags.screenshot = arg.includes('=') ? arg.split('=').slice(1).join('=') : 'default'
@@ -542,6 +550,8 @@ function parseFlags() {
       flags.bridge = true
     } else if (arg === '--public') {
       flags.public = true
+    } else if (arg === '--demo') {
+      flags.demo = true
     }
   }
   return flags

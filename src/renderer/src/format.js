@@ -20,8 +20,6 @@ export function formatPct(value) {
 export function formatPrice(value) {
   const n = typeof value === 'number' ? value : toNumber(value)
   if (!Number.isFinite(n)) return '--'
-  if (Math.abs(n) >= 1000) return n.toFixed(2)
-  if (Math.abs(n) >= 10) return n.toFixed(2)
   return n.toFixed(2)
 }
 

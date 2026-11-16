@@ -2,7 +2,7 @@
 
 一个**题材领域级复刻**的 Electron 行情终端：按静态分析得到的运行方式与题材业务契约重建骨架，领域计算与数据源彻底分离。
 
-仓库**只包含代码，不含任何演示或虚构数据**。没有接上数据源时，接口返回空快照、界面显示“未连接行情源”，不会退化成假数据。
+仓库**只包含代码，不存放任何静态数据文件**。默认以**确定性演示数据源**（固定种子、运行时代码生成）启动，连板梯队、多日轮动、阶段与事件流可完整演示；数据源显式关闭时，接口返回空快照、界面显示“未连接行情源”，不会伪造实时行情。演示数据在界面标注 `source=demo`，不与真实行情混淆。
 
 ## 这是什么 / 不是什么
 
@@ -19,7 +19,7 @@
 
 - 不包含原程序的任何代码、素材、图标、字体或配置值
 - 不连接原程序的服务端，也不内置任何行情数据
-- 不实现登录、会员、支付、下单，不提供任何绕过手段
+- 不接入真实登录、支付与权益校验；会员页为本地可切换的演示态，订单为本地模拟流程
 
 ## 架构对应关系
 
@@ -70,16 +70,17 @@
 
 ## 数据源
 
-复刻版不依赖任何第三方账号，提供三种可选数据模式：
+复刻版不依赖任何第三方账号，提供四种可选数据模式（默认演示源）：
 
 | 模式 | 启动 | 说明 |
 | --- | --- | --- |
-| 公开行情源（推荐） | `npm run public` / `--public` | 新浪/东财公开接口：全 A 股约 5500+、概念/行业板块 220+、指数、五档、分时，约 10-15 秒轮询 |
+| 演示源（默认，推荐） | `npm start` / `npm run demo` / `--demo` | 固定种子运行时生成：58 题材、约 1200 只成分股、跨日连板（1–9 板）、资金流、14 日轮动、全部六个阶段与事件流；每 8 秒推进一个交易日。可 `GET /api/app/demo/advance?steps=1` 手动跳日 |
+| 公开行情源 | `npm run public` / `--public` | 新浪/东财公开接口：全 A 股约 5500+、概念/行业板块 220+、指数、五档、分时。能力边界：无跨日数据，连板仅当日封板标记（0/1），资金流为空 |
 | 快照桥接 | `npm run bridge` / `--bridge` | 加载 `server/bridge-fixtures.json`（原始应用明文抓包快照） |
-| 空状态 | `node server/local-services.mjs` | 未连接数据源时不生成任何数据，界面显示“未连接行情源” |
+| 空状态 | `REPLICA_SOURCE=none node server/local-services.mjs` | 不生成任何数据，界面显示“未连接行情源” |
 
-公开源说明见 `server/public-source.mjs`，桥接说明见 `server/bridge-source.mjs`。
-盘中数据一律带 `asOf` 与 `sessionState`，`GET /meta` 可查，界面顶部与状态栏同步展示。
+各模式说明见 `server/demo-source.mjs`、`server/public-source.mjs`、`server/bridge-source.mjs`。
+盘中数据带 `asOf` 与 `sessionState`，`GET /meta` 可查；演示源 `source=demo`，界面明确标注。
 
 ## 题材图谱（横向思维导图）
 
@@ -150,14 +151,17 @@ npm start          # 启动 Electron 窗口
 ```bash
 npm install --ignore-scripts
 npm run build
-node server/local-services.mjs   # 另开一个终端（空状态）
+node server/local-services.mjs   # 另开一个终端（默认演示源）
 npm run serve                    # http://127.0.0.1:4173
 ```
+
+> 说明：端口 8886 仅为对齐原程序端口而监听，返回预留提示，无实际服务；8080/8087/8088 分别承载 REST+SSE / 缓存 / 市场指标。
 
 ## 目录结构
 
 ```
 shared/domain.mjs              题材领域引擎（纯计算，无数据）
+server/demo-source.mjs         确定性演示源（默认，运行时生成跨日连板/资金流/轮动）
 server/public-source.mjs       公开行情源（全A/板块/指数/分时）
 server/bridge-source.mjs       桥接快照 → 领域 state
 server/local-services.mjs      REST + SSE，8080/8087/8088/8886

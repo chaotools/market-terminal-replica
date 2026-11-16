@@ -61,10 +61,24 @@ async function mapLimit(items, limit, fn) {
   return out
 }
 
-const limitPctOf = (code) => {
-  if (/^(300|301|688|689)/.test(String(code))) return 19.8
-  if (/^(8|4|92)/.test(String(code))) return 29.8
-  return 9.8
+const limitPctOf = (code, name = '') => {
+  // ST / *ST 股涨跌幅限制为 5%（含创业/科创板的 ST 同样为 20% 的一半 ≈ 10%，此处按主板 ST 5% 处理）
+  if (/ST/i.test(String(name || ''))) {
+    if (/^(300|301|688|689)/.test(String(code))) return 10
+    return 5
+  }
+  if (/^(300|301|688|689)/.test(String(code))) return 20
+  if (/^(8|4|92)/.test(String(code))) return 30
+  return 10
+}
+
+/** 用「现价是否达到涨停价」判定封板，避免用涨幅阈值近似造成误判 */
+const isLimitUp = (price, prevClose, code, name) => {
+  const pct = limitPctOf(code, name) / 100
+  if (!Number.isFinite(price) || !Number.isFinite(prevClose) || prevClose <= 0 || pct <= 0) return false
+  // 涨停价按交易所规则四舍五入到分
+  const limitPrice = Math.round(prevClose * (1 + pct) * 100) / 100
+  return price >= limitPrice - 0.001
 }
 
 const mapStock = (row) => {
@@ -95,7 +109,8 @@ const mapStock = (row) => {
     industry: '',
     conceptNames: [],
     subjectIds: [],
-    limitUpStreak: pct >= limitPctOf(code) ? 1 : 0,
+    // 公开源无跨日历史：这里只能标记「今日是否封板」（0/1），连板天数需由演示源提供
+    limitUpStreak: isLimitUp(num(row.trade), num(row.settlement), code, String(row.name || '')) ? 1 : 0,
     firstSealAt: null,
     sealAmount: 0,
     leadCount: 0
@@ -390,7 +405,7 @@ export async function createPublicEngine({ onProgress } = {}) {
     const hq = await fetchStockHq(code)
     if (!hq) return null
     const stock = stocks[code] || {}
-    const limit = limitPctOf(code) / 100
+    const limit = limitPctOf(code, hq.name || stock.name) / 100
     const value = {
       ...stock,
       stockId: code,

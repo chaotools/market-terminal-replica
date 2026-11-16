@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { api } from '../api/client.js'
 import { formatPct, toneClass } from '../format.js'
 
@@ -46,6 +46,7 @@ onMounted(() => {
   loadFav()
   timer = setInterval(loadRank, 15000)
 })
+onUnmounted(() => { clearInterval(timer) })
 </script>
 
 <template>
