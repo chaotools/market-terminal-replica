@@ -409,3 +409,9 @@
 /* 题材图谱三视图切换 */
 .graph-views { display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-bottom: 1px solid var(--border); flex: none; background: #fafbfc; }
 .graph-view-tip { margin-left: auto; font-size: 10px; color: var(--muted); }
+
+/* 题材掘金页底部图谱容器 */
+.graph-host { display: flex; flex-direction: column; height: 100%; min-height: 380px; }
+.graph-host .graph-tree { min-height: 360px; }
+.graph-host .relation-graph { min-height: 340px; }
+.graph-host .graph-views { flex: none; }
