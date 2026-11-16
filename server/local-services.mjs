@@ -4,6 +4,7 @@ import {
   deriveRotation, deriveSubjects, detectEvents
 } from '../shared/domain.mjs'
 import { createLiveEngine, refreshLive, liveMeta, pushHistoryRow } from './live-source.mjs'
+import { loadBridgeFixtures, buildBridgeState } from './bridge-source.mjs'
 
 const PORTS = (process.env.REPLICA_PORTS || '8080,8087,8088,8886')
   .split(',')
@@ -15,6 +16,8 @@ const emptyState = () => ({ subjectDefs: [], stocks: {}, flow: {}, history: [], 
 
 let state = emptyState()
 let live = null
+let bridge = null
+const BRIDGE_ENABLED = process.env.REPLICA_BRIDGE === '1'
 let meta = {
   source: 'none',
   sessionState: 'unknown',
@@ -30,7 +33,11 @@ let dpuSeq = 1
 let lastAggregate = null
 
 // 列表/推送只带聚合结果，不携带全量股票池
-const aggregate = () => ({ ...toSnapshot(state, { includeEngine: false }), meta })
+const aggregate = () => {
+  const base = { ...toSnapshot(state, { includeEngine: false }), meta }
+  if (bridge?.market) base.market = { ...base.market, ...bridge.market }
+  return base
+}
 const snapshot = () => ({ ...aggregate(), events: eventLog.slice(-40) })
 
 /** 对比前后两份聚合快照，产出题材事件（同题材同类型 5 分钟内去重） */
@@ -75,6 +82,32 @@ function recordEvents(next) {
 }
 
 async function initSource() {
+  if (BRIDGE_ENABLED) {
+    try {
+      const fixtures = loadBridgeFixtures(new URL('./bridge-fixtures.json', import.meta.url))
+      state = buildBridgeState(fixtures)
+      bridge = {
+        fixtures,
+        market: fixtures.market || {},
+        quotes: fixtures.quotes || {},
+        minutes: fixtures.minutes || {},
+        subjectDaily: fixtures.subjectDaily || {}
+      }
+      meta = {
+        source: 'bridge-capture',
+        sessionState: 'static-capture',
+        asOf: fixtures.market?.updatedAt || fixtures.meta?.capturedAt || null,
+        subjectCount: state.subjectDefs.length,
+        stockCount: Object.keys(state.stocks).length,
+        notes: ['桥接原始应用明文抓包快照 · ' + (fixtures.meta?.note || '')]
+      }
+      console.log(`[source] 桥接快照 · ${meta.subjectCount} 个题材 / ${meta.stockCount} 只成分股 · ${meta.asOf}`)
+      return true
+    } catch (error) {
+      console.error('[bridge] fixtures 加载失败:', error.message)
+      bridge = null
+    }
+  }
   try {
     live = await createLiveEngine({
       force: process.env.REPLICA_LIVE_FORCE === '1',
@@ -121,7 +154,20 @@ eventLog.push({
   weekday: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'][bootAt.getDay()],
   time: `${bootPad(bootAt.getHours())}:${bootPad(bootAt.getMinutes())}`
 })
-const subjectById = (id) => snapshot().subjects.find((s) => s.subjectId === id) || null
+if (bridge?.fixtures?.events?.length) {
+  for (const event of bridge.fixtures.events) {
+    const eventTime = String(event.time || '').split(' ').pop().slice(0, 5)
+    eventLog.push({
+      ...event,
+      ts: bootAt.getTime(),
+      date: `${bootAt.getFullYear()}-${bootPad(bootAt.getMonth() + 1)}-${bootPad(bootAt.getDate())}`,
+      weekday: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'][bootAt.getDay()],
+      time: eventTime || '14:02',
+      changePct: event.changePct ?? 0
+    })
+  }
+}
+const subjectById = (id) => snapshot().subjects.find((s) => String(s.subjectId) === String(id)) || null
 
 function subjectDetail(id) {
   const subject = subjectById(id)
@@ -129,7 +175,8 @@ function subjectDetail(id) {
   return {
     ...subject,
     ladder: deriveLadder(state, id),
-    stocks: deriveSubjectStocks(state, id)
+    stocks: deriveSubjectStocks(state, id),
+    candles: bridge?.subjectDaily?.[id] || bridge?.subjectDaily?.[String(id)] || []
   }
 }
 
@@ -200,7 +247,10 @@ function route(pathname, query) {
     if (parts[2] === 'realtime') return subjectById(subjectId) || { error: 'not_found' }
     if (parts[2] === 'lead-days') return { subjectId, leadDays: subjectById(subjectId)?.sustainDays || 0 }
     if (parts[2] === 'stock-subject-lead') return { subjectId, leadStock: subjectById(subjectId)?.leadStock || null }
-    if (parts[2] === 'daily') return { subjectId, date: tail, history: snap.rotation }
+    if (parts[2] === 'daily') {
+      const candles = bridge?.subjectDaily?.[subjectId] || bridge?.subjectDaily?.[String(subjectId)] || []
+      return { subjectId, date: tail, candles, history: snap.rotation }
+    }
     if (parts[2] === 'parents') {
       const target = parts[3] || id
       const group = snap.tree.find((g) => g.childIds.includes(target))
@@ -377,9 +427,30 @@ function apiData(pathname, query, body) {
     return { up, down, flat: Math.max(0, stocks.length - up - down), limitUp, limitDown, total: stocks.length }
   }
   if (joined === '/app/realtime/market/time') return []
-  if (joined === '/app/realtime/stock-minute-data') return { data: [], open: 0, preClose: 0 }
+  if (joined === '/app/realtime/stock-minute-data') {
+    const stockId = String(query.get('stockId') || '')
+    const bridged = bridge?.minutes?.[stockId]
+    if (bridged) return { ...bridged, stockId }
+    return { data: [], open: 0, preClose: 0 }
+  }
   if (joined === '/app/realtime/stock-realtime-data') {
     const stockId = String(query.get('stockId') || '')
+    const bridgedQuote = bridge?.quotes?.[stockId]
+    if (bridgedQuote) {
+      const preClose = Number(bridgedQuote.preClose) || null
+      const current = Number(bridgedQuote.current) || null
+      return {
+        ...bridgedQuote,
+        stockId,
+        close: current,
+        current,
+        changeCount: preClose && current ? Number((current - preClose).toFixed(2)) : bridgedQuote.changeCount,
+        volume: bridgedQuote.vol ?? bridgedQuote.volume ?? null,
+        limitUpPrice: bridgedQuote.limitUp ?? null,
+        limitDownPrice: bridgedQuote.limitDown ?? null,
+        totalMarketValue: bridgedQuote.totalMarketValue ?? bridgedQuote.marketValue ?? null
+      }
+    }
     const stock = (state.stocks || {})[stockId]
     if (!stock) return null
     const preClose = Number(stock.prevClose) || null
@@ -401,9 +472,12 @@ function apiData(pathname, query, body) {
     }
   }
   if (joined === '/app/realtime/index-amount') {
-    return { amount: 0, addAmount: 0 }
+    return { amount: bridge?.market?.amount ?? 0, addAmount: bridge?.market?.addAmount ?? 0 }
   }
-  if (joined === '/app/realtime/index/v2') return []
+  if (joined === '/app/realtime/market/time') {
+    return { data: bridge?.market?.series || [], updatedAt: bridge?.market?.updatedAt || null }
+  }
+  if (joined === '/app/realtime/index/v2') return bridge?.market?.indices?.length ? bridge.market.indices : []
   if (joined === '/app/self-optional/listGroup') {
     return {
       list: [
@@ -528,7 +602,9 @@ const RETRY_MS = 30000
 let lastRetryAt = 0
 
 setInterval(async () => {
-  if (!live) {
+  if (BRIDGE_ENABLED && bridge) {
+    // 桥接模式：静态快照，不重连外部数据源
+  } else if (!live) {
     // 数据源断开时定期重连，不做本地数据兜底
     if (Date.now() - lastRetryAt > RETRY_MS) {
       lastRetryAt = Date.now()

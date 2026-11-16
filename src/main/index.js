@@ -92,7 +92,7 @@ function broadcast(channel, payload) {
   }
 }
 
-function startLocalServices() {
+function startLocalServices(options = {}) {
   const entry = SERVER_ENTRY
   if (!fs.existsSync(entry)) {
     log('WARN', `本地服务入口不存在: ${entry}`)
@@ -100,7 +100,7 @@ function startLocalServices() {
   }
   try {
     serviceProcess = fork(entry, [], {
-      env: { ...process.env, ELECTRON_RUN_AS_NODE: '1', REPLICA_PORTS: '8080,8087,8088,8886' },
+      env: { ...process.env, ELECTRON_RUN_AS_NODE: '1', REPLICA_PORTS: '8080,8087,8088,8886', REPLICA_BRIDGE: options.bridge ? '1' : process.env.REPLICA_BRIDGE },
       stdio: ['ignore', 'pipe', 'pipe', 'ipc']
     })
     serviceProcess.stdout?.on('data', (chunk) => {
@@ -528,7 +528,7 @@ function startTimers() {
 }
 
 function parseFlags() {
-  const flags = { screenshot: '', out: '', hidden: false, smoke: false }
+  const flags = { screenshot: '', out: '', hidden: false, smoke: false, bridge: false }
   for (const arg of process.argv.slice(1)) {
     if (arg === '--screenshot' || arg.startsWith('--screenshot=')) {
       flags.screenshot = arg.includes('=') ? arg.split('=').slice(1).join('=') : 'default'
@@ -538,6 +538,8 @@ function parseFlags() {
       flags.hidden = true
     } else if (arg === '--smoke') {
       flags.smoke = true
+    } else if (arg === '--bridge') {
+      flags.bridge = true
     }
   }
   return flags
@@ -625,7 +627,7 @@ if (!gotLock) {
     if (flags.smoke) {
       createLoadingWindow()
       const loadingCreated = Boolean(loadingWindow)
-      startLocalServices()
+      startLocalServices(flags)
       await checkVersion()
       await delay(800)
       createMainWindow()
@@ -635,14 +637,14 @@ if (!gotLock) {
       return runSmokeMode(loadingCreated)
     }
     if (flags.screenshot) {
-      startLocalServices()
+      startLocalServices(flags)
       await checkVersion()
       await delay(1200)
       return runScreenshotMode(flags)
     }
 
     if (!flags.hidden) createLoadingWindow()
-    startLocalServices()
+    startLocalServices(flags)
     await checkVersion()
     createMainWindow()
     createTray()

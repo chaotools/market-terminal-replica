@@ -102,7 +102,7 @@ export function deriveSubjects(state) {
 
 /** 连板梯队：按连板高度分组 */
 export function deriveLadder(state, subjectId) {
-  const members = Object.values(state?.stocks || {}).filter((s) => s.subjectIds?.includes(subjectId))
+  const members = Object.values(state?.stocks || {}).filter((s) => (s.subjectIds || []).some((id) => String(id) === String(subjectId)))
   const groups = {}
   for (const s of members) {
     if (s.limitUpStreak <= 0) continue
@@ -285,7 +285,7 @@ export function detectEvents(prev, next) {
 /** 题材成分股实时行情 */
 export function deriveSubjectStocks(state, subjectId) {
   return Object.values(state?.stocks || {})
-    .filter((s) => s.subjectIds?.includes(subjectId))
+    .filter((s) => (s.subjectIds || []).some((id) => String(id) === String(subjectId)))
     .map((s) => ({
       code: s.code, name: s.name, price: s.price, changePct: s.changePct,
       prevClose: s.prevClose, limitUpStreak: s.limitUpStreak,

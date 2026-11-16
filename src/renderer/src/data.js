@@ -61,14 +61,17 @@ export async function fetchSubjectDetail(subjectId) {
 /** 题材详情：由服务端按题材现算；服务不可用时返回空结果，不做本地推演 */
 export async function fetchDetail(snapshot, subjectId, stockCode) {
   try {
-    const data = await fetchJson(`/app/subject/query/${encodeURIComponent(subjectId)}`, { timeout: 6000 })
+    let data = await fetchJson(`/app/subject/query/${encodeURIComponent(subjectId)}`, { timeout: 6000 })
+    if (data && data.data && typeof data.data === 'object') data = data.data
     if (data && Array.isArray(data.stocks)) {
       const code = stockCode || data.stocks[0]?.code || ''
-      let candles = []
-      try {
-        const kline = await fetchJson(`/API/StockHistoryDay?code=${encodeURIComponent(code)}`, { timeout: 4000 })
-        candles = kline?.candles || []
-      } catch { /* 无 K 线不影响详情 */ }
+      let candles = Array.isArray(data.candles) ? data.candles : []
+      if (!candles.length) {
+        try {
+          const kline = await fetchJson(`/API/StockHistoryDay?code=${encodeURIComponent(code)}`, { timeout: 4000 })
+          candles = kline?.candles || []
+        } catch { /* 无 K 线不影响详情 */ }
+      }
       return {
         ladder: data.ladder || { tiers: [], total: 0, highest: 0 },
         stocks: data.stocks,

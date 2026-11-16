@@ -37,8 +37,15 @@ const tradeState = computed(() => {
   return '未开市'
 })
 const orderBook = computed(() => {
-  const sell = [5, 4, 3, 2, 1].map((n) => ({ label: '卖' + ['一', '二', '三', '四', '五'][n - 1], price: null, volume: null }))
-  const buy = [1, 2, 3, 4, 5].map((n) => ({ label: '买' + ['一', '二', '三', '四', '五'][n - 1], price: null, volume: null }))
+  const five = quote.value?.tradeFive
+  const labels = ['一', '二', '三', '四', '五']
+  if (Array.isArray(five) && five.length >= 20) {
+    const sell = labels.map((label, i) => ({ label: '卖' + label, price: five[i * 2], volume: five[i * 2 + 1] }))
+    const buy = labels.map((label, i) => ({ label: '买' + label, price: five[10 + i * 2], volume: five[10 + i * 2 + 1] }))
+    return { sell: [...sell].reverse(), buy }
+  }
+  const sell = [5, 4, 3, 2, 1].map((n) => ({ label: '卖' + labels[n - 1], price: null, volume: null }))
+  const buy = [1, 2, 3, 4, 5].map((n) => ({ label: '买' + labels[n - 1], price: null, volume: null }))
   return { sell, buy }
 })
 const stats = computed(() => {
@@ -47,7 +54,7 @@ const stats = computed(() => {
     ['现价', q.current ?? '—'], ['昨收', q.preClose ?? '—'],
     ['最高价', q.high ?? '—'], ['最低价', q.low ?? '—'],
     ['开盘价', q.open ?? '—'], ['收盘价', q.close ?? '—'],
-    ['涨幅', formatPct(q.pctChg)], ['10日涨幅', '—'],
+    ['涨幅', formatPct(q.pctChg)], ['10日涨幅', q.recentChange != null ? q.recentChange + '%' : '—'],
     ['成交量', q.volume ? formatAmount(q.volume) : '—'], ['成交额', q.amount ? formatAmount(q.amount) : '—'],
     ['振幅', q.amplitude != null ? q.amplitude + '%' : '—'], ['换手率', q.turnoverRate != null ? q.turnoverRate + '%' : '—'],
     ['涨停', q.limitUpPrice ?? '—'], ['跌停', q.limitDownPrice ?? '—'],
