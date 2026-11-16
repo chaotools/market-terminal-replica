@@ -20,7 +20,7 @@ const MAIN_SIZE = { width: 1280, height: 820 }
 const LOGIN_SIZE = { width: 960, height: 640 }
 
 const SCREENSHOT_ROUTES = [
-  '/subject/excavate', '/market-trend/main', '/trend', '/fav',
+  '/subject/excavate', '/market-trend/main', '/market-trend/stock/quotation/300152', '/trend', '/fav',
   '/subject/periodic', '/subject/all', '/dpu', '/user/profile', '/login', '/update', '/message'
 ]
 

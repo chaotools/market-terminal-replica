@@ -374,6 +374,28 @@ function apiData(pathname, query) {
   }
   if (joined === '/app/realtime/market/time') return []
   if (joined === '/app/realtime/stock-minute-data') return { data: [], open: 0, preClose: 0 }
+  if (joined === '/app/realtime/stock-realtime-data') {
+    const stockId = String(query.get('stockId') || '')
+    const stock = (state.stocks || {})[stockId]
+    if (!stock) return null
+    const preClose = Number(stock.prevClose) || null
+    const current = Number(stock.price) || null
+    return {
+      stockId, name: stock.name, code: stock.code,
+      preClose, open: stock.open ?? null, high: stock.high ?? null, low: stock.low ?? null, close: current,
+      current, changeCount: preClose && current ? Number((current - preClose).toFixed(2)) : null,
+      pctChg: Number(stock.changePct) || null,
+      amount: stock.turnover ?? null, volume: stock.volume ?? null,
+      amplitude: stock.amplitude ?? null, avprice: stock.avprice ?? null,
+      turnoverRate: stock.turnoverRate ?? null, circulating: stock.circulating ?? null,
+      circulatingMarketValue: stock.marketCap ?? null, totalMarketValue: stock.marketCap ?? null,
+      pe: stock.pe ?? null, peDynamic: stock.peDynamic ?? null,
+      limitUpPrice: preClose ? Number((preClose * 1.1).toFixed(2)) : null,
+      limitDownPrice: preClose ? Number((preClose * 0.9).toFixed(2)) : null,
+      brokerCount: null, fastChg: stock.fastChg ?? null, factor: null, factor2: null,
+      firstLetter: String(stock.name || '')[0] || '', innerDisk: null, isBuy: null, outerDisk: null
+    }
+  }
   if (joined === '/app/realtime/index-amount') {
     return { amount: 0, addAmount: 0 }
   }

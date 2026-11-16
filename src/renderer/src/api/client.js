@@ -113,6 +113,8 @@ export const api = {
   getIndexRealtime: () => request('/app/realtime/index/v2'),
   getRealtimeRank: (params) => request('/app/stock/realtime-rank/v2', { params }),
   getStockSummaryPctChg: () => request('/app/stock/summary/pctChg'),
+  getStockRealtimeData: (stockId) => request('/app/realtime/stock-realtime-data', { params: { stockId } }),
+  getStockMinuteData: (stockId, date) => request('/app/realtime/stock-minute-data', { params: { stockId, date } }),
   getMarketMinute: (stockId, date) => request('/app/realtime/stock-minute-data', { params: { stockId, date } }),
   getSelfOptionalGroups: (type = 1) => request('/app/self-optional/listGroup', { params: { type } }),
   getSelfOptionalStockList: (groupId) => request('/app/self-optional/group/stock-list', { params: { groupId } }),

@@ -25,6 +25,7 @@ import FavPage from '../views/FavPage.vue'
 import SubjectExcavatePage from '../views/SubjectExcavatePage.vue'
 import SubjectPeriodicPage from '../views/SubjectPeriodicPage.vue'
 import SubjectAllPage from '../views/SubjectAllPage.vue'
+import StockQuotationPage from '../views/StockQuotationPage.vue'
 
 const placeholder = (title, stage, apis, notes, origin) => ({
   name: title,
@@ -56,7 +57,7 @@ const routes = [
 
       { path: 'market-trend', redirect: '/market-trend/main' },
       { path: 'market-trend/main', name: 'MarketTrendMain', component: MarketTrendMain, meta: { title: '全部A股', auth: 1, stage: 'P0' } },
-      { path: 'market-trend/stock/quotation/:id', ...placeholder('股票详情', 'P0', ['/app/stock/realtime', '/app/realtime/stock-realtime-data', '/app/realtime/stock-minute-data', '/API/KLine2', '/API/KLine3', '/API/StockDetail', '/app/stock/qa/v2'], ['盘口/分时/K线/问答/研报', 'HQChart 图表引擎接入']), meta: { title: '股票详情', auth: 1, stage: 'P0' } },
+      { path: 'market-trend/stock/quotation/:id', name: 'StockQuotation', component: StockQuotationPage, meta: { title: '股票详情', auth: 1, stage: 'P0' } },
       { path: 'market-trend/subject/quotation/:id', ...placeholder('题材详情报价', 'P1', ['/app/subject/query/:id'], ['题材维度报价页']), meta: { title: '题材详情', auth: 1, stage: 'P1' } },
       { path: 'market-trend/composite-index/quotation/:id', ...placeholder('指数详情', 'P1', ['/app/stock/indexConstituentStocks', '/API/IndexCalculate'], ['指数行情与成分股']), meta: { title: '指数详情', auth: 1, stage: 'P1' } },
       { path: 'market-trend/test', ...placeholder('test', 'P2', [], ['原始调试页，用途未明']), meta: { title: 'test', auth: 1, hidden: true, stage: 'P2' } },
