@@ -86,7 +86,7 @@ export async function fetchDetail(snapshot, subjectId, stockCode) {
 /** 题材图谱：题材 → 关联题材 → 成分股 的横向树 */
 export async function fetchGraph(subjectId) {
   try {
-    const data = await fetchJson(`/app/subject/graph-tree/${encodeURIComponent(subjectId)}`, { timeout: 6000 })
+    const data = await fetchJson(`/app/subject/graph-tree/${encodeURIComponent(subjectId)}`, { timeout: 20000 })
     const payload = data?.data && typeof data.data === 'object' ? data.data : data
     return Array.isArray(payload?.tree) ? payload.tree : []
   } catch {

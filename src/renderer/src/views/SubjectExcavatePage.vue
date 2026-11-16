@@ -1,23 +1,30 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import SubjectKlinePanel from '../components/SubjectKlinePanel.vue'
+import HorizontalTree from '../components/HorizontalTree.vue'
+import RelationGraph from '../components/RelationGraph.vue'
 import { useAppStore } from '../stores.js'
 import { formatPct, toneClass } from '../format.js'
-import { loadSnapshot, connectStream, fetchDetail, emptySnapshot, desktopVersion } from '../data.js'
+import { loadSnapshot, connectStream, fetchDetail, fetchGraph, emptySnapshot, desktopVersion } from '../data.js'
 
 const props = defineProps({ focusSubject: { type: String, default: '' } })
 const router = useRouter()
+const route = useRoute()
 const app = useAppStore()
+// 深链接：?tab=tree 直接打开题材图谱（也便于截图验证）
+const initialTab = route.query.tab || route.query.bottomTab || ''
 
 const snap = ref(emptySnapshot())
 const selectedId = ref('')
 const detail = ref({ ladder: { tiers: [], total: 0, highest: 0 }, stocks: [], candles: [], code: '' })
 const rankTab = ref('dig')
 const intelTab = ref('情报')
-const bottomTab = ref('rank')
+const bottomTab = ref(['tree', 'stocks', 'intro', 'rank'].includes(initialTab) ? initialTab : 'rank')
 const filterSubject = ref('')
 const filterKeyword = ref('')
+const graph = ref([])
+const graphView = ref('tree')
 
 let stopStream = null
 let detailTimer = null
@@ -59,6 +66,27 @@ const filteredEvents = computed(() => {
   return [...list].reverse()
 })
 
+// 题材图谱：按当前选中题材拉树；关系图节点/边由此派生
+async function loadGraph() {
+  if (!selectedId.value) { graph.value = []; return }
+  graph.value = await fetchGraph(selectedId.value)
+}
+const graphNodes = computed(() => {
+  if (!graph.value.length) return []
+  const root = graph.value[0]
+  const nodes = [{ id: root.subjectId, name: root.name, heat: root.heat, pctChg: root.pctChg, category: 'center' }]
+  for (const c of root.children || []) nodes.push({ id: c.subjectId, name: c.name, heat: c.heat, pctChg: c.pctChg, category: 'related' })
+  return nodes
+})
+const graphLinks = computed(() => {
+  if (!graph.value.length) return []
+  const root = graph.value[0]
+  return (root.children || []).map((c) => {
+    const m = /共享\s*(\d+)\s*只/.exec(c.reason || '')
+    return { source: root.subjectId, target: c.subjectId, value: m ? Number(m[1]) : 1 }
+  })
+})
+
 const noteOnly = computed(() => ['盘前必读', '龙虎榜'].includes(intelTab.value))
 const BOTTOM_TABS = computed(() => [
   { key: 'rank', label: '题材排名' },
@@ -86,19 +114,33 @@ function selectSubject(id) {
   if (!id || id === selectedId.value) return
   selectedId.value = id
   loadDetail()
+  if (bottomTab.value === 'tree') loadGraph()
+}
+function onGraphOpenSubject(id) {
+  if (id && id !== selectedId.value) selectSubject(id)
+}
+function onGraphOpenStock(code) {
+  if (code) router.push(`/market-trend/stock/quotation/${code}`)
 }
 
 onMounted(async () => {
   app.setActiveGroup(2)
   applySnapshot(await loadSnapshot())
   await loadDetail()
+  if (bottomTab.value === 'tree') await loadGraph()
   const info = await desktopVersion()
   if (info?.version) app.setVersion(info)
   stopStream = connectStream(applySnapshot)
-  detailTimer = setInterval(loadDetail, 8000)
+  detailTimer = setInterval(() => {
+    loadDetail()
+    // 图谱页数据若因数据源刚启动未就绪，持续补拉到位
+    if (bottomTab.value === 'tree' && graph.value.length <= 1 && selectedId.value) loadGraph()
+  }, 8000)
 })
 
 watch(() => props.focusSubject, (value) => { if (value) selectSubject(value) })
+watch(bottomTab, (value) => { if (value === 'tree' && selectedId.value) loadGraph() })
+watch(selectedId, (value) => { if (value && bottomTab.value === 'tree' && !graph.value.length) loadGraph() })
 
 onUnmounted(() => {
   stopStream?.()
@@ -195,16 +237,23 @@ onUnmounted(() => {
             </tbody>
           </table>
 
-          <div v-else-if="bottomTab === 'tree'">
-            <div v-for="group in tree" :key="group.groupId" class="tree-group">
-              <div class="tree-group-name">{{ group.groupName }}（{{ group.childIds.length }} 个题材 · 热度 {{ group.heat }}）</div>
-              <div class="tree-children">
-                <span v-for="childId in group.childIds" :key="childId" class="tree-chip" @click="selectSubject(childId)">
-                  {{ subjects.find((s) => s.subjectId === childId)?.subjectName || childId }}
-                </span>
-              </div>
+          <div v-else-if="bottomTab === 'tree'" class="graph-host">
+            <div class="graph-views">
+              <button v-for="v in [{k:'tree',l:'横向树'},{k:'network',l:'关系网络'}]"
+                      :key="v.k" class="tab" :class="{ active: graphView === v.k }" @click="graphView = v.k">{{ v.l }}</button>
+              <span class="graph-view-tip">{{ subject?.subjectName || '题材' }} · {{ graphNodes.length }} 个关联题材 · {{ graphLinks.length }} 条关联边</span>
             </div>
-            <div v-if="!tree.length" class="intel-empty">未连接行情源，暂无题材图谱</div>
+            <HorizontalTree
+              v-if="graphView === 'tree'"
+              :tree="graph"
+              @open-subject="onGraphOpenSubject"
+              @open-stock="onGraphOpenStock"
+            />
+            <RelationGraph
+              v-else
+              :nodes="graphNodes" :links="graphLinks" :height="360"
+              @select="(n) => onGraphOpenSubject(n.id)"
+            />
           </div>
 
           <table class="data-table" v-else-if="bottomTab === 'stocks'">
