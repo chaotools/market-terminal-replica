@@ -31,6 +31,9 @@ import UserOrderPage from '../views/UserOrderPage.vue'
 import UserPwdPage from '../views/UserPwdPage.vue'
 import DpuPage from '../views/DpuPage.vue'
 import BuyPage from '../views/BuyPage.vue'
+import LeadStockPage from '../views/LeadStockPage.vue'
+import SubjectMonitorPage from '../views/SubjectMonitorPage.vue'
+import SvipSimplePage from '../views/SvipSimplePage.vue'
 
 const placeholder = (title, stage, apis, notes, origin) => ({
   name: title,
@@ -87,16 +90,16 @@ const routes = [
 
       { path: 'svip-subject/detail/:subjectId', ...placeholder('甄选题材详情', 'P2', ['/app/selected-subject/query/:id', '/app/subject/all-lead-times'], ['desc/table/stock/kline 四个子页签']), meta: { title: '甄选题材详情', auth: 1, stage: 'P2' } },
       { path: 'svip-subject/detail/:subjectId/table', ...placeholder('甄选题材排名', 'P2', ['/app/selected-subject/main/list/v2'], ['排名表']), meta: { title: '甄选题材排名', auth: 1, stage: 'P2' } },
-      { path: 'svip-lead-stock', ...placeholder('甄选股池', 'P2', ['/app/stock/stock-pool-config', '/app/stock/pick-rank-day/v2/:subjectId/:type'], ['甄选股池列表']), meta: { title: '甄选股池', auth: 1, stage: 'P2' } },
-      { path: 'svip-ding-loong', ...placeholder('二板定龙', 'P2', ['/app/subject-limit-up-twice/list', '/app/subject-limit-up-twice/calendar', '/app/subject-limit-up-twice/stock-list'], ['二板定龙梯队/日历']), meta: { title: '二板定龙', auth: 1, stage: 'P2' } },
-      { path: 'svip-subject-main/svip', ...placeholder('甄选题材', 'P2', ['/app/selected-subject/main/list/v2'], ['甄选题材列表']), meta: { title: '甄选题材', auth: 1, stage: 'P2' } },
-      { path: 'svip-subject-main/svip-longhu', ...placeholder('龙虎榜', 'P2', ['/app/stock/long-hu/list', '/app/stock/long-hu/date_list_with_model', '/app/stock/long-hu/stock/hot-net'], ['龙虎榜日期/个股/席位']), meta: { title: '龙虎榜', auth: 1, stage: 'P2' } },
-      { path: 'svip-subject-main/call-auction', ...placeholder('竞价优选', 'P2', ['/app/realtime/stock-call-auction-data', '/app/stock/single-yellow/v2'], ['集合竞价优选']), meta: { title: '竞价优选', auth: 1, stage: 'P2' } },
+      { path: 'svip-lead-stock', name: 'SvipLeadStock', component: LeadStockPage, meta: { title: '甄选股池', auth: 1, stage: 'P2' } },
+      { path: 'svip-ding-loong', name: 'SvipDingLoong', component: SvipSimplePage, meta: { title: '二板定龙', auth: 1, stage: 'P2', svipKind: 'dingloong' } },
+      { path: 'svip-subject-main/svip', name: 'SvipSubjectMain', component: SvipSimplePage, meta: { title: '甄选题材', auth: 1, stage: 'P2', svipKind: 'subject' } },
+      { path: 'svip-subject-main/svip-longhu', name: 'SvipLongHu', component: SvipSimplePage, meta: { title: '龙虎榜', auth: 1, stage: 'P2', svipKind: 'longhu' } },
+      { path: 'svip-subject-main/call-auction', name: 'SvipCallAuction', component: SvipSimplePage, meta: { title: '竞价优选', auth: 1, stage: 'P2', svipKind: 'auction' } },
       { path: 'svip-subject-main/monitoring', redirect: '/svip-subject-main/monitoring/lead' },
-      { path: 'svip-subject-main/monitoring/lead', ...placeholder('领涨题材', 'P2', ['/app/selected-subject/realtime'], ['领涨题材监控']), meta: { title: '领涨题材', auth: 1, stage: 'P2' } },
-      { path: 'svip-subject-main/monitoring/up', ...placeholder('晋级题材', 'P2', ['/app/selected-subject/realtime'], ['晋级题材监控']), meta: { title: '晋级题材', auth: 1, stage: 'P2' } },
-      { path: 'svip-subject-main/monitoring/line', ...placeholder('主线题材', 'P2', ['/app/selected-subject/realtime'], ['主线题材监控']), meta: { title: '主线题材', auth: 1, stage: 'P2' } },
-      { path: 'svip-subject-main/monitoring/continuous', ...placeholder('持续题材', 'P2', ['/app/subject/sustain-subject/v2'], ['持续题材监控']), meta: { title: '持续题材', auth: 1, stage: 'P2' } },
+      { path: 'svip-subject-main/monitoring/lead', name: 'SvipMonitorLead', component: SubjectMonitorPage, meta: { title: '领涨题材', auth: 1, stage: 'P2', kind: 'lead' } },
+      { path: 'svip-subject-main/monitoring/up', name: 'SvipMonitorUp', component: SubjectMonitorPage, meta: { title: '晋级题材', auth: 1, stage: 'P2', kind: 'up' } },
+      { path: 'svip-subject-main/monitoring/line', name: 'SvipMonitorLine', component: SubjectMonitorPage, meta: { title: '主线题材', auth: 1, stage: 'P2', kind: 'line' } },
+      { path: 'svip-subject-main/monitoring/continuous', name: 'SvipMonitorContinuous', component: SubjectMonitorPage, meta: { title: '持续题材', auth: 1, stage: 'P2', kind: 'continuous' } },
 
       { path: 'dpu', name: 'DpuMain', component: DpuPage, meta: { title: '战法库', auth: 1, stage: 'P1' } },
 
