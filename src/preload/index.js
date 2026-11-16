@@ -7,7 +7,7 @@ const INVOKE_CHANNELS = new Set([
   'restart', 'setMainSize', 'setLoginSize',
   'getStore', 'setStore', 'removeStore', 'getSetting', 'saveSetting',
   'getMachineId', 'apiDecode', 'sendBuryPoint', 'sendUserTrace', 'getServiceStatus',
-  'openURL', 'openPDF', 'download', 'exportDownload',
+  'openURL', 'openPDF', 'download', 'exportDownload', 'readLocalFile', 'closeThisWindow',
   'openMessage', 'openFindPwd', 'openRouteWindow', 'closeVersion',
   'downloadUpdate', 'installUpdate', 'getUpdateState', 'messageClick'
 ])

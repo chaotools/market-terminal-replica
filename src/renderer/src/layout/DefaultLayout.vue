@@ -34,6 +34,10 @@ onMounted(async () => {
     const next = await desktopInvoke('getServiceStatus')
     if (next) app.setServiceReady(next.ready)
   }, 5000)
+  try {
+    const messages = await desktopInvoke('getSetting', 'messages')
+    app.hasNewMsg = Array.isArray(messages) && messages.some((m) => m && m.unread)
+  } catch { /* ignore */ }
 })
 
 onUnmounted(() => {

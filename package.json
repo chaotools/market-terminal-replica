@@ -12,6 +12,7 @@
     "check": "node --check src/main/index.js && node --check src/preload/index.js && node --check server/local-services.mjs && node --check server/lumi-client.mjs && node --check server/live-source.mjs && node --check shared/domain.mjs && node --check scripts/build.mjs && node --check scripts/serve.mjs && node --check scripts/check-lumi.mjs && node --check scripts/test-domain.mjs && node --check scripts/test-api.mjs",
     "test": "node --test scripts/test-domain.mjs scripts/test-api.mjs",
     "screenshot": "electron . --screenshot=default --out=out/screens",
+    "smoke": "electron . --smoke",
     "check:lumi": "node scripts/check-lumi.mjs"
   },
   "devDependencies": {
@@ -20,6 +21,7 @@
     "vite": "^7.0.0"
   },
   "dependencies": {
+    "pdfjs-dist": "^4.10.38",
     "pinia": "^3.0.4",
     "vue": "^3.5.0",
     "vue-router": "^4.6.5"

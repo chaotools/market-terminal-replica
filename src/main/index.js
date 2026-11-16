@@ -60,10 +60,23 @@ function writeStore(data) {
 /** 本地复刻会话：token 存主进程 store（对齐原始应用 getStore/setStore 协议）。 */
 function ensureLocalSession() {
   const store = readStore()
+  let changed = false
   if (store.Authorization === undefined) {
     store.Authorization = 'local-replica-token'
-    writeStore(store)
+    changed = true
   }
+  if (!Array.isArray(store.messages)) {
+    store.messages = [{
+      id: 'welcome-1',
+      typeId: 1,
+      title: '欢迎使用久赢恒丰 · 逐项复刻',
+      content: '本复刻版不连接第三方服务；行情/题材数据来自本地 API 契约 server，未连接行情源时展示空态。',
+      unread: true,
+      createdAt: new Date().toISOString()
+    }]
+    changed = true
+  }
+  if (changed) writeStore(store)
 }
 
 function delay(ms) { return new Promise((resolve) => setTimeout(resolve, ms)) }
@@ -170,7 +183,8 @@ function createMainWindow() {
       contextIsolation: true,
       nodeIntegration: false,
       sandbox: false,
-      webviewTag: true
+      webviewTag: true,
+      plugins: true
     }
   })
 
@@ -234,7 +248,9 @@ function openRouteWindow({ route, title, width = 900, height = 680, singleton = 
       preload: PRELOAD_ENTRY,
       contextIsolation: true,
       nodeIntegration: false,
-      sandbox: false
+      sandbox: false,
+      webviewTag: true,
+      plugins: true
     }
   })
   win.loadFile(RENDERER_ENTRY, { hash: route })
@@ -316,6 +332,76 @@ function startUpdateDownload() {
   }, 240)
 }
 
+function readLocalFile(payload) {
+  const file = typeof payload === 'string' ? payload : payload && payload.path
+  if (typeof file !== 'string' || !file) return { ok: false, error: 'missing path' }
+  const abs = path.resolve(file)
+  if (!/\.pdf$/i.test(abs)) return { ok: false, error: 'only .pdf files are allowed' }
+  try {
+    const stat = fs.statSync(abs)
+    if (!stat.isFile()) return { ok: false, error: 'not a file' }
+    if (stat.size > 20 * 1024 * 1024) return { ok: false, error: 'file too large (max 20MB)' }
+    return { ok: true, path: abs, name: path.basename(abs), size: stat.size, data: fs.readFileSync(abs).toString('base64') }
+  } catch (error) {
+    return { ok: false, error: error.message }
+  }
+}
+
+async function runSmokeMode(loadingCreated) {
+  const checks = []
+  const record = (name, ok, detail) => {
+    checks.push({ name, ok: Boolean(ok), detail: detail === undefined ? null : String(detail) })
+    log('INFO', '[smoke] ' + (ok ? 'PASS' : 'FAIL') + ' ' + name + ' ' + (detail === undefined ? '' : detail))
+  }
+  try {
+    record('loading_window', loadingCreated)
+    await delay(1500)
+    record('main_window', Boolean(mainWindow && !mainWindow.isDestroyed()), mainWindow ? mainWindow.getTitle() : 'null')
+    if (mainWindow) {
+      const before = mainWindow.getSize()
+      await mainWindow.webContents.executeJavaScript("window.electron.invoke('setLoginSize')").catch(() => null)
+      await delay(700)
+      const login = mainWindow.getSize()
+      await mainWindow.webContents.executeJavaScript("window.electron.invoke('setMainSize')").catch(() => null)
+      await delay(700)
+      const main = mainWindow.getSize()
+      record('window_size_switch', login[0] !== before[0] || login[1] !== before[1], 'before=' + before + ' login=' + login + ' main=' + main)
+      await mainWindow.webContents.executeJavaScript("window.__smokeTimerCount = 0; window.electron.on('timer#1s', () => { window.__smokeTimerCount++ });").catch(() => null)
+      await delay(2600)
+      const timerCount = await mainWindow.webContents.executeJavaScript('window.__smokeTimerCount').catch(() => -1)
+      record('timer_ipc_1s', timerCount >= 2, 'count=' + timerCount)
+      const version = await mainWindow.webContents.executeJavaScript("window.electron.invoke('getVersion')").catch(() => null)
+      record('ipc_get_version', Boolean(version && version.version), JSON.stringify(version))
+      const status = await mainWindow.webContents.executeJavaScript("window.electron.invoke('getServiceStatus')").catch(() => null)
+      record('ipc_service_status', Boolean(status && Array.isArray(status.ports)), JSON.stringify(status))
+      const token = await mainWindow.webContents.executeJavaScript("window.electron.sendSync('getStore','Authorization')").catch(() => null)
+      record('token_store_sync', token === 'local-replica-token', String(token))
+      const pdfPath = path.join(ROOT, 'out', 'resources', 'sample.pdf')
+      const readPdf = await mainWindow.webContents.executeJavaScript("window.electron.invoke('readLocalFile', " + JSON.stringify(pdfPath) + ")").catch(() => null)
+      record('read_local_pdf', Boolean(readPdf && readPdf.ok), readPdf ? readPdf.error || (readPdf.size + ' bytes') : 'no result')
+      await mainWindow.webContents.executeJavaScript("window.electron.invoke('openRouteWindow', { route: '/message', title: '消息通知', width: 520, height: 680 })").catch(() => null)
+      await delay(1400)
+      const windows = BrowserWindow.getAllWindows().map((w) => ({ title: w.getTitle(), visible: w.isVisible() }))
+      record('child_window', windows.length >= 2, JSON.stringify(windows.map((w) => w.title)))
+    }
+    record('tray', Boolean(tray))
+  } catch (error) {
+    record('smoke_exception', false, error.message)
+  }
+  const report = {
+    at: new Date().toISOString(),
+    platform: process.platform,
+    electron: process.versions.electron,
+    ok: checks.every((c) => c.ok),
+    checks
+  }
+  fs.mkdirSync(path.join(ROOT, 'out'), { recursive: true })
+  fs.writeFileSync(path.join(ROOT, 'out', 'smoke-report.json'), JSON.stringify(report, null, 2))
+  console.log('[smoke-report] ' + JSON.stringify(report))
+  isQuitting = true
+  app.quit()
+}
+
 function registerIpc() {
   const on = (channel, handler) => ipcMain.handle(channel, handler)
   const onSync = (channel, handler) => ipcMain.on(channel, (event, payload) => { event.returnValue = handler(payload) })
@@ -366,17 +452,20 @@ function registerIpc() {
     shell.openExternal(url)
     return true
   })
-  on('openPDF', (_e, payload) => {
+  on('openPDF', (payload) => {
     if (payload && typeof payload === 'object') {
       const url = payload.url || payload.file || ''
       if (!url) return false
-      return openRouteWindow({ route: `/preview-pdf?url=${encodeURIComponent(url)}`, title: payload.title || 'PDF 预览', width: 1000, height: 760 })
+      const key = /\.pdf$/i.test(url) ? 'file' : 'url'
+      return openRouteWindow({ route: `/preview-pdf?${key}=${encodeURIComponent(url)}`, title: payload.title || 'PDF 预览', width: 1000, height: 760 })
     }
     if (typeof payload === 'string' && /\.pdf$/i.test(payload)) { shell.openPath(payload); return true }
     return false
   })
   on('download', (_e, payload) => { log('INFO', `download requested: ${JSON.stringify(payload).slice(0, 160)}`); return true })
   on('exportDownload', () => ({ success: false, message: '导出通道待 P1 阶段实现' }))
+  on('readLocalFile', (_event, payload) => readLocalFile(payload))
+  on('closeThisWindow', (event) => { const target = BrowserWindow.fromWebContents(event.sender); if (target && !target.isDestroyed()) target.close(); return true })
   on('openMessage', () => openRouteWindow({ route: '/message', title: '消息通知', width: 520, height: 680 }))
   on('openFindPwd', () => openRouteWindow({ route: '/find-pwd', title: '找回密码', width: 480, height: 620 }))
   on('closeVersion', () => closeChildWindow('/update'))
@@ -414,7 +503,7 @@ function startTimers() {
 }
 
 function parseFlags() {
-  const flags = { screenshot: '', out: '', hidden: false }
+  const flags = { screenshot: '', out: '', hidden: false, smoke: false }
   for (const arg of process.argv.slice(1)) {
     if (arg === '--screenshot' || arg.startsWith('--screenshot=')) {
       flags.screenshot = arg.includes('=') ? arg.split('=').slice(1).join('=') : 'default'
@@ -422,6 +511,8 @@ function parseFlags() {
       flags.out = arg.slice('--out='.length)
     } else if (arg === '--hidden') {
       flags.hidden = true
+    } else if (arg === '--smoke') {
+      flags.smoke = true
     }
   }
   return flags
@@ -443,6 +534,8 @@ async function runScreenshotMode(flags) {
       contextIsolation: true,
       nodeIntegration: false,
       sandbox: false,
+      webviewTag: true,
+      plugins: true,
       offscreen: true
     }
   })
@@ -504,6 +597,18 @@ if (!gotLock) {
     applyAutoStart()
 
     const flags = parseFlags()
+    if (flags.smoke) {
+      createLoadingWindow()
+      const loadingCreated = Boolean(loadingWindow)
+      startLocalServices()
+      await checkVersion()
+      await delay(800)
+      createMainWindow()
+      createTray()
+      startTimers()
+      await delay(1200)
+      return runSmokeMode(loadingCreated)
+    }
     if (flags.screenshot) {
       startLocalServices()
       await checkVersion()
