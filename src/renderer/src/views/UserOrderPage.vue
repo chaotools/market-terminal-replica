@@ -22,10 +22,18 @@ const filtered = computed(() => {
 
 async function load() {
   loading.value = true
+  let remote = []
   try {
     const data = await api.getOrders()
-    rows.value = Array.isArray(data?.rows) ? data.rows : Array.isArray(data?.list) ? data.list : []
-  } catch { rows.value = [] } finally { loading.value = false }
+    remote = Array.isArray(data?.rows) ? data.rows : Array.isArray(data?.list) ? data.list : []
+  } catch { remote = [] }
+  let local = []
+  try {
+    const orders = await window.electron?.invoke?.('getSetting', 'orders')
+    local = Array.isArray(orders) ? orders : []
+  } catch { local = [] }
+  rows.value = [...local, ...remote]
+  loading.value = false
 }
 
 onMounted(() => { app.setActiveGroup(5); load() })

@@ -272,3 +272,45 @@
 .dpu-main { flex: 1; min-width: 0; overflow: auto; padding: 14px 18px; }
 .dpu-cond-row { display: flex; align-items: center; gap: 8px; border: 1px solid var(--border); border-radius: 4px; padding: 8px 10px; margin-bottom: 8px; font-size: 12px; color: var(--text-soft); background: #fff; }
 .dpu-cond-row .name { flex: 1; color: var(--text); }
+
+/* P1：题材详情子页 */
+.detail-page { flex: 1; min-height: 0; display: flex; background: #fff; }
+.detail-rail { width: 64px; flex: none; border-right: 1px solid var(--border); background: #fafbfc; display: flex; flex-direction: column; padding-top: 6px; gap: 2px; }
+.detail-main { flex: 1; min-width: 0; display: flex; flex-direction: column; min-height: 0; }
+.detail-head { padding: 10px 16px 6px; }
+.detail-title { font-size: 22px; font-weight: 600; color: #c0392b; }
+.detail-sub { font-size: 12px; color: var(--text-soft); margin-top: 4px; }
+.detail-table-wrap { flex: 1; min-height: 0; overflow: auto; padding: 0 12px 10px; }
+.detail-stock-row td { style: none; }
+.detail-stock-name { font-size: 14px; font-weight: 600; color: #c0392b; }
+.detail-stock-pct { font-size: 12px; }
+.detail-desc { font-size: 12px; color: var(--text-soft); line-height: 1.7; }
+/* P1：会员/购买页 */
+.buy-page { flex: 1; min-height: 0; overflow: auto; background: var(--bg); padding: 18px 24px 30px; }
+.buy-hero { background: linear-gradient(120deg, #1d2b45, #2f4f7a); color: #fff; border-radius: 8px; padding: 22px 26px; display: flex; align-items: center; gap: 24px; }
+.buy-hero h2 { margin: 0; font-size: 22px; letter-spacing: 2px; }
+.buy-hero p { margin: 6px 0 0; font-size: 12px; color: #c9d6e8; }
+.buy-hero .price-tag { margin-left: auto; text-align: right; }
+.buy-hero .price-tag b { font-size: 30px; font-weight: 600; }
+.buy-hero .price-tag span { font-size: 12px; color: #c9d6e8; display: block; }
+.buy-section { margin-top: 16px; background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; }
+.buy-section h3 { margin: 0 0 12px; font-size: 14px; color: var(--text); }
+.benefit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.benefit-card { border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px; background: #fafbfc; }
+.benefit-card h4 { margin: 0 0 6px; font-size: 13px; color: var(--text); }
+.benefit-card p { margin: 0; font-size: 12px; color: var(--muted); line-height: 1.7; }
+.price-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.price-card { border: 2px solid var(--border); border-radius: 8px; padding: 16px 18px; cursor: pointer; position: relative; background: #fff; }
+.price-card:hover { border-color: #bcd7f2; }
+.price-card.active { border-color: var(--accent); background: var(--accent-soft); }
+.price-card .term { font-size: 13px; color: var(--text-soft); }
+.price-card .amount { font-size: 26px; font-weight: 600; color: var(--text); margin: 6px 0 2px; }
+.price-card .amount small { font-size: 12px; color: var(--muted); font-weight: 400; }
+.price-card .badge { position: absolute; right: 10px; top: 10px; font-size: 10px; background: #fdf1dc; color: #8a5a13; border: 1px solid #f0d9ae; border-radius: 3px; padding: 0 5px; }
+.pay-methods { display: flex; gap: 12px; margin: 6px 0 0; }
+.pay-method { border: 1px solid var(--border); border-radius: 6px; padding: 10px 16px; font-size: 13px; color: var(--text-soft); cursor: pointer; background: #fff; }
+.pay-method.active { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+.buy-actions { display: flex; align-items: center; gap: 14px; margin-top: 14px; }
+.buy-note { font-size: 12px; color: var(--muted); line-height: 1.8; }
+.qr-placeholder { width: 180px; height: 180px; border: 1px dashed var(--border-strong); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 12px; text-align: center; padding: 18px; background: #fafbfc; }
+.buy-success { color: var(--down); font-size: 13px; font-weight: 600; }

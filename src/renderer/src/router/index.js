@@ -30,6 +30,7 @@ import UserProfilePage from '../views/UserProfilePage.vue'
 import UserOrderPage from '../views/UserOrderPage.vue'
 import UserPwdPage from '../views/UserPwdPage.vue'
 import DpuPage from '../views/DpuPage.vue'
+import BuyPage from '../views/BuyPage.vue'
 
 const placeholder = (title, stage, apis, notes, origin) => ({
   name: title,
@@ -76,7 +77,12 @@ const routes = [
       { path: 'subject/excavate', name: 'SubjectViewExcavate', component: SubjectExcavatePage, meta: { title: '题材掘金', auth: 1, stage: 'P0' } },
       { path: 'subject/periodic', name: 'SubjectViewPeriodic', component: SubjectPeriodicPage, meta: { title: '题材轮动', auth: 1, stage: 'P0' } },
       { path: 'subject/all', name: 'SubjectViewAll', component: SubjectAllPage, meta: { title: '全部题材', auth: 1, stage: 'P0' } },
-      { path: 'subject/detail/:subjectId', name: 'SubjectDetailIndex', component: SubjectDetailPage, meta: { title: '题材详情', auth: 1, stage: 'P0' } },
+      { path: 'subject/detail/:subjectId', name: 'SubjectDetailIndex', component: SubjectDetailPage, meta: { title: '题材详情', auth: 1, stage: 'P0', tab: 'rank' } },
+      { path: 'subject/detail/:subjectId/desc', name: 'SubjectDetailDesc', component: SubjectDetailPage, meta: { title: '题材介绍', auth: 1, stage: 'P1', tab: 'intro' } },
+      { path: 'subject/detail/:subjectId/vip-table', name: 'SubjectDetailVipTable', component: SubjectDetailPage, meta: { title: '题材排名', auth: 1, stage: 'P1', tab: 'rank' } },
+      { path: 'subject/detail/:subjectId/vip-tree', name: 'SubjectDetailVipTree', component: SubjectDetailPage, meta: { title: '题材图谱', auth: 1, stage: 'P1', tab: 'tree' } },
+      { path: 'subject/detail/:subjectId/svip-rank', name: 'SubjectDetailSvipRank', component: SubjectDetailPage, meta: { title: '题材排名', auth: 1, stage: 'P1', tab: 'rank' } },
+      { path: 'subject/detail/:subjectId/kline', name: 'SubjectDetailKline', component: SubjectDetailPage, meta: { title: '题材K线', auth: 1, stage: 'P1', tab: 'rank' } },
       { path: 'subject-periodogram', ...placeholder('题材周期图', 'P2', ['/app/subject/history-cycle/:type'], ['上证/深证/创业板周期图']), meta: { title: '题材周期图', auth: 1, stage: 'P2' } },
 
       { path: 'svip-subject/detail/:subjectId', ...placeholder('甄选题材详情', 'P2', ['/app/selected-subject/query/:id', '/app/subject/all-lead-times'], ['desc/table/stock/kline 四个子页签']), meta: { title: '甄选题材详情', auth: 1, stage: 'P2' } },
@@ -94,9 +100,9 @@ const routes = [
 
       { path: 'dpu', name: 'DpuMain', component: DpuPage, meta: { title: '战法库', auth: 1, stage: 'P1' } },
 
-      { path: 'buy-qz', ...placeholder('圈子', 'P2', [], ['二维码图 + 客服提示（原始 webview/本地图）']), meta: { title: '圈子', auth: 1, stage: 'P2' } },
-      { path: 'buy-vip', ...placeholder('题材库会员', 'P1', ['/app/vip-order/'], ['权益矩阵：题材库会员', '原始为 webview 活动页，本复刻为本地权益介绍页']), meta: { title: '题材库会员', auth: 1, stage: 'P1' } },
-      { path: 'buy-svip', ...placeholder('甄选版', 'P1', ['/app/vip-order/'], ['权益矩阵：甄选版', '原始为 webview 活动页，本复刻为本地权益介绍页']), meta: { title: '甄选版', auth: 1, stage: 'P1' } },
+      { path: 'buy-qz', name: 'BuyQz', component: BuyPage, meta: { title: '圈子', auth: 1, stage: 'P1', plan: 'qz' } },
+      { path: 'buy-vip', name: 'BuyVip', component: BuyPage, meta: { title: '题材库会员', auth: 1, stage: 'P1', plan: 'vip' } },
+      { path: 'buy-svip', name: 'BuySvip', component: BuyPage, meta: { title: '甄选版', auth: 1, stage: 'P1', plan: 'svip' } },
 
       { path: 'user', redirect: '/user/profile' },
       { path: 'user/profile', name: 'UserProfile', component: UserProfilePage, meta: { title: '我的资料', auth: 1, stage: 'P1' } },

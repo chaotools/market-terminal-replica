@@ -21,7 +21,7 @@ const LOGIN_SIZE = { width: 960, height: 640 }
 
 const SCREENSHOT_ROUTES = [
   '/subject/excavate', '/market-trend/main', '/market-trend/stock/quotation/300152', '/trend', '/fav',
-  '/subject/periodic', '/subject/all', '/dpu', '/user/profile', '/user/order', '/user/pwd', '/dpu', '/login', '/update', '/message'
+  '/subject/periodic', '/subject/all', '/buy-vip', '/buy-svip', '/buy-qz', '/subject/detail/1', '/user/profile', '/user/order', '/user/pwd', '/dpu', '/login', '/update', '/message'
 ]
 
 let mainWindow = null
