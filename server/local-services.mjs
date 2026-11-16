@@ -24,6 +24,8 @@ let meta = {
 const sseClients = new Set()
 let eventLog = []
 let dpuConditions = []
+let liveChatLog = []
+let liveTickCount = 0
 let dpuSeq = 1
 let lastAggregate = null
 
@@ -419,6 +421,7 @@ function apiData(pathname, query, body) {
   }
   if (joined === '/app/push-message/type') return [{ typeId: 1, typeName: '系统通知' }, { typeId: 2, typeName: '题材提醒' }]
   if (joined === '/app/push-message') return { rows: [], total: 0 }
+  if (joined === '/app/live/events') return { list: liveChatLog.slice(-30) }
   if (joined === '/app/stock/qa/v2') return { rows: [], total: 0 }
   if (joined === '/app/stock-report/v2/list') return { rows: [], total: 0 }
   if (joined === '/app/lecturer/subscribe') return { rows: [], total: 0 }
@@ -544,6 +547,27 @@ setInterval(async () => {
   const next = aggregate()
   recordEvents(next)
   const frame = `event: tick\ndata: ${JSON.stringify({ ...next, events: eventLog.slice(-40) })}\n\n`
+  liveTickCount += 1
+  if (liveTickCount % 3 === 0) {
+    const names = (state.subjectDefs || []).slice(0, 5).map((d) => d.name)
+    const kinds = ['ENTER', 'CHAT', 'STATUS', 'LEAVE']
+    const kind = kinds[liveTickCount % kinds.length]
+    const text = kind === 'ENTER' ? '进入直播间' : kind === 'LEAVE' ? '离开直播间' : kind === 'CHAT' ? '直播讲解：关注题材梯队与龙头切换' : '直播状态：开播中'
+    const liveMessage = {
+      id: 'live-' + liveTickCount,
+      kind,
+      time: new Date().toISOString(),
+      text,
+      room: names[liveTickCount % Math.max(1, names.length)] || '本地示例直播',
+      source: '本地 broadcast-room 模拟'
+    }
+    liveChatLog.push(liveMessage)
+    if (liveChatLog.length > 60) liveChatLog = liveChatLog.slice(-60)
+    const liveFrame = `event: live\ndata: ${JSON.stringify(liveMessage)}\n\n`
+    for (const client of sseClients) {
+      try { client.write(liveFrame) } catch { sseClients.delete(client) }
+    }
+  }
   for (const client of sseClients) {
     try { client.write(frame) } catch { sseClients.delete(client) }
   }

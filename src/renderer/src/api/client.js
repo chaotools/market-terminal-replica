@@ -125,6 +125,7 @@ export const api = {
   previewDpu: (data) => request('/dpu/condition-stock/preview/v2', { method: 'POST', data }),
   getResearchReports: (params) => request('/app/stock-report/v2/list', { params }),
   getIssues: (params) => request('/app/stock/qa/v2', { params }),
+  getLiveEvents: () => request('/app/live/events'),
   getSearch: (keyword) => request('/app/search/v2', { params: { keyword } }),
   getPushMessageTypes: () => request('/app/push-message/type'),
   getPushMessages: (params) => request('/app/push-message', { params })

@@ -1,6 +1,7 @@
 <script setup>
-import { nextTick, onMounted, ref } from 'vue'
+import { nextTick, onMounted, onUnmounted, ref } from 'vue'
 import { useAppStore } from '../stores.js'
+import { api } from '../api/client.js'
 
 const app = useAppStore()
 const tab = ref('intro')
@@ -9,6 +10,18 @@ const chatList = ref([
   { role: 'system', text: '直播聊天室（本地模拟）：原始应用通过 socket.io broadcast-room 事件（ENTER/LEAVE/CHAT/START/END/STATUS）驱动。' }
 ])
 const listRef = ref(null)
+let source = null
+
+function pushLive(message) {
+  chatList.value.push({ role: 'live', text: '[' + (message.kind || 'LIVE') + '] ' + (message.text || '') + (message.room ? '（' + message.room + '）' : '') })
+}
+
+async function loadLiveEvents() {
+  try {
+    const data = await api.getLiveEvents()
+    for (const message of data?.list || []) pushLive(message)
+  } catch { /* 本地服务未启动时忽略 */ }
+}
 
 async function send() {
   const text = chatInput.value.trim()
@@ -19,7 +32,18 @@ async function send() {
   if (listRef.value) listRef.value.scrollTop = listRef.value.scrollHeight
 }
 
-onMounted(() => { app.setActiveGroup(4) })
+onMounted(async () => {
+  app.setActiveGroup(4)
+  await loadLiveEvents()
+  try {
+    source = new EventSource('http://127.0.0.1:8080/push')
+    source.addEventListener('live', (event) => {
+      try { pushLive(JSON.parse(event.data)) } catch { /* ignore */ }
+    })
+  } catch { /* EventSource 不可用时仅本地聊天 */ }
+})
+
+onUnmounted(() => { source?.close() })
 </script>
 
 <template>

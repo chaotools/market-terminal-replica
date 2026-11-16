@@ -38,6 +38,8 @@ import ResearchReportPage from '../views/ResearchReportPage.vue'
 import LecturerPage from '../views/LecturerPage.vue'
 import LivePage from '../views/LivePage.vue'
 import ComplainPage from '../views/ComplainPage.vue'
+import IssuesPage from '../views/IssuesPage.vue'
+import PosterPage from '../views/PosterPage.vue'
 
 const placeholder = (title, stage, apis, notes, origin) => ({
   name: title,
@@ -59,8 +61,8 @@ const routes = [
       { path: 'preview-pdf', name: 'PreviewPdf', component: PdfPage, meta: { title: 'PDF预览', auth: 0, plain: true, hidden: true } },
       { path: 'message', name: 'MessageIndex', component: MessagePage, meta: { title: '消息通知', auth: 1 } },
 
-      { path: 'poster', ...placeholder('海报', 'P2', [], ['原始：iframe 显示 ?url= 海报页'], '/poster'), meta: { title: '海报', auth: 1, hidden: true, stage: 'P2' } },
-      { path: 'issues', ...placeholder('问董秘', 'P1', ['/app/stock/qa', '/app/stock/qa/v2', '/app/stock/qa/rank'], ['问答列表（增量拉取 10 条）', '排名视图']), meta: { title: '问董秘', auth: 1, stage: 'P1' } },
+      { path: 'poster', name: 'Poster', component: PosterPage, meta: { title: '海报', auth: 1, stage: 'P2', hidden: true } },
+      { path: 'issues', name: 'IssuesIndex', component: IssuesPage, meta: { title: '问董秘', auth: 1, stage: 'P2' } },
       { path: 'research-report', name: 'ResearchReportIndex', component: ResearchReportPage, meta: { title: '研究报告', auth: 1, stage: 'P2' } },
       { path: 'live', name: 'Live', component: LivePage, meta: { title: '播放', auth: 0, stage: 'P2' } },
       { path: 'course-his', ...placeholder('历史课程', 'P2', ['/app/lecturer/his/course/list'], ['课程历史列表']), meta: { title: '历史课程', auth: 0, stage: 'P2' } },

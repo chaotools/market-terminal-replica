@@ -14,6 +14,11 @@ const USER_DATA = app.getPath('userData')
 const LOG_DIR = path.join(USER_DATA, 'logs')
 const LOG_FILE = path.join(LOG_DIR, 'main.log')
 const STORE_FILE = path.join(USER_DATA, 'settings.json')
+const APP_BASE = app.isPackaged ? path.join(process.resourcesPath, 'app.asar.unpacked') : ROOT
+const SERVER_ENTRY = path.join(APP_BASE, 'server', 'local-services.mjs')
+const LOADING_ENTRY = path.join(APP_BASE, 'out', 'resources', 'loading.html')
+const SAMPLE_PDF_ENTRY = path.join(APP_BASE, 'out', 'resources', 'sample.pdf')
+const ICON_ENTRY = path.join(APP_BASE, 'out', 'icon.png')
 const RENDERER_ENTRY = path.join(__dirname, '..', 'renderer', 'index.html')
 const PRELOAD_ENTRY = path.join(__dirname, '..', 'preload', 'index.js')
 const MAIN_SIZE = { width: 1280, height: 820 }
@@ -21,7 +26,7 @@ const LOGIN_SIZE = { width: 960, height: 640 }
 
 const SCREENSHOT_ROUTES = [
   '/subject/excavate', '/market-trend/main', '/market-trend/stock/quotation/300152', '/trend', '/fav',
-  '/subject/periodic', '/subject/all', '/buy-vip', '/buy-svip', '/buy-qz', '/subject/detail/1', '/research-report', '/lecturer', '/live', '/user-complain', '/svip-lead-stock', '/svip-subject-main/monitoring/lead', '/svip-subject-main/monitoring/continuous', '/svip-ding-loong', '/svip-subject-main/svip', '/svip-subject-main/svip-longhu', '/svip-subject-main/call-auction', '/user/profile', '/user/order', '/user/pwd', '/dpu', '/login', '/update', '/message'
+  '/subject/periodic', '/subject/all', '/buy-vip', '/buy-svip', '/buy-qz', '/subject/detail/1', '/research-report', '/issues', '/poster', '/lecturer', '/live', '/user-complain', '/svip-lead-stock', '/svip-subject-main/monitoring/lead', '/svip-subject-main/monitoring/continuous', '/svip-ding-loong', '/svip-subject-main/svip', '/svip-subject-main/svip-longhu', '/svip-subject-main/call-auction', '/user/profile', '/user/order', '/user/pwd', '/dpu', '/login', '/update', '/message'
 ]
 
 let mainWindow = null
@@ -88,7 +93,7 @@ function broadcast(channel, payload) {
 }
 
 function startLocalServices() {
-  const entry = path.join(ROOT, 'server', 'local-services.mjs')
+  const entry = SERVER_ENTRY
   if (!fs.existsSync(entry)) {
     log('WARN', `本地服务入口不存在: ${entry}`)
     return
@@ -145,7 +150,7 @@ function createLoadingWindow() {
     backgroundColor: '#0f1b33',
     webPreferences: { contextIsolation: true, nodeIntegration: false, sandbox: true }
   })
-  const entry = path.join(ROOT, 'out', 'resources', 'loading.html')
+  const entry = LOADING_ENTRY
   if (fs.existsSync(entry)) {
     loadingWindow.loadFile(entry)
     loadingWindow.once('ready-to-show', () => { if (!mainWindow) loadingWindow?.show() })
@@ -269,7 +274,7 @@ function closeChildWindow(route) {
 }
 
 function createTray() {
-  const iconPath = path.join(ROOT, 'out', 'icon.png')
+  const iconPath = ICON_ENTRY
   const icon = fs.existsSync(iconPath) ? nativeImage.createFromPath(iconPath) : nativeImage.createEmpty()
   if (icon.isEmpty()) {
     log('WARN', '托盘图标缺失，跳过托盘')
@@ -376,7 +381,7 @@ async function runSmokeMode(loadingCreated) {
       record('ipc_service_status', Boolean(status && Array.isArray(status.ports)), JSON.stringify(status))
       const token = await mainWindow.webContents.executeJavaScript("window.electron.sendSync('getStore','Authorization')").catch(() => null)
       record('token_store_sync', token === 'local-replica-token', String(token))
-      const pdfPath = path.join(ROOT, 'out', 'resources', 'sample.pdf')
+      const pdfPath = SAMPLE_PDF_ENTRY
       const readPdf = await mainWindow.webContents.executeJavaScript("window.electron.invoke('readLocalFile', " + JSON.stringify(pdfPath) + ")").catch(() => null)
       record('read_local_pdf', Boolean(readPdf && readPdf.ok), readPdf ? readPdf.error || (readPdf.size + ' bytes') : 'no result')
       await mainWindow.webContents.executeJavaScript("window.electron.invoke('openRouteWindow', { route: '/message', title: '消息通知', width: 520, height: 680 })").catch(() => null)
@@ -395,8 +400,9 @@ async function runSmokeMode(loadingCreated) {
     ok: checks.every((c) => c.ok),
     checks
   }
-  fs.mkdirSync(path.join(ROOT, 'out'), { recursive: true })
-  fs.writeFileSync(path.join(ROOT, 'out', 'smoke-report.json'), JSON.stringify(report, null, 2))
+  const reportDir = app.isPackaged ? app.getPath('userData') : path.join(ROOT, 'out')
+  fs.mkdirSync(reportDir, { recursive: true })
+  fs.writeFileSync(path.join(reportDir, 'smoke-report.json'), JSON.stringify(report, null, 2))
   console.log('[smoke-report] ' + JSON.stringify(report))
   isQuitting = true
   app.quit()
@@ -519,7 +525,7 @@ function parseFlags() {
 }
 
 async function runScreenshotMode(flags) {
-  const outDir = flags.out ? path.resolve(flags.out) : path.join(ROOT, 'out', 'screens')
+  const outDir = flags.out ? path.resolve(flags.out) : (app.isPackaged ? path.join(app.getPath('userData'), 'screens') : path.join(ROOT, 'out', 'screens'))
   fs.mkdirSync(outDir, { recursive: true })
   const routes = flags.screenshot && flags.screenshot !== 'default'
     ? flags.screenshot.split(',').map((s) => s.trim()).filter(Boolean)
