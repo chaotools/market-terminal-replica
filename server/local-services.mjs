@@ -1,7 +1,7 @@
 import http from 'node:http'
 import {
   toSnapshot, deriveLadder, deriveSubjectStocks,
-  deriveRotation, deriveSubjects, detectEvents
+  deriveRotation, deriveSubjects, detectEvents, deriveSubjectGraph
 } from '../shared/domain.mjs'
 import { loadBridgeFixtures, buildBridgeState } from './bridge-source.mjs'
 import { createPublicEngine } from './public-source.mjs'
@@ -246,6 +246,7 @@ async function route(pathname, query) {
     const subjectId = parts[3] || id
     if (parts[2] === 'query') return await subjectDetail(subjectId)
     if (parts[2] === 'child-stock-tree') return { subjectId, stocks: deriveSubjectStocks(state, subjectId) }
+    if (parts[2] === 'graph-tree') return { subjectId, tree: deriveSubjectGraph(state, subjectId) }
     if (parts[2] === 'realtime') return subjectById(subjectId) || { error: 'not_found' }
     if (parts[2] === 'lead-days') return { subjectId, leadDays: subjectById(subjectId)?.sustainDays || 0 }
     if (parts[2] === 'stock-subject-lead') return { subjectId, leadStock: subjectById(subjectId)?.leadStock || null }

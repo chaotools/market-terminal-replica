@@ -81,6 +81,27 @@
 公开源说明见 `server/public-source.mjs`，桥接说明见 `server/bridge-source.mjs`。
 盘中数据一律带 `asOf` 与 `sessionState`，`GET /meta` 可查，界面顶部与状态栏同步展示。
 
+## 题材图谱（横向思维导图）
+
+原版「题材图谱」是 `vip-tree` + `HorizontalTree` 组件：从左到右分层的脑图，橙色圆角节点显示涨跌幅，
+贝塞尔曲线连接，右侧配说明文字，带按涨幅/题材排名切换、一键展开、缩放。本复刻对齐了结构与交互：
+
+- **`shared/domain.mjs` 的 `deriveSubjectGraph`**：以某题材为根，按**共享成分股数量（Jaccard 重合度）**
+  找出关联题材作为二级，再挂各自的龙头成分股为三级。这贴合业务语义——一只股票属于多个题材，
+  题材之间因共享成分股而关联。节点带 `reason`（如「与参股金融共享 160 只成分股」）、行业/情绪徽章。
+- **`components/HorizontalTree.vue`**：SVG 贝塞尔连线 + 经典树布局（父节点对齐子节点中心），
+  支持节点折叠/一键展开、缩放、拖拽平移、单击选中、双击进详情。涨红跌绿。
+- **同页两个专业视图**：`RelationGraph.vue`（力导向关系网络，canvas 自绘，可拖拽/缩放/hover）、
+  `DataTable.vue`（列配置、三态排序、固定列、虚拟滚动），对齐原版 ECharts graph + VXE-table 的能力。
+
+```
+GET /app/subject/graph-tree/:id   # 题材图谱树（题材→关联题材→成分股）
+```
+
+**工程化**：58 个路由组件全部改为动态 `import()` 分包，Vite `manualChunks` 拆出
+`vendor-vue` / `vendor-router` / `vendor-pdf`，单页产物从 263KB 主包拆成主包 33KB + 各页面 2–18KB；
+`DefaultLayout` 用 `keep-alive :max="12"` 缓存主界面（plain 子窗不缓存），对齐原版 Vue 工程实践。
+
 ## 题材层级与情报
 
 **层级树**：题材按 `sector` 归并为父级，父级指标由子题材成分股并集派生（不是简单相加），

@@ -339,3 +339,73 @@
 .monitor-chart-body { flex: 1; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 12px; }
 .svip-simple-page { flex: 1; min-height: 0; display: flex; flex-direction: column; background: #fff; }
 .svip-simple-body { flex: 1; min-height: 0; overflow: auto; }
+
+/* 题材图谱：横向思维导图（HorizontalTree） */
+.detail-graph-wrap { display: flex; flex-direction: column; padding: 0; overflow: hidden; }
+.graph-tree { flex: 1; min-height: 0; display: flex; flex-direction: column; background: #fff; }
+.gt-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 6px 12px; border-bottom: 1px solid var(--border); flex: none; }
+.gt-hint { font-size: 11px; color: var(--muted); }
+.gt-actions { display: flex; align-items: center; gap: 6px; }
+.gt-icon { width: 24px; height: 24px; border: 1px solid var(--border); background: #fff; color: var(--text); border-radius: 3px; cursor: pointer; font-size: 15px; line-height: 1; }
+.gt-icon:hover { border-color: var(--accent); color: var(--accent); }
+.gt-scale { font-size: 11px; color: var(--text-soft); min-width: 38px; text-align: center; }
+.gt-btn { height: 26px; border: 1px solid var(--border); background: #fff; color: var(--text-soft); border-radius: 3px; cursor: pointer; font-size: 11px; padding: 0 10px; }
+.gt-btn:hover { border-color: var(--accent); color: var(--accent); }
+.gt-viewport { flex: 1; min-height: 0; overflow: hidden; position: relative; cursor: grab; background: radial-gradient(circle at 30% 40%, #fff 0%, #fafbfd 100%); }
+.gt-viewport:active { cursor: grabbing; }
+.gt-stage { position: absolute; left: 0; top: 0; transform-origin: 0 0; transition: transform .12s; }
+.gt-edges { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
+.gt-edge { fill: none; stroke: #e0a15c; stroke-width: 1.4; opacity: .75; }
+.gt-node { position: absolute; width: 96px; min-height: 30px; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; gap: 4px; padding: 3px 6px; border: 1px solid #e0a15c; border-radius: 15px; cursor: pointer; font-size: 11px; white-space: nowrap; box-shadow: 0 1px 3px rgba(180,120,50,.12); user-select: none; }
+.gt-node:hover { box-shadow: 0 2px 8px rgba(180,120,50,.28); z-index: 5; }
+.gt-node.gt-root { border-width: 2px; border-color: #d4732b; font-weight: 600; }
+.gt-node.gt-stock { border-color: #b9c3cf; border-radius: 5px; }
+.gt-node.gt-selected { outline: 2px solid #4a90d9; outline-offset: 1px; }
+.gt-top { color: #d9730d; }
+.gt-badge { font-size: 8px; color: #fff; background: #d9730d; border-radius: 3px; padding: 0 3px; }
+.gt-name { color: var(--text); overflow: hidden; text-overflow: ellipsis; max-width: 52px; }
+.gt-pct { font-size: 10px; font-weight: 600; }
+.gt-toggle { position: absolute; right: -8px; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; line-height: 13px; text-align: center; border: 1px solid #e0a15c; border-radius: 50%; color: #b3691f; background: #fff; font-size: 11px; }
+.gt-toggle:hover { background: #fff2e2; }
+.gt-reason { position: absolute; font-size: 10px; color: #8a93a0; white-space: nowrap; max-width: 230px; overflow: hidden; text-overflow: ellipsis; }
+.gt-empty { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 12px; }
+.gt-selection { flex: none; padding: 6px 12px; border-top: 1px solid var(--border); background: #fafbfc; font-size: 11px; color: var(--text-soft); }
+.gt-selection b { color: var(--text); }
+.gt-selection .up { color: #d92b2b; } .gt-selection .down { color: #1a9a52; }
+
+/* 重型表格 DataTable（对齐 VXE 核心能力） */
+.dt-wrap { width: 100%; overflow: hidden; background: #fff; position: relative; }
+.dt-scroll { width: 100%; height: 100%; overflow: auto; }
+.dt-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 12px; }
+.dt-table th { position: sticky; top: 0; z-index: 2; background: #f5f7fa; color: var(--text-soft); font-weight: 500; text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border); white-space: nowrap; user-select: none; }
+.dt-table th.dt-fixed { position: sticky; left: 0; z-index: 3; }
+.dt-table th.dt-sortable { cursor: pointer; }
+.dt-table th.dt-sortable:hover { color: var(--accent); }
+.dt-table th.dt-sorted { color: var(--accent); background: #eef4fb; }
+.dt-sort-icon { font-size: 9px; margin-left: 3px; color: #aab3bf; }
+.dt-table td { padding: 5px 8px; border-bottom: 1px solid #f3f5f8; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 260px; }
+.dt-table td.dt-fixed { position: sticky; left: 0; background: #fff; z-index: 1; }
+.dt-table tbody tr { cursor: pointer; }
+.dt-table tbody tr:hover td { background: #f7f9fc; }
+.dt-table tbody tr.active td { background: var(--accent-soft); }
+.dt-table .dt-num { text-align: right; font-variant-numeric: tabular-nums; }
+.dt-table .up { color: #d92b2b; }
+.dt-table .down { color: #1a9a52; }
+.dt-table .flat { color: var(--flat); }
+.dt-empty { text-align: center; color: var(--muted); padding: 22px 0 !important; }
+.dt-virtual-tip { position: absolute; right: 8px; bottom: 4px; font-size: 10px; color: var(--muted); background: rgba(255,255,255,.85); padding: 1px 6px; border-radius: 3px; }
+
+/* 关系网络图（ECharts graph 风格） */
+.relation-graph { position: relative; width: 100%; background: radial-gradient(circle at 50% 45%, #fbfcfe 0%, #f4f6f9 100%); border: 1px solid var(--border); overflow: hidden; }
+.relation-graph canvas { display: block; cursor: grab; }
+.relation-graph canvas:active { cursor: grabbing; }
+.rg-legend { position: absolute; left: 10px; bottom: 8px; font-size: 10px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+.rg-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-left: 6px; }
+.rg-dot.up { background: #d92b2b; } .rg-dot.down { background: #1a9a52; } .rg-dot.flat { background: #9aa5b1; }
+.rg-tip { position: absolute; right: 10px; top: 8px; background: rgba(255,255,255,.95); border: 1px solid var(--border); border-radius: 4px; padding: 5px 9px; font-size: 11px; display: flex; gap: 8px; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+.rg-tip b { color: var(--text); }
+.rg-empty { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 12px; }
+
+/* 题材图谱三视图切换 */
+.graph-views { display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-bottom: 1px solid var(--border); flex: none; background: #fafbfc; }
+.graph-view-tip { margin-left: auto; font-size: 10px; color: var(--muted); }

@@ -193,6 +193,92 @@ export function deriveSubjectTree(state) {
 }
 
 /**
+ * 题材图谱：以某题材为中心，构造「中心题材 → 关联题材 → 成分股」的横向树。
+ * 关联题材按共享成分股数量（Jaccard 重合度）排序，体现原版「题材图谱」的业务语义：
+ * 一只股票同时属于多个题材，题材之间因共享成分股而产生关联。
+ * 节点结构与原版 HorizontalTree 对齐：subjectId / name / pctChg / children / stocks / reason / business / top。
+ */
+export function deriveSubjectGraph(state, subjectId, options = {}) {
+  const maxRelated = options.maxRelated ?? 10
+  const maxStocks = options.maxStocks ?? 6
+  const sid = String(subjectId ?? '')
+  if (!sid) return []
+
+  const all = Object.values(state?.stocks || {})
+  const subjects = deriveSubjects(state)
+  const center = subjects.find((s) => String(s.subjectId) === sid)
+  if (!center) return []
+
+  // 中心题材成分股集合
+  const centerStocks = new Set(all.filter((s) => s.subjectIds?.some((id) => String(id) === sid)).map((s) => s.code))
+
+  // 统计其它题材与中心的共享成分股
+  const related = []
+  for (const sub of subjects) {
+    if (String(sub.subjectId) === sid) continue
+    const members = new Set(all.filter((s) => s.subjectIds?.some((id) => String(id) === String(sub.subjectId))).map((s) => s.code))
+    if (!members.size) continue
+    let shared = 0
+    for (const code of members) if (centerStocks.has(code)) shared++
+    if (!shared) continue
+    const jaccard = shared / (centerStocks.size + members.size - shared || 1)
+    related.push({ sub, members, shared, jaccard })
+  }
+  related.sort((a, b) => b.shared - a.shared || b.jaccard - a.jaccard || b.sub.heat - a.sub.heat)
+
+  const stocksOf = (memberSet) => all
+    .filter((s) => memberSet.has(s.code))
+    .sort((a, b) => b.limitUpStreak - a.limitUpStreak || b.changePct - a.changePct)
+    .slice(0, maxStocks)
+
+  // 二级节点：关联题材；三级节点：该题材的龙头成分股
+  const children = related.slice(0, maxRelated).map(({ sub, members, shared }) => ({
+    subjectId: sub.subjectId,
+    name: sub.subjectName,
+    pctChg: sub.changePct,
+    heat: sub.heat,
+    limitUpCount: sub.limitUpCount,
+    limitUpHeight: sub.limitUpHeight,
+    reason: `与「${center.subjectName}」共享 ${shared} 只成分股`,
+    business: sub.sector === '行业' ? 1 : 0,
+    top: sub.top ? 1 : 0,
+    stocks: stocksOf(members).map((s) => ({
+      stockId: s.code,
+      name: s.name,
+      pctChg: s.changePct,
+      price: s.price,
+      limitUpStreak: s.limitUpStreak,
+      reason: s.subjectNames || undefined,
+      subjectIds: s.subjectIds
+    })),
+    children: []
+  }))
+
+  // 根节点：中心题材，直接挂自身成分股
+  const root = {
+    subjectId: center.subjectId,
+    name: center.subjectName,
+    pctChg: center.changePct,
+    heat: center.heat,
+    limitUpCount: center.limitUpCount,
+    limitUpHeight: center.limitUpHeight,
+    business: center.sector === '行业' ? 1 : 0,
+    top: 0,
+    children,
+    stocks: stocksOf(centerStocks).map((s) => ({
+      stockId: s.code,
+      name: s.name,
+      pctChg: s.changePct,
+      price: s.price,
+      limitUpStreak: s.limitUpStreak,
+      reason: s.subjectNames || undefined,
+      subjectIds: s.subjectIds
+    }))
+  }
+  return [root]
+}
+
+/**
  * 事件流：对比前后两份快照，产出可展示的题材事件
  * 这是真实行情派生的事件，不是资讯
  */

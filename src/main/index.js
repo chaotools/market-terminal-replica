@@ -572,7 +572,7 @@ async function runScreenshotMode(flags) {
   for (const route of routes) {
     try {
       await win.loadFile(RENDERER_ENTRY, { hash: route })
-      await delay(flags.public ? 9000 : 1600)
+      await delay(flags.public ? 15000 : 1600)
       try {
         const debug = await win.webContents.executeJavaScript(`(() => {
           const el = document.querySelector('#app')
