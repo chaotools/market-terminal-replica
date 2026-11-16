@@ -1,0 +1,9037 @@
+{
+ "meta": {
+  "source": "bridge-capture",
+  "generatedAt": "2026-11-16T07:06:10.352Z",
+  "captureDir": "C:/Users/0409/Documents/deepseek-harness/default-workspace/jyhf-analysis/screens/reference/api",
+  "tradeDate": "2026-11-16",
+  "capturedMarketTime": "2026-11-16 14:02:00",
+  "apiFiles": [
+   "_api_app_config_info.json",
+   "_api_app_realtime_index-amount.json",
+   "_api_app_realtime_index_v2.json",
+   "_api_app_realtime_market_time.json",
+   "_api_app_realtime_stock-minute-data.json",
+   "_api_app_realtime_stock-realtime-data.json",
+   "_api_app_stock_realtime-by-subject_v2.json",
+   "_api_app_stock_realtime-rank_v2.json",
+   "_api_app_stock_realtime.json",
+   "_api_app_stock_summary_pctChg.json",
+   "_api_app_subject_child-stock-tree_1.json",
+   "_api_app_subject_daily_1_365.json",
+   "_api_app_subject_daily_9073558_365.json",
+   "_api_app_subject_history-cycle_1.json",
+   "_api_app_subject_history-cycle_latest_1.json",
+   "_api_app_subject_list_v2.json",
+   "_api_app_subject_parents_1.json",
+   "_api_app_subject_query_1.json",
+   "_api_app_subject_query_9073558.json",
+   "_api_app_subject_realtime.json",
+   "_api_app_subject_realtime_1.json",
+   "_api_app_subject_realtime_9014348.json",
+   "_api_app_subject_realtime_9073558.json",
+   "_api_app_subject_top-history.json",
+   "_api_app_subject_topDig.json"
+  ],
+  "note": "由原始应用明文 API 抓包生成；加密接口不参与、未解密。数据为 2026-11-16 14:02 左右快照。"
+ },
+ "market": {
+  "tradeDate": "2026-11-16",
+  "time": "2026-11-16 14:02:00",
+  "updatedAt": "2026-11-16 2026-11-16 14:02:00",
+  "upCount": 1040,
+  "downCount": 4076,
+  "limitUpCount": 31,
+  "limitDownCount": 34,
+  "limitUpHeight": 4,
+  "red": 31,
+  "green": 0,
+  "yellow": 64,
+  "blue": 308,
+  "stayCount": 108,
+  "amount": 1153527162929.999,
+  "addAmount": -189753244851.627,
+  "indices": [
+   {
+    "code": "000001.SH",
+    "name": "上证指数",
+    "close": 3597.47,
+    "pctChg": -1.01,
+    "changeCount": -36.89,
+    "preClose": 3634.35,
+    "open": 3611.54,
+    "high": 3623.12,
+    "low": 3593.45,
+    "amount": 543814811519.8,
+    "vol": 355726705,
+    "time": "140207",
+    "tradeDate": "20261116"
+   },
+   {
+    "code": "399001.SZ",
+    "name": "深证成指",
+    "close": 10708.19,
+    "pctChg": -2.38,
+    "changeCount": -260.6,
+    "preClose": 10968.79,
+    "open": 10881.91,
+    "high": 10881.91,
+    "low": 10700.7,
+    "amount": 311765726771.3,
+    "vol": 128249648.33,
+    "time": "140207",
+    "tradeDate": "20261116"
+   },
+   {
+    "code": "399006.SZ",
+    "name": "创业板指",
+    "close": 2331.9,
+    "pctChg": -3.88,
+    "changeCount": -94.18,
+    "preClose": 2426.08,
+    "open": 2395.52,
+    "high": 2398.19,
+    "low": 2330.59,
+    "amount": 126392714567.59,
+    "vol": 22479112.25,
+    "time": "140207",
+    "tradeDate": "20261116"
+   },
+   {
+    "code": "000688.SH",
+    "name": "科创50",
+    "close": 1214.17,
+    "pctChg": -5.12,
+    "changeCount": -65.49,
+    "preClose": 1279.66,
+    "open": 1254.48,
+    "high": 1266.61,
+    "low": 1212.93,
+    "amount": 64204005817.8,
+    "vol": 6624847,
+    "time": "140207",
+    "tradeDate": "20261116"
+   }
+  ],
+  "series": [
+   {
+    "time": "2026-11-16 10:34:00",
+    "upCount": 1157,
+    "downCount": 3898,
+    "limitUpCount": 24,
+    "limitDownCount": 16
+   },
+   {
+    "time": "2026-11-16 10:35:00",
+    "upCount": 1213,
+    "downCount": 3844,
+    "limitUpCount": 23,
+    "limitDownCount": 16
+   },
+   {
+    "time": "2026-11-16 10:36:00",
+    "upCount": 1285,
+    "downCount": 3755,
+    "limitUpCount": 24,
+    "limitDownCount": 16
+   },
+   {
+    "time": "2026-11-16 10:37:00",
+    "upCount": 1338,
+    "downCount": 3709,
+    "limitUpCount": 24,
+    "limitDownCount": 16
+   },
+   {
+    "time": "2026-11-16 10:38:00",
+    "upCount": 1518,
+    "downCount": 3513,
+    "limitUpCount": 24,
+    "limitDownCount": 15
+   },
+   {
+    "time": "2026-11-16 10:39:00",
+    "upCount": 1625,
+    "downCount": 3386,
+    "limitUpCount": 25,
+    "limitDownCount": 15
+   },
+   {
+    "time": "2026-11-16 10:40:00",
+    "upCount": 1721,
+    "downCount": 3282,
+    "limitUpCount": 25,
+    "limitDownCount": 15
+   },
+   {
+    "time": "2026-11-16 10:41:00",
+    "upCount": 1774,
+    "downCount": 3240,
+    "limitUpCount": 25,
+    "limitDownCount": 15
+   },
+   {
+    "time": "2026-11-16 10:42:00",
+    "upCount": 1499,
+    "downCount": 3488,
+    "limitUpCount": 24,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 10:43:00",
+    "upCount": 1402,
+    "downCount": 3616,
+    "limitUpCount": 25,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 10:44:00",
+    "upCount": 1373,
+    "downCount": 3657,
+    "limitUpCount": 25,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 10:45:00",
+    "upCount": 1285,
+    "downCount": 3746,
+    "limitUpCount": 26,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 10:46:00",
+    "upCount": 1299,
+    "downCount": 3723,
+    "limitUpCount": 26,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 10:47:00",
+    "upCount": 1262,
+    "downCount": 3773,
+    "limitUpCount": 26,
+    "limitDownCount": 15
+   },
+   {
+    "time": "2026-11-16 10:48:00",
+    "upCount": 1206,
+    "downCount": 3823,
+    "limitUpCount": 26,
+    "limitDownCount": 16
+   },
+   {
+    "time": "2026-11-16 10:49:00",
+    "upCount": 1186,
+    "downCount": 3849,
+    "limitUpCount": 26,
+    "limitDownCount": 16
+   },
+   {
+    "time": "2026-11-16 10:50:00",
+    "upCount": 1123,
+    "downCount": 3909,
+    "limitUpCount": 25,
+    "limitDownCount": 16
+   },
+   {
+    "time": "2026-11-16 10:51:00",
+    "upCount": 1147,
+    "downCount": 3906,
+    "limitUpCount": 27,
+    "limitDownCount": 16
+   },
+   {
+    "time": "2026-11-16 10:52:00",
+    "upCount": 1136,
+    "downCount": 3912,
+    "limitUpCount": 26,
+    "limitDownCount": 16
+   },
+   {
+    "time": "2026-11-16 10:53:00",
+    "upCount": 1144,
+    "downCount": 3906,
+    "limitUpCount": 27,
+    "limitDownCount": 13
+   },
+   {
+    "time": "2026-11-16 10:54:00",
+    "upCount": 1121,
+    "downCount": 3926,
+    "limitUpCount": 28,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 10:55:00",
+    "upCount": 1167,
+    "downCount": 3884,
+    "limitUpCount": 28,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 10:56:00",
+    "upCount": 1182,
+    "downCount": 3870,
+    "limitUpCount": 28,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 10:57:00",
+    "upCount": 1190,
+    "downCount": 3853,
+    "limitUpCount": 28,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 10:58:00",
+    "upCount": 1274,
+    "downCount": 3784,
+    "limitUpCount": 28,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 10:59:00",
+    "upCount": 1284,
+    "downCount": 3766,
+    "limitUpCount": 29,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 11:00:00",
+    "upCount": 1462,
+    "downCount": 3560,
+    "limitUpCount": 30,
+    "limitDownCount": 13
+   },
+   {
+    "time": "2026-11-16 11:01:00",
+    "upCount": 1345,
+    "downCount": 3683,
+    "limitUpCount": 30,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 11:02:00",
+    "upCount": 1280,
+    "downCount": 3768,
+    "limitUpCount": 30,
+    "limitDownCount": 15
+   },
+   {
+    "time": "2026-11-16 11:03:00",
+    "upCount": 1317,
+    "downCount": 3731,
+    "limitUpCount": 30,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 11:04:00",
+    "upCount": 1334,
+    "downCount": 3727,
+    "limitUpCount": 30,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 11:05:00",
+    "upCount": 1281,
+    "downCount": 3795,
+    "limitUpCount": 30,
+    "limitDownCount": 15
+   },
+   {
+    "time": "2026-11-16 11:06:00",
+    "upCount": 1302,
+    "downCount": 3764,
+    "limitUpCount": 30,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 11:07:00",
+    "upCount": 1384,
+    "downCount": 3668,
+    "limitUpCount": 30,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 11:08:00",
+    "upCount": 1501,
+    "downCount": 3530,
+    "limitUpCount": 30,
+    "limitDownCount": 15
+   },
+   {
+    "time": "2026-11-16 11:09:00",
+    "upCount": 1410,
+    "downCount": 3620,
+    "limitUpCount": 30,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 11:10:00",
+    "upCount": 1421,
+    "downCount": 3602,
+    "limitUpCount": 30,
+    "limitDownCount": 13
+   },
+   {
+    "time": "2026-11-16 11:11:00",
+    "upCount": 1497,
+    "downCount": 3552,
+    "limitUpCount": 30,
+    "limitDownCount": 13
+   },
+   {
+    "time": "2026-11-16 11:12:00",
+    "upCount": 1582,
+    "downCount": 3465,
+    "limitUpCount": 30,
+    "limitDownCount": 13
+   },
+   {
+    "time": "2026-11-16 11:13:00",
+    "upCount": 1675,
+    "downCount": 3341,
+    "limitUpCount": 30,
+    "limitDownCount": 13
+   },
+   {
+    "time": "2026-11-16 11:14:00",
+    "upCount": 1856,
+    "downCount": 3149,
+    "limitUpCount": 31,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 11:15:00",
+    "upCount": 1790,
+    "downCount": 3230,
+    "limitUpCount": 33,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 11:16:00",
+    "upCount": 1691,
+    "downCount": 3332,
+    "limitUpCount": 33,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 11:17:00",
+    "upCount": 1669,
+    "downCount": 3365,
+    "limitUpCount": 33,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 11:18:00",
+    "upCount": 1559,
+    "downCount": 3475,
+    "limitUpCount": 33,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 11:19:00",
+    "upCount": 1640,
+    "downCount": 3385,
+    "limitUpCount": 32,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 11:20:00",
+    "upCount": 1569,
+    "downCount": 3464,
+    "limitUpCount": 32,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 11:21:00",
+    "upCount": 1567,
+    "downCount": 3464,
+    "limitUpCount": 32,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 11:22:00",
+    "upCount": 1643,
+    "downCount": 3384,
+    "limitUpCount": 33,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 11:23:00",
+    "upCount": 1714,
+    "downCount": 3305,
+    "limitUpCount": 33,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 11:24:00",
+    "upCount": 1782,
+    "downCount": 3217,
+    "limitUpCount": 33,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 11:25:00",
+    "upCount": 1768,
+    "downCount": 3222,
+    "limitUpCount": 33,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 11:26:00",
+    "upCount": 1717,
+    "downCount": 3299,
+    "limitUpCount": 33,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 11:27:00",
+    "upCount": 1744,
+    "downCount": 3256,
+    "limitUpCount": 33,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 11:28:00",
+    "upCount": 1669,
+    "downCount": 3338,
+    "limitUpCount": 33,
+    "limitDownCount": 15
+   },
+   {
+    "time": "2026-11-16 11:29:00",
+    "upCount": 1685,
+    "downCount": 3303,
+    "limitUpCount": 33,
+    "limitDownCount": 13
+   },
+   {
+    "time": "2026-11-16 11:30:00",
+    "upCount": 1684,
+    "downCount": 3328,
+    "limitUpCount": 33,
+    "limitDownCount": 14
+   },
+   {
+    "time": "2026-11-16 13:00:00",
+    "upCount": 1206,
+    "downCount": 3874,
+    "limitUpCount": 32,
+    "limitDownCount": 12
+   },
+   {
+    "time": "2026-11-16 13:01:00",
+    "upCount": 1202,
+    "downCount": 3878,
+    "limitUpCount": 31,
+    "limitDownCount": 12
+   },
+   {
+    "time": "2026-11-16 13:02:00",
+    "upCount": 1212,
+    "downCount": 3879,
+    "limitUpCount": 32,
+    "limitDownCount": 15
+   },
+   {
+    "time": "2026-11-16 13:03:00",
+    "upCount": 1166,
+    "downCount": 3921,
+    "limitUpCount": 32,
+    "limitDownCount": 16
+   },
+   {
+    "time": "2026-11-16 13:04:00",
+    "upCount": 1182,
+    "downCount": 3906,
+    "limitUpCount": 31,
+    "limitDownCount": 16
+   },
+   {
+    "time": "2026-11-16 13:05:00",
+    "upCount": 1187,
+    "downCount": 3900,
+    "limitUpCount": 30,
+    "limitDownCount": 16
+   },
+   {
+    "time": "2026-11-16 13:06:00",
+    "upCount": 1217,
+    "downCount": 3858,
+    "limitUpCount": 32,
+    "limitDownCount": 17
+   },
+   {
+    "time": "2026-11-16 13:07:00",
+    "upCount": 1235,
+    "downCount": 3847,
+    "limitUpCount": 31,
+    "limitDownCount": 17
+   },
+   {
+    "time": "2026-11-16 13:08:00",
+    "upCount": 1248,
+    "downCount": 3833,
+    "limitUpCount": 32,
+    "limitDownCount": 17
+   },
+   {
+    "time": "2026-11-16 13:09:00",
+    "upCount": 1271,
+    "downCount": 3806,
+    "limitUpCount": 32,
+    "limitDownCount": 17
+   },
+   {
+    "time": "2026-11-16 13:10:00",
+    "upCount": 1278,
+    "downCount": 3792,
+    "limitUpCount": 32,
+    "limitDownCount": 18
+   },
+   {
+    "time": "2026-11-16 13:11:00",
+    "upCount": 1297,
+    "downCount": 3775,
+    "limitUpCount": 31,
+    "limitDownCount": 17
+   },
+   {
+    "time": "2026-11-16 13:12:00",
+    "upCount": 1261,
+    "downCount": 3805,
+    "limitUpCount": 30,
+    "limitDownCount": 18
+   },
+   {
+    "time": "2026-11-16 13:13:00",
+    "upCount": 1323,
+    "downCount": 3765,
+    "limitUpCount": 30,
+    "limitDownCount": 19
+   },
+   {
+    "time": "2026-11-16 13:14:00",
+    "upCount": 1289,
+    "downCount": 3792,
+    "limitUpCount": 31,
+    "limitDownCount": 19
+   },
+   {
+    "time": "2026-11-16 13:15:00",
+    "upCount": 1272,
+    "downCount": 3809,
+    "limitUpCount": 31,
+    "limitDownCount": 19
+   },
+   {
+    "time": "2026-11-16 13:16:00",
+    "upCount": 1231,
+    "downCount": 3847,
+    "limitUpCount": 31,
+    "limitDownCount": 18
+   },
+   {
+    "time": "2026-11-16 13:17:00",
+    "upCount": 1264,
+    "downCount": 3829,
+    "limitUpCount": 32,
+    "limitDownCount": 17
+   },
+   {
+    "time": "2026-11-16 13:18:00",
+    "upCount": 1269,
+    "downCount": 3817,
+    "limitUpCount": 31,
+    "limitDownCount": 18
+   },
+   {
+    "time": "2026-11-16 13:19:00",
+    "upCount": 1666,
+    "downCount": 3376,
+    "limitUpCount": 31,
+    "limitDownCount": 17
+   },
+   {
+    "time": "2026-11-16 13:20:00",
+    "upCount": 1547,
+    "downCount": 3503,
+    "limitUpCount": 32,
+    "limitDownCount": 17
+   },
+   {
+    "time": "2026-11-16 13:21:00",
+    "upCount": 1647,
+    "downCount": 3387,
+    "limitUpCount": 33,
+    "limitDownCount": 17
+   },
+   {
+    "time": "2026-11-16 13:22:00",
+    "upCount": 1969,
+    "downCount": 3062,
+    "limitUpCount": 33,
+    "limitDownCount": 17
+   },
+   {
+    "time": "2026-11-16 13:23:00",
+    "upCount": 1920,
+    "downCount": 3101,
+    "limitUpCount": 33,
+    "limitDownCount": 17
+   },
+   {
+    "time": "2026-11-16 13:24:00",
+    "upCount": 1655,
+    "downCount": 3386,
+    "limitUpCount": 33,
+    "limitDownCount": 17
+   },
+   {
+    "time": "2026-11-16 13:25:00",
+    "upCount": 1485,
+    "downCount": 3549,
+    "limitUpCount": 33,
+    "limitDownCount": 17
+   },
+   {
+    "time": "2026-11-16 13:26:00",
+    "upCount": 1425,
+    "downCount": 3635,
+    "limitUpCount": 33,
+    "limitDownCount": 17
+   },
+   {
+    "time": "2026-11-16 13:27:00",
+    "upCount": 1365,
+    "downCount": 3719,
+    "limitUpCount": 33,
+    "limitDownCount": 19
+   },
+   {
+    "time": "2026-11-16 13:28:00",
+    "upCount": 1299,
+    "downCount": 3779,
+    "limitUpCount": 33,
+    "limitDownCount": 19
+   },
+   {
+    "time": "2026-11-16 13:29:00",
+    "upCount": 1277,
+    "downCount": 3791,
+    "limitUpCount": 33,
+    "limitDownCount": 19
+   },
+   {
+    "time": "2026-11-16 13:30:00",
+    "upCount": 1251,
+    "downCount": 3840,
+    "limitUpCount": 33,
+    "limitDownCount": 20
+   },
+   {
+    "time": "2026-11-16 13:31:00",
+    "upCount": 1231,
+    "downCount": 3859,
+    "limitUpCount": 33,
+    "limitDownCount": 21
+   },
+   {
+    "time": "2026-11-16 13:32:00",
+    "upCount": 1287,
+    "downCount": 3814,
+    "limitUpCount": 33,
+    "limitDownCount": 22
+   },
+   {
+    "time": "2026-11-16 13:33:00",
+    "upCount": 1334,
+    "downCount": 3753,
+    "limitUpCount": 33,
+    "limitDownCount": 22
+   },
+   {
+    "time": "2026-11-16 13:34:00",
+    "upCount": 1330,
+    "downCount": 3758,
+    "limitUpCount": 31,
+    "limitDownCount": 21
+   },
+   {
+    "time": "2026-11-16 13:35:00",
+    "upCount": 1237,
+    "downCount": 3837,
+    "limitUpCount": 31,
+    "limitDownCount": 23
+   },
+   {
+    "time": "2026-11-16 13:36:00",
+    "upCount": 1232,
+    "downCount": 3854,
+    "limitUpCount": 31,
+    "limitDownCount": 23
+   },
+   {
+    "time": "2026-11-16 13:37:00",
+    "upCount": 1223,
+    "downCount": 3857,
+    "limitUpCount": 31,
+    "limitDownCount": 24
+   },
+   {
+    "time": "2026-11-16 13:38:00",
+    "upCount": 1258,
+    "downCount": 3815,
+    "limitUpCount": 30,
+    "limitDownCount": 24
+   },
+   {
+    "time": "2026-11-16 13:39:00",
+    "upCount": 1246,
+    "downCount": 3835,
+    "limitUpCount": 31,
+    "limitDownCount": 24
+   },
+   {
+    "time": "2026-11-16 13:40:00",
+    "upCount": 1234,
+    "downCount": 3870,
+    "limitUpCount": 31,
+    "limitDownCount": 25
+   },
+   {
+    "time": "2026-11-16 13:41:00",
+    "upCount": 1221,
+    "downCount": 3872,
+    "limitUpCount": 31,
+    "limitDownCount": 26
+   },
+   {
+    "time": "2026-11-16 13:42:00",
+    "upCount": 1236,
+    "downCount": 3845,
+    "limitUpCount": 30,
+    "limitDownCount": 27
+   },
+   {
+    "time": "2026-11-16 13:43:00",
+    "upCount": 1248,
+    "downCount": 3840,
+    "limitUpCount": 30,
+    "limitDownCount": 26
+   },
+   {
+    "time": "2026-11-16 13:44:00",
+    "upCount": 1252,
+    "downCount": 3836,
+    "limitUpCount": 30,
+    "limitDownCount": 23
+   },
+   {
+    "time": "2026-11-16 13:45:00",
+    "upCount": 1267,
+    "downCount": 3813,
+    "limitUpCount": 31,
+    "limitDownCount": 23
+   },
+   {
+    "time": "2026-11-16 13:46:00",
+    "upCount": 1274,
+    "downCount": 3826,
+    "limitUpCount": 31,
+    "limitDownCount": 23
+   },
+   {
+    "time": "2026-11-16 13:47:00",
+    "upCount": 1294,
+    "downCount": 3796,
+    "limitUpCount": 31,
+    "limitDownCount": 23
+   },
+   {
+    "time": "2026-11-16 13:48:00",
+    "upCount": 1285,
+    "downCount": 3807,
+    "limitUpCount": 31,
+    "limitDownCount": 24
+   },
+   {
+    "time": "2026-11-16 13:49:00",
+    "upCount": 1291,
+    "downCount": 3786,
+    "limitUpCount": 31,
+    "limitDownCount": 23
+   },
+   {
+    "time": "2026-11-16 13:50:00",
+    "upCount": 1245,
+    "downCount": 3853,
+    "limitUpCount": 31,
+    "limitDownCount": 26
+   },
+   {
+    "time": "2026-11-16 13:51:00",
+    "upCount": 1231,
+    "downCount": 3867,
+    "limitUpCount": 31,
+    "limitDownCount": 26
+   },
+   {
+    "time": "2026-11-16 13:52:00",
+    "upCount": 1226,
+    "downCount": 3876,
+    "limitUpCount": 31,
+    "limitDownCount": 27
+   },
+   {
+    "time": "2026-11-16 13:53:00",
+    "upCount": 1230,
+    "downCount": 3892,
+    "limitUpCount": 31,
+    "limitDownCount": 30
+   },
+   {
+    "time": "2026-11-16 13:54:00",
+    "upCount": 1232,
+    "downCount": 3892,
+    "limitUpCount": 31,
+    "limitDownCount": 30
+   },
+   {
+    "time": "2026-11-16 13:55:00",
+    "upCount": 1189,
+    "downCount": 3926,
+    "limitUpCount": 31,
+    "limitDownCount": 32
+   },
+   {
+    "time": "2026-11-16 13:56:00",
+    "upCount": 1135,
+    "downCount": 3961,
+    "limitUpCount": 31,
+    "limitDownCount": 33
+   },
+   {
+    "time": "2026-11-16 13:57:00",
+    "upCount": 1100,
+    "downCount": 4010,
+    "limitUpCount": 31,
+    "limitDownCount": 32
+   },
+   {
+    "time": "2026-11-16 13:58:00",
+    "upCount": 1101,
+    "downCount": 4003,
+    "limitUpCount": 31,
+    "limitDownCount": 34
+   },
+   {
+    "time": "2026-11-16 13:59:00",
+    "upCount": 1076,
+    "downCount": 4038,
+    "limitUpCount": 31,
+    "limitDownCount": 34
+   },
+   {
+    "time": "2026-11-16 14:00:00",
+    "upCount": 1042,
+    "downCount": 4073,
+    "limitUpCount": 31,
+    "limitDownCount": 34
+   },
+   {
+    "time": "2026-11-16 14:01:00",
+    "upCount": 1066,
+    "downCount": 4054,
+    "limitUpCount": 31,
+    "limitDownCount": 34
+   },
+   {
+    "time": "2026-11-16 14:02:00",
+    "upCount": 1040,
+    "downCount": 4076,
+    "limitUpCount": 31,
+    "limitDownCount": 34
+   }
+  ]
+ },
+ "subjectDefs": [
+  {
+   "id": 9023749,
+   "name": "碳中和",
+   "sector": "题材"
+  },
+  {
+   "id": 9034195,
+   "name": "可再生能源替代行动",
+   "sector": "题材"
+  },
+  {
+   "id": 9020502,
+   "name": "华为鲸鸿动能",
+   "sector": "题材"
+  },
+  {
+   "id": 9020790,
+   "name": "短剧",
+   "sector": "题材"
+  },
+  {
+   "id": 9022152,
+   "name": "AI应用",
+   "sector": "题材"
+  },
+  {
+   "id": 9033215,
+   "name": "华为手机",
+   "sector": "题材"
+  },
+  {
+   "id": 9033685,
+   "name": "文化出海",
+   "sector": "题材"
+  },
+  {
+   "id": 9036138,
+   "name": "抖音豆包",
+   "sector": "题材"
+  },
+  {
+   "id": 9037841,
+   "name": "抖音小店",
+   "sector": "题材"
+  },
+  {
+   "id": 9039269,
+   "name": "快手",
+   "sector": "题材"
+  },
+  {
+   "id": 9041036,
+   "name": "文心一言",
+   "sector": "题材"
+  },
+  {
+   "id": 9047763,
+   "name": "华为鸿蒙PC",
+   "sector": "题材"
+  },
+  {
+   "id": 9053865,
+   "name": "国行版苹果AI",
+   "sector": "题材"
+  },
+  {
+   "id": 9053875,
+   "name": "国行版苹果AI",
+   "sector": "题材"
+  },
+  {
+   "id": 9011456,
+   "name": "影视",
+   "sector": "题材"
+  },
+  {
+   "id": 9013587,
+   "name": "传媒",
+   "sector": "题材"
+  },
+  {
+   "id": 9022889,
+   "name": "著名IP",
+   "sector": "题材"
+  },
+  {
+   "id": 9035171,
+   "name": "AI大娱乐",
+   "sector": "题材"
+  },
+  {
+   "id": 9057999,
+   "name": "三季报业绩",
+   "sector": "题材"
+  },
+  {
+   "id": 9063449,
+   "name": "2026年2月事件前瞻",
+   "sector": "题材"
+  },
+  {
+   "id": 9066320,
+   "name": "暑期档电影",
+   "sector": "题材"
+  },
+  {
+   "id": 9066664,
+   "name": "体验经济",
+   "sector": "题材"
+  },
+  {
+   "id": 9066928,
+   "name": "2026年5月事件前瞻",
+   "sector": "题材"
+  },
+  {
+   "id": 9068034,
+   "name": "2026年6月事件前瞻",
+   "sector": "题材"
+  },
+  {
+   "id": 9069391,
+   "name": "周星驰功夫女足",
+   "sector": "题材"
+  },
+  {
+   "id": 9071248,
+   "name": "2026年9月事件前瞻",
+   "sector": "题材"
+  },
+  {
+   "id": 9073390,
+   "name": "2027春节档电影",
+   "sector": "题材"
+  },
+  {
+   "id": 9016254,
+   "name": "数据要素",
+   "sector": "题材"
+  },
+  {
+   "id": 9032568,
+   "name": "破净个股",
+   "sector": "题材"
+  },
+  {
+   "id": 9034192,
+   "name": "新材料大数据中心",
+   "sector": "题材"
+  },
+  {
+   "id": 9011817,
+   "name": "家用电器",
+   "sector": "题材"
+  },
+  {
+   "id": 9024955,
+   "name": "消费品以旧换新",
+   "sector": "题材"
+  },
+  {
+   "id": 9025918,
+   "name": "百模大战",
+   "sector": "题材"
+  },
+  {
+   "id": 9034920,
+   "name": "东方头",
+   "sector": "题材"
+  },
+  {
+   "id": 9038264,
+   "name": "热泵",
+   "sector": "题材"
+  },
+  {
+   "id": 9046660,
+   "name": "中概股回归",
+   "sector": "题材"
+  },
+  {
+   "id": 9058280,
+   "name": "寒冬",
+   "sector": "题材"
+  },
+  {
+   "id": 9059396,
+   "name": "美好中国",
+   "sector": "题材"
+  },
+  {
+   "id": 9064956,
+   "name": "欧洲能源短缺",
+   "sector": "题材"
+  },
+  {
+   "id": 9072004,
+   "name": "长征90周年",
+   "sector": "题材"
+  },
+  {
+   "id": 9072287,
+   "name": "2026年10月事件前瞻",
+   "sector": "题材"
+  },
+  {
+   "id": 9073458,
+   "name": "日字辈",
+   "sector": "题材"
+  },
+  {
+   "id": 9016541,
+   "name": "新型城镇化",
+   "sector": "题材"
+  },
+  {
+   "id": 9023919,
+   "name": "环保",
+   "sector": "题材"
+  },
+  {
+   "id": 9033056,
+   "name": "化债",
+   "sector": "题材"
+  },
+  {
+   "id": 9053499,
+   "name": "测试-55",
+   "sector": "测试"
+  },
+  {
+   "id": 9053502,
+   "name": "测试-066",
+   "sector": "测试"
+  },
+  {
+   "id": 9053540,
+   "name": "测试-601",
+   "sector": "测试"
+  },
+  {
+   "id": 9053551,
+   "name": "测试-701",
+   "sector": "测试"
+  },
+  {
+   "id": 9053593,
+   "name": "b测试发布3",
+   "sector": "题材"
+  },
+  {
+   "id": 9053612,
+   "name": "测试-888",
+   "sector": "测试"
+  },
+  {
+   "id": 9053630,
+   "name": "7月23日c测试rank3",
+   "sector": "题材"
+  },
+  {
+   "id": 9053794,
+   "name": "测试改写1",
+   "sector": "题材"
+  },
+  {
+   "id": 9010168,
+   "name": "锂电池",
+   "sector": "题材"
+  },
+  {
+   "id": 9035716,
+   "name": "出口管制材料",
+   "sector": "题材"
+  },
+  {
+   "id": 9016949,
+   "name": "建材",
+   "sector": "题材"
+  },
+  {
+   "id": 9020774,
+   "name": "券商重组预期",
+   "sector": "题材"
+  },
+  {
+   "id": 9010317,
+   "name": "化工",
+   "sector": "题材"
+  },
+  {
+   "id": 9042504,
+   "name": "估值提升计划",
+   "sector": "题材"
+  },
+  {
+   "id": 9043448,
+   "name": "化工品涨价",
+   "sector": "题材"
+  },
+  {
+   "id": 9044821,
+   "name": "季戊四醇产业链",
+   "sector": "题材"
+  },
+  {
+   "id": 9050897,
+   "name": "伊朗出口前八",
+   "sector": "题材"
+  },
+  {
+   "id": 9053800,
+   "name": "国企改革",
+   "sector": "题材"
+  },
+  {
+   "id": 9014193,
+   "name": "赛会之城·不夜杭州",
+   "sector": "题材"
+  },
+  {
+   "id": 9014383,
+   "name": "零售业",
+   "sector": "题材"
+  },
+  {
+   "id": 9037299,
+   "name": "ST风险个股",
+   "sector": "题材"
+  },
+  {
+   "id": 9037730,
+   "name": "百字辈零售",
+   "sector": "题材"
+  },
+  {
+   "id": 9010250,
+   "name": "建筑",
+   "sector": "题材"
+  },
+  {
+   "id": 9013416,
+   "name": "电力运营",
+   "sector": "题材"
+  },
+  {
+   "id": 69,
+   "name": "大金融",
+   "sector": "题材"
+  },
+  {
+   "id": 9017278,
+   "name": "数字货币",
+   "sector": "题材"
+  },
+  {
+   "id": 9032675,
+   "name": "金融IT",
+   "sector": "题材"
+  },
+  {
+   "id": 9033844,
+   "name": "重组概念",
+   "sector": "题材"
+  },
+  {
+   "id": 9036888,
+   "name": "央企市值管理",
+   "sector": "题材"
+  },
+  {
+   "id": 9053929,
+   "name": "RWA",
+   "sector": "题材"
+  },
+  {
+   "id": 9011554,
+   "name": "游戏",
+   "sector": "题材"
+  },
+  {
+   "id": 9070248,
+   "name": "摘帽概念",
+   "sector": "题材"
+  },
+  {
+   "id": 9016841,
+   "name": "证券",
+   "sector": "题材"
+  },
+  {
+   "id": 9019153,
+   "name": "华为算力",
+   "sector": "题材"
+  },
+  {
+   "id": 9029373,
+   "name": "智能戒指",
+   "sector": "题材"
+  },
+  {
+   "id": 9030155,
+   "name": "华为海思全联接大会",
+   "sector": "题材"
+  },
+  {
+   "id": 9031185,
+   "name": "海思芯片",
+   "sector": "题材"
+  },
+  {
+   "id": 9031543,
+   "name": "智能穿戴",
+   "sector": "题材"
+  },
+  {
+   "id": 9037857,
+   "name": "数据中心",
+   "sector": "题材"
+  },
+  {
+   "id": 9040246,
+   "name": "智能座舱",
+   "sector": "题材"
+  },
+  {
+   "id": 9040555,
+   "name": "AI一体机",
+   "sector": "题材"
+  },
+  {
+   "id": 9041790,
+   "name": "阿里云",
+   "sector": "题材"
+  },
+  {
+   "id": 9017184,
+   "name": "CXO医药外包",
+   "sector": "题材"
+  },
+  {
+   "id": 9025631,
+   "name": "创新药",
+   "sector": "题材"
+  },
+  {
+   "id": 9070710,
+   "name": "AI制药",
+   "sector": "题材"
+  },
+  {
+   "id": 9072097,
+   "name": "超跌反弹榜",
+   "sector": "题材"
+  },
+  {
+   "id": 9019807,
+   "name": "卫星互联网",
+   "sector": "题材"
+  },
+  {
+   "id": 9035538,
+   "name": "灵巧手",
+   "sector": "题材"
+  },
+  {
+   "id": 9037911,
+   "name": "2025年1月事件前瞻",
+   "sector": "题材"
+  },
+  {
+   "id": 9039041,
+   "name": "特斯拉机器人",
+   "sector": "题材"
+  },
+  {
+   "id": 9035600,
+   "name": "琴澳一体化",
+   "sector": "题材"
+  },
+  {
+   "id": 9036699,
+   "name": "足球经济",
+   "sector": "题材"
+  },
+  {
+   "id": 9012065,
+   "name": "军工",
+   "sector": "题材"
+  },
+  {
+   "id": 9014764,
+   "name": "军工9大集团",
+   "sector": "题材"
+  },
+  {
+   "id": 9030207,
+   "name": "导弹",
+   "sector": "题材"
+  },
+  {
+   "id": 9032010,
+   "name": "大型央企",
+   "sector": "题材"
+  },
+  {
+   "id": 9051378,
+   "name": "陆军",
+   "sector": "题材"
+  },
+  {
+   "id": 9010467,
+   "name": "纺织服装",
+   "sector": "题材"
+  },
+  {
+   "id": 9038627,
+   "name": "线下消费场景",
+   "sector": "题材"
+  },
+  {
+   "id": 9059277,
+   "name": "福建",
+   "sector": "题材"
+  },
+  {
+   "id": 9059703,
+   "name": "数字消费股",
+   "sector": "题材"
+  },
+  {
+   "id": 9015543,
+   "name": "民爆",
+   "sector": "题材"
+  },
+  {
+   "id": 9011446,
+   "name": "海南自贸港",
+   "sector": "题材"
+  },
+  {
+   "id": 9014347,
+   "name": "酒",
+   "sector": "题材"
+  },
+  {
+   "id": 9016453,
+   "name": "食品饮料",
+   "sector": "题材"
+  },
+  {
+   "id": 9014072,
+   "name": "光伏",
+   "sector": "题材"
+  },
+  {
+   "id": 9013055,
+   "name": "物流",
+   "sector": "题材"
+  },
+  {
+   "id": 9022846,
+   "name": "海运",
+   "sector": "题材"
+  },
+  {
+   "id": 9027624,
+   "name": "中俄贸易",
+   "sector": "题材"
+  },
+  {
+   "id": 9031607,
+   "name": "中非合作",
+   "sector": "题材"
+  },
+  {
+   "id": 9033525,
+   "name": "统一大市场",
+   "sector": "题材"
+  },
+  {
+   "id": 9011782,
+   "name": "一带一路",
+   "sector": "题材"
+  },
+  {
+   "id": 9012443,
+   "name": "中特估",
+   "sector": "题材"
+  },
+  {
+   "id": 9020387,
+   "name": "东北振兴",
+   "sector": "题材"
+  },
+  {
+   "id": 9026753,
+   "name": "偏苯三酸酐",
+   "sector": "题材"
+  },
+  {
+   "id": 9026886,
+   "name": "框架材料",
+   "sector": "题材"
+  },
+  {
+   "id": 9027404,
+   "name": "产品涨价",
+   "sector": "题材"
+  },
+  {
+   "id": 9029156,
+   "name": "老龙头",
+   "sector": "题材"
+  },
+  {
+   "id": 9022415,
+   "name": "多模态大模型",
+   "sector": "题材"
+  },
+  {
+   "id": 9025934,
+   "name": "AI语料",
+   "sector": "题材"
+  },
+  {
+   "id": 9041936,
+   "name": "上海智算中心",
+   "sector": "题材"
+  },
+  {
+   "id": 9044802,
+   "name": "上海智算云",
+   "sector": "题材"
+  },
+  {
+   "id": 9047690,
+   "name": "喜马拉雅",
+   "sector": "题材"
+  },
+  {
+   "id": 9054208,
+   "name": "中国科技独角兽",
+   "sector": "题材"
+  },
+  {
+   "id": 9056088,
+   "name": "服务贸易八大分支",
+   "sector": "题材"
+  },
+  {
+   "id": 9057838,
+   "name": "Sora 2模型",
+   "sector": "题材"
+  },
+  {
+   "id": 9062516,
+   "name": "豆包十大核心",
+   "sector": "题材"
+  },
+  {
+   "id": 9063236,
+   "name": "OpenClaw",
+   "sector": "题材"
+  },
+  {
+   "id": 9063773,
+   "name": "字节Seedance",
+   "sector": "题材"
+  },
+  {
+   "id": 9064335,
+   "name": "AI漫剧",
+   "sector": "题材"
+  },
+  {
+   "id": 9065423,
+   "name": "Token经济（词元经济）",
+   "sector": "题材"
+  },
+  {
+   "id": 9070410,
+   "name": "中国版Palantir",
+   "sector": "题材"
+  },
+  {
+   "id": 9071380,
+   "name": "后西游记",
+   "sector": "题材"
+  },
+  {
+   "id": 9073446,
+   "name": "Pico字节MR",
+   "sector": "题材"
+  },
+  {
+   "id": 9055378,
+   "name": "国产算力",
+   "sector": "题材"
+  },
+  {
+   "id": 9069431,
+   "name": "超节点",
+   "sector": "题材"
+  },
+  {
+   "id": 9072008,
+   "name": "次新股",
+   "sector": "题材"
+  },
+  {
+   "id": 9021819,
+   "name": "预制菜",
+   "sector": "题材"
+  },
+  {
+   "id": 9016195,
+   "name": "猴痘",
+   "sector": "题材"
+  },
+  {
+   "id": 9017645,
+   "name": "医药流通",
+   "sector": "题材"
+  },
+  {
+   "id": 9034770,
+   "name": "医保基金预付",
+   "sector": "题材"
+  },
+  {
+   "id": 9014198,
+   "name": "汽车零部件",
+   "sector": "题材"
+  },
+  {
+   "id": 9015235,
+   "name": "氢能源",
+   "sector": "题材"
+  },
+  {
+   "id": 9022763,
+   "name": "农机",
+   "sector": "题材"
+  },
+  {
+   "id": 9027744,
+   "name": "国内机器人",
+   "sector": "题材"
+  },
+  {
+   "id": 9029645,
+   "name": "自动驾驶出行",
+   "sector": "题材"
+  },
+  {
+   "id": 9030124,
+   "name": "无人配送",
+   "sector": "题材"
+  },
+  {
+   "id": 9038599,
+   "name": "数据中心电力设备",
+   "sector": "题材"
+  },
+  {
+   "id": 9038700,
+   "name": "应急救援",
+   "sector": "题材"
+  },
+  {
+   "id": 9043683,
+   "name": "柴油发电机组",
+   "sector": "题材"
+  },
+  {
+   "id": 9049348,
+   "name": "2025年6月事件前瞻",
+   "sector": "题材"
+  },
+  {
+   "id": 9049453,
+   "name": "新经济",
+   "sector": "题材"
+  },
+  {
+   "id": 9049774,
+   "name": "自动驾驶巨头",
+   "sector": "题材"
+  },
+  {
+   "id": 9052428,
+   "name": "地区化债",
+   "sector": "题材"
+  },
+  {
+   "id": 9013989,
+   "name": "教育",
+   "sector": "题材"
+  },
+  {
+   "id": 9030019,
+   "name": "人口发展与服务体系",
+   "sector": "题材"
+  },
+  {
+   "id": 9011526,
+   "name": "工业母机",
+   "sector": "题材"
+  },
+  {
+   "id": 9024980,
+   "name": "设备更新",
+   "sector": "题材"
+  },
+  {
+   "id": 9035874,
+   "name": "机器人之眼（机器视觉）",
+   "sector": "题材"
+  },
+  {
+   "id": 9070661,
+   "name": "日本出口管制",
+   "sector": "题材"
+  },
+  {
+   "id": 9013944,
+   "name": "半导体",
+   "sector": "题材"
+  },
+  {
+   "id": 9028711,
+   "name": "科特估",
+   "sector": "题材"
+  },
+  {
+   "id": 9028738,
+   "name": "科创板科特估",
+   "sector": "题材"
+  },
+  {
+   "id": 9034253,
+   "name": "社保基金新进个股",
+   "sector": "题材"
+  },
+  {
+   "id": 9034698,
+   "name": "国家大基金持股",
+   "sector": "题材"
+  },
+  {
+   "id": 9016356,
+   "name": "化肥",
+   "sector": "题材"
+  },
+  {
+   "id": 9036559,
+   "name": "ASIC芯片",
+   "sector": "题材"
+  },
+  {
+   "id": 9050840,
+   "name": "中报业绩增长预期",
+   "sector": "题材"
+  },
+  {
+   "id": 9030732,
+   "name": "胖东来",
+   "sector": "题材"
+  },
+  {
+   "id": 9011768,
+   "name": "中字头",
+   "sector": "题材"
+  },
+  {
+   "id": 9027410,
+   "name": "商业航天",
+   "sector": "题材"
+  },
+  {
+   "id": 9053845,
+   "name": "军工",
+   "sector": "题材"
+  },
+  {
+   "id": 9019349,
+   "name": "消费电子",
+   "sector": "题材"
+  },
+  {
+   "id": 9023110,
+   "name": "AI手机",
+   "sector": "题材"
+  },
+  {
+   "id": 9031542,
+   "name": "玄玑感知系统",
+   "sector": "题材"
+  },
+  {
+   "id": 9018638,
+   "name": "海峡两岸",
+   "sector": "题材"
+  },
+  {
+   "id": 9012785,
+   "name": "电力设备",
+   "sector": "题材"
+  },
+  {
+   "id": 9029061,
+   "name": "华为开发者大会",
+   "sector": "题材"
+  },
+  {
+   "id": 9011558,
+   "name": "医疗信息化",
+   "sector": "题材"
+  },
+  {
+   "id": 9017416,
+   "name": "SPD医疗供应链",
+   "sector": "题材"
+  },
+  {
+   "id": 9035149,
+   "name": "AI辅助诊断",
+   "sector": "题材"
+  },
+  {
+   "id": 9010818,
+   "name": "国企改革",
+   "sector": "题材"
+  },
+  {
+   "id": 9018216,
+   "name": "石油",
+   "sector": "题材"
+  },
+  {
+   "id": 9019060,
+   "name": "新型工业化",
+   "sector": "题材"
+  },
+  {
+   "id": 9024589,
+   "name": "设备数字化改造",
+   "sector": "题材"
+  },
+  {
+   "id": 9033292,
+   "name": "国家战略腹地",
+   "sector": "题材"
+  },
+  {
+   "id": 9035559,
+   "name": "四川国资",
+   "sector": "题材"
+  },
+  {
+   "id": 9043698,
+   "name": "深海经济",
+   "sector": "题材"
+  },
+  {
+   "id": 9050371,
+   "name": "工业智能体",
+   "sector": "题材"
+  },
+  {
+   "id": 9073558,
+   "name": "北字头",
+   "sector": "地域"
+  },
+  {
+   "id": 9012188,
+   "name": "建筑设计",
+   "sector": "题材"
+  },
+  {
+   "id": 9065632,
+   "name": "重组概念",
+   "sector": "题材"
+  },
+  {
+   "id": 9067625,
+   "name": "算力网络主导者",
+   "sector": "题材"
+  },
+  {
+   "id": 9069996,
+   "name": "平陆运河",
+   "sector": "题材"
+  },
+  {
+   "id": 9022246,
+   "name": "麻将概念",
+   "sector": "题材"
+  },
+  {
+   "id": 9036191,
+   "name": "宇树机器人",
+   "sector": "题材"
+  },
+  {
+   "id": 9053030,
+   "name": "机器人部队",
+   "sector": "题材"
+  },
+  {
+   "id": 9012624,
+   "name": "煤炭",
+   "sector": "题材"
+  },
+  {
+   "id": 9059566,
+   "name": "超超临界发电",
+   "sector": "题材"
+  },
+  {
+   "id": 9023708,
+   "name": "银发经济",
+   "sector": "题材"
+  },
+  {
+   "id": 9054848,
+   "name": "全民社保",
+   "sector": "题材"
+  },
+  {
+   "id": 9012323,
+   "name": "银行",
+   "sector": "题材"
+  },
+  {
+   "id": 9066143,
+   "name": "机器人半马赛",
+   "sector": "题材"
+  },
+  {
+   "id": 129,
+   "name": "交通运输",
+   "sector": "题材"
+  },
+  {
+   "id": 9014573,
+   "name": "港口",
+   "sector": "题材"
+  },
+  {
+   "id": 9044040,
+   "name": "国际港口",
+   "sector": "题材"
+  },
+  {
+   "id": 9046378,
+   "name": "东盟自贸区",
+   "sector": "题材"
+  },
+  {
+   "id": 1,
+   "name": "医药医疗",
+   "sector": "医药"
+  },
+  {
+   "id": 9027463,
+   "name": "维生素",
+   "sector": "题材"
+  },
+  {
+   "id": 9027531,
+   "name": "原料药",
+   "sector": "题材"
+  },
+  {
+   "id": 79,
+   "name": "农业",
+   "sector": "题材"
+  },
+  {
+   "id": 9017354,
+   "name": "种植业",
+   "sector": "题材"
+  },
+  {
+   "id": 9017774,
+   "name": "养殖业",
+   "sector": "题材"
+  },
+  {
+   "id": 9028694,
+   "name": "厄尔尼诺",
+   "sector": "题材"
+  },
+  {
+   "id": 9039574,
+   "name": "大豆",
+   "sector": "题材"
+  },
+  {
+   "id": 9042007,
+   "name": "农业新质生产力",
+   "sector": "题材"
+  },
+  {
+   "id": 9050659,
+   "name": "生猪",
+   "sector": "题材"
+  },
+  {
+   "id": 9012396,
+   "name": "新疆自贸区",
+   "sector": "题材"
+  },
+  {
+   "id": 9027140,
+   "name": "西部大开发",
+   "sector": "题材"
+  },
+  {
+   "id": 9027969,
+   "name": "雅江水电站",
+   "sector": "题材"
+  },
+  {
+   "id": 9034544,
+   "name": "乌克兰重建",
+   "sector": "题材"
+  },
+  {
+   "id": 9071438,
+   "name": "中俄哈北极航道",
+   "sector": "题材"
+  },
+  {
+   "id": 9046036,
+   "name": "中央汇金重仓股",
+   "sector": "题材"
+  },
+  {
+   "id": 9072549,
+   "name": "鼠疫",
+   "sector": "题材"
+  },
+  {
+   "id": 9041842,
+   "name": "央企AI+行动",
+   "sector": "题材"
+  },
+  {
+   "id": 9045887,
+   "name": "4月7日���虎榜",
+   "sector": "题材"
+  },
+  {
+   "id": 9064422,
+   "name": "各国资源断供速查",
+   "sector": "题材"
+  },
+  {
+   "id": 9034532,
+   "name": "高校系",
+   "sector": "题材"
+  },
+  {
+   "id": 9058516,
+   "name": "流感",
+   "sector": "题材"
+  },
+  {
+   "id": 9069714,
+   "name": "环孢子虫病",
+   "sector": "题材"
+  },
+  {
+   "id": 9070122,
+   "name": "8月涨价清单",
+   "sector": "题材"
+  },
+  {
+   "id": 9014348,
+   "name": "酒-白酒",
+   "sector": "酒"
+  }
+ ],
+ "stocks": [
+  {
+   "code": "300152",
+   "name": "ST动力",
+   "open": 1.35,
+   "high": 1.35,
+   "low": 1.29,
+   "price": 1.31,
+   "prevClose": 1.36,
+   "changeCount": -0.05,
+   "changePct": -3.68,
+   "fastChg": 1.55,
+   "volume": 101377,
+   "turnover": 13264575,
+   "avprice": 1.31,
+   "recentChange": -9.03,
+   "turnoverRate": 1.42,
+   "amplitude": 4.41,
+   "marketCap": 933768000,
+   "circulatingMarketValue": 933756111.75,
+   "circulating": 712790925,
+   "total": 712800000,
+   "openPctChg": -0.74,
+   "subjectIds": [
+    9023749,
+    9034195
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "300063",
+   "name": "天龙集团",
+   "open": 8.71,
+   "high": 9.1,
+   "low": 8.48,
+   "price": 8.96,
+   "prevClose": 8.8,
+   "changeCount": 0.16,
+   "changePct": 1.82,
+   "fastChg": 1.47,
+   "volume": 523541,
+   "turnover": 460253416.26,
+   "avprice": 8.96,
+   "recentChange": 12.99,
+   "turnoverRate": 8.35,
+   "amplitude": 7.05,
+   "marketCap": 6781232721,
+   "circulatingMarketValue": 5614935809.28,
+   "circulating": 626666943,
+   "total": 758527150,
+   "openPctChg": -1.02,
+   "subjectIds": [
+    9020502,
+    9020790,
+    9022152,
+    9033215,
+    9033685,
+    9033967,
+    9036138,
+    9037841,
+    9038003,
+    9038317,
+    9039269,
+    9041036,
+    9047763,
+    9053865,
+    9053875
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "603103",
+   "name": "横店影视",
+   "open": 20.19,
+   "high": 21.24,
+   "low": 19.01,
+   "price": 20.33,
+   "prevClose": 19.31,
+   "changeCount": 1.02,
+   "changePct": 5.28,
+   "fastChg": 1.25,
+   "volume": 405014.38,
+   "turnover": 816686757,
+   "avprice": 20.33,
+   "recentChange": 23.36,
+   "turnoverRate": 6.39,
+   "amplitude": 11.55,
+   "marketCap": 12886944000,
+   "circulatingMarketValue": 12893286000,
+   "circulating": 634200000,
+   "total": 634200000,
+   "openPctChg": 4.56,
+   "subjectIds": [
+    9011456,
+    9013587,
+    9020790,
+    9022889,
+    9035171,
+    9040948,
+    9040949,
+    9041340,
+    9046247,
+    9046336,
+    9047177,
+    9053217,
+    9057916,
+    9057999,
+    9063362,
+    9063426,
+    9063430,
+    9063449,
+    9063492,
+    9063495,
+    9063540,
+    9063544,
+    9063565,
+    9063656,
+    9063787,
+    9063844,
+    9063847,
+    9066320,
+    9066664,
+    9066928,
+    9068034,
+    9068352,
+    9069062,
+    9069391,
+    9069517,
+    9069560,
+    9069725,
+    9070195,
+    9071248,
+    9073151,
+    9073390,
+    9073529
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "600180",
+   "name": "*ST瑞茂",
+   "open": 0.9,
+   "high": 0.9,
+   "low": 0.85,
+   "price": 0.86,
+   "prevClose": 0.92,
+   "changeCount": -0.06,
+   "changePct": -6.52,
+   "fastChg": 1.18,
+   "volume": 193935.49,
+   "turnover": 16868552,
+   "avprice": 0.86,
+   "recentChange": -11.34,
+   "turnoverRate": 1.78,
+   "amplitude": 5.43,
+   "marketCap": 934499619.04,
+   "circulatingMarketValue": 934499619.04,
+   "circulating": 1086627464,
+   "total": 1086627464,
+   "openPctChg": -2.17,
+   "subjectIds": [
+    9016254,
+    9032568,
+    9034192
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "688827",
+   "name": "C钶锐",
+   "open": 96.3,
+   "high": 98.79,
+   "low": 89.54,
+   "price": 91.03,
+   "prevClose": 95.98,
+   "changeCount": -4.95,
+   "changePct": -5.16,
+   "fastChg": 1.13,
+   "volume": 25158.69,
+   "turnover": 236242865,
+   "avprice": 91.03,
+   "recentChange": 0,
+   "turnoverRate": 19.54,
+   "amplitude": 9.64,
+   "marketCap": 6236856729,
+   "circulatingMarketValue": 1172249384.48,
+   "circulating": 12877616,
+   "total": 68514300,
+   "openPctChg": 0.33,
+   "subjectIds": [],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "603366",
+   "name": "日出东方",
+   "open": 13.89,
+   "high": 14.16,
+   "low": 12.72,
+   "price": 13.15,
+   "prevClose": 13.9,
+   "changeCount": -0.75,
+   "changePct": -5.4,
+   "fastChg": 1.08,
+   "volume": 1206935.74,
+   "turnover": 1613689591,
+   "avprice": 13.15,
+   "recentChange": 57.67,
+   "turnoverRate": 14.84,
+   "amplitude": 10.36,
+   "marketCap": 10691582528.15,
+   "circulatingMarketValue": 10691582528.15,
+   "circulating": 813048101,
+   "total": 813048101,
+   "openPctChg": -0.07,
+   "subjectIds": [
+    9011817,
+    9024955,
+    9025918,
+    9034920,
+    9038004,
+    9038264,
+    9038317,
+    9038800,
+    9040731,
+    9040833,
+    9046660,
+    9047177,
+    9055688,
+    9058280,
+    9059396,
+    9059457,
+    9059860,
+    9059874,
+    9059940,
+    9059948,
+    9059979,
+    9060100,
+    9060214,
+    9064956,
+    9064995,
+    9065250,
+    9065875,
+    9072004,
+    9072287,
+    9072942,
+    9073361,
+    9073393,
+    9073408,
+    9073422,
+    9073426,
+    9073458,
+    9073459,
+    9073463,
+    9073493,
+    9073511
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "000010",
+   "name": "ST美丽",
+   "open": 1.05,
+   "high": 1.05,
+   "low": 1.02,
+   "price": 1.03,
+   "prevClose": 1.05,
+   "changeCount": -0.02,
+   "changePct": -1.9,
+   "fastChg": 0.98,
+   "volume": 83843,
+   "turnover": 8662934,
+   "avprice": 1.03,
+   "recentChange": -3.74,
+   "turnoverRate": 0.88,
+   "amplitude": 2.86,
+   "marketCap": 1184141860.76,
+   "circulatingMarketValue": 979986393,
+   "circulating": 951443100,
+   "total": 1149652292,
+   "openPctChg": 0,
+   "subjectIds": [
+    9016541,
+    9023919,
+    9033056,
+    9052801,
+    9052802,
+    9052894,
+    9052895,
+    9053173,
+    9053499,
+    9053502,
+    9053540,
+    9053551,
+    9053593,
+    9053612,
+    9053630,
+    9053794,
+    9055020
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "001301",
+   "name": "尚太科技",
+   "open": 48.06,
+   "high": 50.86,
+   "low": 47.5,
+   "price": 50.66,
+   "prevClose": 48.5,
+   "changeCount": 2.16,
+   "changePct": 4.45,
+   "fastChg": 0.94,
+   "volume": 55760.82,
+   "turnover": 277086941,
+   "avprice": 50.66,
+   "recentChange": 6.95,
+   "turnoverRate": 2.15,
+   "amplitude": 6.93,
+   "marketCap": 18440914254.36,
+   "circulatingMarketValue": 13121909581.74,
+   "circulating": 259019139,
+   "total": 364661148,
+   "openPctChg": -0.91,
+   "subjectIds": [
+    9010168,
+    9035716
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "603828",
+   "name": "*ST利达",
+   "open": 4.38,
+   "high": 4.47,
+   "low": 4.31,
+   "price": 4.37,
+   "prevClose": 4.39,
+   "changeCount": -0.02,
+   "changePct": -0.46,
+   "fastChg": 0.92,
+   "volume": 9629.08,
+   "turnover": 4219630,
+   "avprice": 4.37,
+   "recentChange": -4.59,
+   "turnoverRate": 0.16,
+   "amplitude": 3.64,
+   "marketCap": 2604345890.46,
+   "circulatingMarketValue": 2604256161.25,
+   "circulating": 595939625,
+   "total": 595960158,
+   "openPctChg": -0.23,
+   "subjectIds": [
+    9016949,
+    9020774
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "600623",
+   "name": "华谊集团",
+   "open": 7.8,
+   "high": 7.96,
+   "low": 7.7,
+   "price": 7.96,
+   "prevClose": 7.83,
+   "changeCount": 0.13,
+   "changePct": 1.66,
+   "fastChg": 0.89,
+   "volume": 81936.98,
+   "turnover": 63890737,
+   "avprice": 7.96,
+   "recentChange": -2.21,
+   "turnoverRate": 0.44,
+   "amplitude": 3.32,
+   "marketCap": 16871146879.44,
+   "circulatingMarketValue": 14933236474.68,
+   "circulating": 1876034733,
+   "total": 2119490814,
+   "openPctChg": -0.38,
+   "subjectIds": [
+    9010317,
+    9042504,
+    9043448,
+    9044821,
+    9050897,
+    9053800,
+    9054733
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "600865",
+   "name": "百大集团",
+   "open": 11.45,
+   "high": 12.14,
+   "low": 11.23,
+   "price": 11.37,
+   "prevClose": 11.66,
+   "changeCount": -0.29,
+   "changePct": -2.49,
+   "fastChg": 0.89,
+   "volume": 217337.18,
+   "turnover": 256070933,
+   "avprice": 11.37,
+   "recentChange": -3.48,
+   "turnoverRate": 5.78,
+   "amplitude": 7.8,
+   "marketCap": 4281614796.0800004,
+   "circulatingMarketValue": 4277852392.92,
+   "circulating": 376240316,
+   "total": 376240316,
+   "openPctChg": -1.8,
+   "subjectIds": [
+    9014193,
+    9014383,
+    9037299,
+    9037730,
+    9038086
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "002323",
+   "name": "ST雅博",
+   "open": 1.16,
+   "high": 1.17,
+   "low": 1.12,
+   "price": 1.13,
+   "prevClose": 1.16,
+   "changeCount": -0.03,
+   "changePct": -2.59,
+   "fastChg": 0.89,
+   "volume": 231772,
+   "turnover": 26377131,
+   "avprice": 1.13,
+   "recentChange": 6.6,
+   "turnoverRate": 1.09,
+   "amplitude": 4.31,
+   "marketCap": 2396566310.4599996,
+   "circulatingMarketValue": 2396154764.46,
+   "circulating": 2120490942,
+   "total": 2120855142,
+   "openPctChg": 0,
+   "subjectIds": [
+    9010250,
+    9013416,
+    9037299
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "300561",
+   "name": "汇金科技",
+   "open": 14.4,
+   "high": 15.77,
+   "low": 14.4,
+   "price": 15.43,
+   "prevClose": 14.73,
+   "changeCount": 0.7,
+   "changePct": 4.75,
+   "fastChg": 0.85,
+   "volume": 254076.01,
+   "turnover": 387692195.05,
+   "avprice": 15.43,
+   "recentChange": -1.66,
+   "turnoverRate": 10.54,
+   "amplitude": 9.3,
+   "marketCap": 5059424974.5,
+   "circulatingMarketValue": 3719518366.82,
+   "circulating": 241057574,
+   "total": 328107975,
+   "openPctChg": -2.24,
+   "subjectIds": [
+    69,
+    9017278,
+    9032675,
+    9033844,
+    9036888,
+    9038754,
+    9038842,
+    9041036,
+    9045677,
+    9046341,
+    9053865,
+    9053875,
+    9053929
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "600892",
+   "name": "大晟文化",
+   "open": 5.84,
+   "high": 6.19,
+   "low": 5.68,
+   "price": 5.99,
+   "prevClose": 5.63,
+   "changeCount": 0.36,
+   "changePct": 6.39,
+   "fastChg": 0.84,
+   "volume": 1615234.84,
+   "turnover": 963376255,
+   "avprice": 5.99,
+   "recentChange": 37.07,
+   "turnoverRate": 28.88,
+   "amplitude": 9.06,
+   "marketCap": 3351190486.12,
+   "circulatingMarketValue": 3350324020.64,
+   "circulating": 559319536,
+   "total": 559464188,
+   "openPctChg": 3.73,
+   "subjectIds": [
+    9011554,
+    9013587,
+    9020790,
+    9041394,
+    9041449,
+    9070248,
+    9070468,
+    9070488,
+    9070556,
+    9070562,
+    9070577,
+    9070721,
+    9071456,
+    9071492,
+    9073214,
+    9073248,
+    9073252,
+    9073278,
+    9073301,
+    9073422,
+    9073426
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "002945",
+   "name": "华林证券",
+   "open": 15.28,
+   "high": 15.86,
+   "low": 15.09,
+   "price": 15.66,
+   "prevClose": 15.43,
+   "changeCount": 0.23,
+   "changePct": 1.49,
+   "fastChg": 0.84,
+   "volume": 242547.53,
+   "turnover": 378976147.02,
+   "avprice": 15.66,
+   "recentChange": 6.68,
+   "turnoverRate": 0.9,
+   "amplitude": 4.99,
+   "marketCap": 42282000000,
+   "circulatingMarketValue": 42282000000,
+   "circulating": 2700000000,
+   "total": 2700000000,
+   "openPctChg": -0.97,
+   "subjectIds": [
+    69,
+    9016841,
+    9037683
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "603118",
+   "name": "共进股份",
+   "open": 13,
+   "high": 14.71,
+   "low": 12.95,
+   "price": 14.51,
+   "prevClose": 13.37,
+   "changeCount": 1.14,
+   "changePct": 8.53,
+   "fastChg": 0.83,
+   "volume": 1343241.85,
+   "turnover": 1908960241,
+   "avprice": 14.51,
+   "recentChange": 23.17,
+   "turnoverRate": 17.06,
+   "amplitude": 13.16,
+   "marketCap": 11415507887,
+   "circulatingMarketValue": 11423380651.06,
+   "circulating": 787276406,
+   "total": 787276406,
+   "openPctChg": -2.77,
+   "subjectIds": [
+    9019153,
+    9029373,
+    9030155,
+    9031185,
+    9031441,
+    9031543,
+    9037857,
+    9038800,
+    9038886,
+    9038952,
+    9040246,
+    9040555,
+    9041790,
+    9042030,
+    9042334,
+    9042355,
+    9042538,
+    9043110,
+    9055654
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "301520",
+   "name": "万邦医药",
+   "open": 56.47,
+   "high": 57.6,
+   "low": 53.01,
+   "price": 53.55,
+   "prevClose": 58.05,
+   "changeCount": -4.5,
+   "changePct": -7.75,
+   "fastChg": 0.83,
+   "volume": 56528.92,
+   "turnover": 308562147.24,
+   "avprice": 53.55,
+   "recentChange": -14.58,
+   "turnoverRate": 16.17,
+   "amplitude": 7.91,
+   "marketCap": 4982805028.04,
+   "circulatingMarketValue": 1870953622.65,
+   "circulating": 34938443,
+   "total": 93171373,
+   "openPctChg": -2.72,
+   "subjectIds": [
+    9017184,
+    9025631,
+    9069597,
+    9069687,
+    9070445,
+    9070710,
+    9070753,
+    9070778,
+    9070835,
+    9070887,
+    9070942,
+    9070989,
+    9071034,
+    9071248,
+    9071727,
+    9071760,
+    9071800,
+    9071816,
+    9071849,
+    9071879,
+    9071932,
+    9071995,
+    9072045,
+    9072097,
+    9072110,
+    9072160,
+    9072207,
+    9072244,
+    9072499,
+    9072537,
+    9072768,
+    9072808,
+    9073186,
+    9073200,
+    9073236,
+    9073268,
+    9073305,
+    9073345,
+    9073516,
+    9073547
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "603278",
+   "name": "大业股份",
+   "open": 14.37,
+   "high": 14.59,
+   "low": 13.41,
+   "price": 14.01,
+   "prevClose": 13.84,
+   "changeCount": 0.17,
+   "changePct": 1.23,
+   "fastChg": 0.79,
+   "volume": 479920.23,
+   "turnover": 681181266,
+   "avprice": 14.01,
+   "recentChange": -20.26,
+   "turnoverRate": 14.04,
+   "amplitude": 8.53,
+   "marketCap": 4784631488,
+   "circulatingMarketValue": 4788049081.92,
+   "circulating": 341759392,
+   "total": 341759392,
+   "openPctChg": 3.83,
+   "subjectIds": [
+    9019807,
+    9035538,
+    9036502,
+    9037911,
+    9039041,
+    9039844,
+    9040201,
+    9041850,
+    9042148,
+    9042334,
+    9044233,
+    9056999,
+    9060967,
+    9061022,
+    9061028,
+    9061656,
+    9061710,
+    9061717,
+    9061772,
+    9061780,
+    9061903,
+    9061910,
+    9061966,
+    9061972,
+    9062039,
+    9062044,
+    9062553,
+    9062803,
+    9066702,
+    9067183,
+    9067226,
+    9067230,
+    9067274,
+    9067278,
+    9067541,
+    9068384,
+    9069297,
+    9072224,
+    9072259,
+    9072263,
+    9072826,
+    9072829,
+    9072854,
+    9072858,
+    9072887,
+    9072904,
+    9072918,
+    9072922,
+    9072956,
+    9072960,
+    9073200,
+    9073426
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "002431",
+   "name": "ST棕榈",
+   "open": 1.32,
+   "high": 1.39,
+   "low": 1.29,
+   "price": 1.3,
+   "prevClose": 1.28,
+   "changeCount": 0.02,
+   "changePct": 1.56,
+   "fastChg": 0.78,
+   "volume": 525716,
+   "turnover": 70048173.72,
+   "avprice": 1.3,
+   "recentChange": 12.07,
+   "turnoverRate": 2.92,
+   "amplitude": 7.81,
+   "marketCap": 2343126194.5,
+   "circulatingMarketValue": 2343126194.5,
+   "circulating": 1802404765,
+   "total": 1802404765,
+   "openPctChg": 3.13,
+   "subjectIds": [
+    9016541,
+    9023919,
+    9033056,
+    9035600,
+    9036699,
+    9048910,
+    9048997,
+    9048998,
+    9049100,
+    9049101,
+    9049203,
+    9049204,
+    9049349,
+    9049419,
+    9049489,
+    9049826,
+    9049870,
+    9054733
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "601606",
+   "name": "长城军工",
+   "open": 31.32,
+   "high": 32.48,
+   "low": 30.6,
+   "price": 31.4,
+   "prevClose": 31.48,
+   "changeCount": -0.08,
+   "changePct": -0.25,
+   "fastChg": 0.77,
+   "volume": 330583.35,
+   "turnover": 1046710335,
+   "avprice": 31.4,
+   "recentChange": 10.49,
+   "turnoverRate": 4.56,
+   "amplitude": 5.97,
+   "marketCap": 22740771760,
+   "circulatingMarketValue": 22740771760,
+   "circulating": 724228400,
+   "total": 724228400,
+   "openPctChg": -0.51,
+   "subjectIds": [
+    9012065,
+    9014764,
+    9030207,
+    9032010,
+    9040441,
+    9046101,
+    9051217,
+    9051303,
+    9051304,
+    9051378,
+    9051408,
+    9051409,
+    9051508,
+    9051509,
+    9051679,
+    9051791,
+    9051793,
+    9052062,
+    9052139,
+    9052140,
+    9054043
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "600157",
+   "name": "永泰能源",
+   "open": 1.35,
+   "high": 1.36,
+   "low": 1.33,
+   "price": 1.34,
+   "prevClose": 1.35,
+   "changeCount": -0.01,
+   "changePct": -0.74,
+   "fastChg": 0.75,
+   "volume": 1929220.31,
+   "turnover": 258679460,
+   "avprice": 1.34,
+   "recentChange": -2.19,
+   "turnoverRate": 0.88,
+   "amplitude": 2.22,
+   "marketCap": 29017626312.850002,
+   "circulatingMarketValue": 29235803954.3,
+   "circulating": 21817764145,
+   "total": 21817764145,
+   "openPctChg": 0,
+   "subjectIds": [
+    9013416,
+    9032568
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "601566",
+   "name": "九牧王",
+   "open": 11.38,
+   "high": 11.87,
+   "low": 10.65,
+   "price": 10.87,
+   "prevClose": 11.6,
+   "changeCount": -0.73,
+   "changePct": -6.29,
+   "fastChg": 0.74,
+   "volume": 401184.96,
+   "turnover": 445595003,
+   "avprice": 10.87,
+   "recentChange": 3.52,
+   "turnoverRate": 6.98,
+   "amplitude": 10.52,
+   "marketCap": 6246305820.5,
+   "circulatingMarketValue": 6246305820.5,
+   "circulating": 574637150,
+   "total": 574637150,
+   "openPctChg": -1.9,
+   "subjectIds": [
+    9010467,
+    9038627,
+    9047618,
+    9059277,
+    9059703,
+    9059724,
+    9059754,
+    9059784,
+    9059791,
+    9059840,
+    9059867,
+    9059874,
+    9059940,
+    9059948,
+    9059979,
+    9060013,
+    9060019,
+    9060068,
+    9060073,
+    9060100,
+    9060129,
+    9060135,
+    9060306,
+    9060365,
+    9060863,
+    9061187,
+    9061303,
+    9061322,
+    9061406,
+    9061462,
+    9061467,
+    9061483,
+    9061548,
+    9071492,
+    9071496,
+    9073016,
+    9073252,
+    9073493,
+    9073547
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "002360",
+   "name": "ST同德",
+   "open": 4.16,
+   "high": 4.24,
+   "low": 4.08,
+   "price": 4.2,
+   "prevClose": 4.2,
+   "changeCount": 0,
+   "changePct": 0,
+   "fastChg": 0.72,
+   "volume": 30164,
+   "turnover": 12521394,
+   "avprice": 4.2,
+   "recentChange": 2.44,
+   "turnoverRate": 0.98,
+   "amplitude": 3.81,
+   "marketCap": 1687451841.6000001,
+   "circulatingMarketValue": 1295701276.8,
+   "circulating": 308500304,
+   "total": 401774248,
+   "openPctChg": -0.95,
+   "subjectIds": [
+    9015543,
+    9037299
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "600238",
+   "name": "ST椰岛",
+   "open": 4.12,
+   "high": 4.45,
+   "low": 4.1,
+   "price": 4.26,
+   "prevClose": 4.2,
+   "changeCount": 0.06,
+   "changePct": 1.43,
+   "fastChg": 0.71,
+   "volume": 83611.18,
+   "turnover": 35883513,
+   "avprice": 4.26,
+   "recentChange": 16.08,
+   "turnoverRate": 1.88,
+   "amplitude": 8.33,
+   "marketCap": 1909332000,
+   "circulatingMarketValue": 1896856930.8,
+   "circulating": 445271580,
+   "total": 448200000,
+   "openPctChg": -1.9,
+   "subjectIds": [
+    9011446,
+    9014347,
+    9016453,
+    9037299
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "301636",
+   "name": "泽润新能",
+   "open": 41.39,
+   "high": 41.79,
+   "low": 40.23,
+   "price": 41.42,
+   "prevClose": 41.39,
+   "changeCount": 0.03,
+   "changePct": 0.07,
+   "fastChg": 0.71,
+   "volume": 24514.64,
+   "turnover": 100463943.62,
+   "avprice": 41.42,
+   "recentChange": 17.84,
+   "turnoverRate": 6.49,
+   "amplitude": 3.77,
+   "marketCap": 2675101986.05,
+   "circulatingMarketValue": 1564906540.66,
+   "circulating": 37781423,
+   "total": 64694123,
+   "openPctChg": 0,
+   "subjectIds": [
+    9014072,
+    9063150,
+    9063215,
+    9063287,
+    9063544,
+    9063565,
+    9063592,
+    9063596,
+    9063617,
+    9063670,
+    9073463
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "603967",
+   "name": "中创物流",
+   "open": 12.88,
+   "high": 13.08,
+   "low": 12.85,
+   "price": 12.99,
+   "prevClose": 13.02,
+   "changeCount": -0.03,
+   "changePct": -0.23,
+   "fastChg": 0.7,
+   "volume": 36292.5,
+   "turnover": 47012202,
+   "avprice": 12.99,
+   "recentChange": 4.59,
+   "turnoverRate": 1.05,
+   "amplitude": 1.77,
+   "marketCap": 4503200562.9,
+   "circulatingMarketValue": 4503200562.9,
+   "circulating": 346666710,
+   "total": 346666710,
+   "openPctChg": -1.08,
+   "subjectIds": [
+    9013055,
+    9022846,
+    9027624,
+    9031607,
+    9033525
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "600370",
+   "name": "*ST三房",
+   "open": 1.47,
+   "high": 1.49,
+   "low": 1.42,
+   "price": 1.46,
+   "prevClose": 1.49,
+   "changeCount": -0.03,
+   "changePct": -2.01,
+   "fastChg": 0.69,
+   "volume": 220965.87,
+   "turnover": 32041484,
+   "avprice": 1.46,
+   "recentChange": 8.15,
+   "turnoverRate": 0.55,
+   "amplitude": 4.7,
+   "marketCap": 5873088155.2,
+   "circulatingMarketValue": 5873088155.2,
+   "circulating": 4022663120,
+   "total": 4022663120,
+   "openPctChg": -1.34,
+   "subjectIds": [
+    9010317,
+    9044695,
+    9044858,
+    9044859,
+    9044891,
+    9045198,
+    9047177,
+    9047266,
+    9047267,
+    9048685,
+    9048716,
+    9054733
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "601880",
+   "name": "辽港股份",
+   "open": 1.43,
+   "high": 1.45,
+   "low": 1.43,
+   "price": 1.45,
+   "prevClose": 1.43,
+   "changeCount": 0.02,
+   "changePct": 1.4,
+   "fastChg": 0.69,
+   "volume": 543587.61,
+   "turnover": 78130072,
+   "avprice": 1.45,
+   "recentChange": -2.68,
+   "turnoverRate": 0.3,
+   "amplitude": 1.4,
+   "marketCap": 33943344786.719997,
+   "circulatingMarketValue": 26698924260.3,
+   "circulating": 18413051214,
+   "total": 23571767213,
+   "openPctChg": 0,
+   "subjectIds": [
+    9011782,
+    9012443,
+    9020387,
+    9032010
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "300641",
+   "name": "正丹股份",
+   "open": 11.9,
+   "high": 11.9,
+   "low": 11.4,
+   "price": 11.67,
+   "prevClose": 11.81,
+   "changeCount": -0.14,
+   "changePct": -1.19,
+   "fastChg": 0.69,
+   "volume": 31606.51,
+   "turnover": 36681479.09,
+   "avprice": 11.67,
+   "recentChange": -4.11,
+   "turnoverRate": 0.6,
+   "amplitude": 4.23,
+   "marketCap": 6133107932.7,
+   "circulatingMarketValue": 6133065920.7,
+   "circulating": 525541210,
+   "total": 525544810,
+   "openPctChg": 0.76,
+   "subjectIds": [
+    9010317,
+    9026753,
+    9026886,
+    9027404,
+    9029156
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "300364",
+   "name": "中文在线",
+   "open": 27.73,
+   "high": 27.84,
+   "low": 25.56,
+   "price": 26.63,
+   "prevClose": 27.73,
+   "changeCount": -1.1,
+   "changePct": -3.97,
+   "fastChg": 0.68,
+   "volume": 684458.99,
+   "turnover": 1833772476.04,
+   "avprice": 26.63,
+   "recentChange": 6.18,
+   "turnoverRate": 10.35,
+   "amplitude": 8.22,
+   "marketCap": 19414528144.7,
+   "circulatingMarketValue": 17604711205.69,
+   "circulating": 661085663,
+   "total": 728500118,
+   "openPctChg": 0,
+   "subjectIds": [
+    9011554,
+    9013587,
+    9016254,
+    9020790,
+    9022415,
+    9025918,
+    9025934,
+    9035171,
+    9035309,
+    9039269,
+    9039406,
+    9040145,
+    9041936,
+    9044280,
+    9044802,
+    9046770,
+    9047690,
+    9051342,
+    9052852,
+    9053045,
+    9053826,
+    9054208,
+    9055965,
+    9056088,
+    9057661,
+    9057838,
+    9057863,
+    9059112,
+    9062516,
+    9062553,
+    9063236,
+    9063767,
+    9063773,
+    9063787,
+    9063814,
+    9063844,
+    9063847,
+    9063860,
+    9063910,
+    9064335,
+    9064675,
+    9065423,
+    9067527,
+    9067856,
+    9068034,
+    9068230,
+    9070317,
+    9070333,
+    9070410,
+    9071380,
+    9071397,
+    9071428,
+    9071480,
+    9072287,
+    9072604,
+    9072620,
+    9073315,
+    9073446,
+    9073451
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "688801",
+   "name": "燧原科技",
+   "open": 540,
+   "high": 548,
+   "low": 503.02,
+   "price": 509.17,
+   "prevClose": 570.7,
+   "changeCount": -61.53,
+   "changePct": -10.78,
+   "fastChg": 0.66,
+   "volume": 24604.07,
+   "turnover": 1284845297,
+   "avprice": 509.17,
+   "recentChange": 45.89,
+   "turnoverRate": 13.75,
+   "amplitude": 7.88,
+   "marketCap": 219122189345.76,
+   "circulatingMarketValue": 9114308480.25,
+   "circulating": 17900325,
+   "total": 430351728,
+   "openPctChg": -5.38,
+   "subjectIds": [
+    9055378,
+    9069431,
+    9072008,
+    9073411,
+    9073483
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "002726",
+   "name": "ST龙大",
+   "open": 1.62,
+   "high": 1.62,
+   "low": 1.49,
+   "price": 1.52,
+   "prevClose": 1.62,
+   "changeCount": -0.1,
+   "changePct": -6.17,
+   "fastChg": 0.66,
+   "volume": 370112.01,
+   "turnover": 57666998.78,
+   "avprice": 1.52,
+   "recentChange": -12.14,
+   "turnoverRate": 2.72,
+   "amplitude": 8.02,
+   "marketCap": 2068924599.6000001,
+   "circulatingMarketValue": 2067679719.6,
+   "circulating": 1360315605,
+   "total": 1361134605,
+   "openPctChg": 0,
+   "subjectIds": [
+    9021819
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "301030",
+   "name": "ST仕净",
+   "open": 3.01,
+   "high": 3.22,
+   "low": 2.87,
+   "price": 3.06,
+   "prevClose": 3.09,
+   "changeCount": -0.03,
+   "changePct": -0.97,
+   "fastChg": 0.66,
+   "volume": 140430.91,
+   "turnover": 42629713.68,
+   "avprice": 3.06,
+   "recentChange": -8.38,
+   "turnoverRate": 6.95,
+   "amplitude": 11.33,
+   "marketCap": 619292989.8,
+   "circulatingMarketValue": 618443472.6,
+   "circulating": 202105710,
+   "total": 202383330,
+   "openPctChg": -2.59,
+   "subjectIds": [
+    9014072,
+    9023919
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "600881",
+   "name": "亚泰集团",
+   "open": 1.56,
+   "high": 1.58,
+   "low": 1.53,
+   "price": 1.57,
+   "prevClose": 1.56,
+   "changeCount": 0.01,
+   "changePct": 0.64,
+   "fastChg": 0.64,
+   "volume": 406636.21,
+   "turnover": 63346269,
+   "avprice": 1.57,
+   "recentChange": 0.64,
+   "turnoverRate": 1.26,
+   "amplitude": 3.21,
+   "marketCap": 5074477051.16,
+   "circulatingMarketValue": 5074477051.16,
+   "circulating": 3232150988,
+   "total": 3232150988,
+   "openPctChg": 0,
+   "subjectIds": [
+    9016195,
+    9031607,
+    9033844
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "603368",
+   "name": "柳药集团",
+   "open": 16.28,
+   "high": 17.37,
+   "low": 16.1,
+   "price": 17.37,
+   "prevClose": 16.28,
+   "changeCount": 1.09,
+   "changePct": 6.7,
+   "fastChg": 0.64,
+   "volume": 132276.5,
+   "turnover": 223103440,
+   "avprice": 17.37,
+   "recentChange": -2.69,
+   "turnoverRate": 3.32,
+   "amplitude": 7.8,
+   "marketCap": 6899561236.35,
+   "circulatingMarketValue": 6899561236.35,
+   "circulating": 397211355,
+   "total": 397211355,
+   "openPctChg": 0,
+   "subjectIds": [
+    9017645,
+    9034770
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "000903",
+   "name": "ST云动",
+   "open": 1.63,
+   "high": 1.66,
+   "low": 1.59,
+   "price": 1.62,
+   "prevClose": 1.61,
+   "changeCount": 0.01,
+   "changePct": 0.62,
+   "fastChg": 0.62,
+   "volume": 95039,
+   "turnover": 15447002,
+   "avprice": 1.62,
+   "recentChange": 1.25,
+   "turnoverRate": 0.49,
+   "amplitude": 4.35,
+   "marketCap": 3110823869.76,
+   "circulatingMarketValue": 3110823869.76,
+   "circulating": 1920261648,
+   "total": 1920261648,
+   "openPctChg": 1.24,
+   "subjectIds": [
+    9014198,
+    9015235,
+    9022763,
+    9027744,
+    9029645,
+    9030124,
+    9038599,
+    9038700,
+    9040314,
+    9040535,
+    9041240,
+    9043029,
+    9043172,
+    9043173,
+    9043241,
+    9043683,
+    9048039,
+    9049131,
+    9049348,
+    9049419,
+    9049453,
+    9049539,
+    9049540,
+    9049603,
+    9049660,
+    9049661,
+    9049752,
+    9049753,
+    9049774,
+    9049909,
+    9050008,
+    9051591,
+    9052428,
+    9072287
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "002607",
+   "name": "中公教育",
+   "open": 1.64,
+   "high": 1.66,
+   "low": 1.62,
+   "price": 1.63,
+   "prevClose": 1.65,
+   "changeCount": -0.02,
+   "changePct": -1.21,
+   "fastChg": 0.62,
+   "volume": 661917,
+   "turnover": 108219342,
+   "avprice": 1.63,
+   "recentChange": -2.98,
+   "turnoverRate": 1.16,
+   "amplitude": 2.42,
+   "marketCap": 9991187010.18,
+   "circulatingMarketValue": 9323772137.78,
+   "circulating": 5720105606,
+   "total": 6167399389,
+   "openPctChg": -0.61,
+   "subjectIds": [
+    9013989,
+    9030019,
+    9044768,
+    9056368
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "300508",
+   "name": "维宏股份",
+   "open": 49.32,
+   "high": 50,
+   "low": 44.66,
+   "price": 45.32,
+   "prevClose": 49.55,
+   "changeCount": -4.23,
+   "changePct": -8.54,
+   "fastChg": 0.62,
+   "volume": 64144.43,
+   "turnover": 296548767,
+   "avprice": 45.32,
+   "recentChange": 3.19,
+   "turnoverRate": 7.75,
+   "amplitude": 10.78,
+   "marketCap": 4976535866.4,
+   "circulatingMarketValue": 3751942778.76,
+   "circulating": 82787793,
+   "total": 109711990,
+   "openPctChg": -0.46,
+   "subjectIds": [
+    9011526,
+    9024980,
+    9035538,
+    9035874,
+    9042148,
+    9056417,
+    9070317,
+    9070661,
+    9073214
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "688019",
+   "name": "安集科技",
+   "open": 213.6,
+   "high": 225.81,
+   "low": 212.64,
+   "price": 217.5,
+   "prevClose": 218,
+   "changeCount": -0.5,
+   "changePct": -0.23,
+   "fastChg": 0.6,
+   "volume": 62990.27,
+   "turnover": 1385166644,
+   "avprice": 217.5,
+   "recentChange": 17.78,
+   "turnoverRate": 2.76,
+   "amplitude": 6.04,
+   "marketCap": 49656130275.35,
+   "circulatingMarketValue": 49667548102.5,
+   "circulating": 228356543,
+   "total": 228356543,
+   "openPctChg": -2.02,
+   "subjectIds": [
+    9013944,
+    9028711,
+    9028738,
+    9034253,
+    9034698
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "002470",
+   "name": "金正大",
+   "open": 1.7,
+   "high": 1.7,
+   "low": 1.67,
+   "price": 1.68,
+   "prevClose": 1.7,
+   "changeCount": -0.02,
+   "changePct": -1.18,
+   "fastChg": 0.6,
+   "volume": 398332,
+   "turnover": 67002390,
+   "avprice": 1.68,
+   "recentChange": -0.59,
+   "turnoverRate": 1.21,
+   "amplitude": 1.76,
+   "marketCap": 5520526606.559999,
+   "circulatingMarketValue": 5520052720.56,
+   "circulating": 3285745667,
+   "total": 3286027742,
+   "openPctChg": 0,
+   "subjectIds": [
+    9016356,
+    9054733
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "002396",
+   "name": "星网锐捷",
+   "open": 24.7,
+   "high": 25.97,
+   "low": 24.2,
+   "price": 24.36,
+   "prevClose": 25.2,
+   "changeCount": -0.84,
+   "changePct": -3.33,
+   "fastChg": 0.58,
+   "volume": 695958.78,
+   "turnover": 1739068012.98,
+   "avprice": 24.36,
+   "recentChange": 9.68,
+   "turnoverRate": 9.19,
+   "amplitude": 7.02,
+   "marketCap": 18458206133.22,
+   "circulatingMarketValue": 18450631982.16,
+   "circulating": 757415106,
+   "total": 757415106,
+   "openPctChg": -1.98,
+   "subjectIds": [
+    9036559,
+    9037857,
+    9038684,
+    9039198,
+    9050840,
+    9056307,
+    9056353,
+    9056387
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "002695",
+   "name": "煌上煌",
+   "open": 8.4,
+   "high": 9.08,
+   "low": 8.14,
+   "price": 8.62,
+   "prevClose": 8.87,
+   "changeCount": -0.25,
+   "changePct": -2.82,
+   "fastChg": 0.58,
+   "volume": 254534.01,
+   "turnover": 217532856.36,
+   "avprice": 8.62,
+   "recentChange": -19.44,
+   "turnoverRate": 4.98,
+   "amplitude": 10.6,
+   "marketCap": 4818033746.61,
+   "circulatingMarketValue": 4408729894.08,
+   "circulating": 511453584,
+   "total": 559585801,
+   "openPctChg": -5.3,
+   "subjectIds": [
+    9016453,
+    9030732
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "003009",
+   "name": "中天火箭",
+   "open": 46.49,
+   "high": 46.49,
+   "low": 41.84,
+   "price": 42.12,
+   "prevClose": 46.49,
+   "changeCount": -4.37,
+   "changePct": -9.4,
+   "fastChg": 0.57,
+   "volume": 59019.04,
+   "turnover": 256423713.42,
+   "avprice": 42.12,
+   "recentChange": -5.05,
+   "turnoverRate": 3.58,
+   "amplitude": 10,
+   "marketCap": 6937897646.16,
+   "circulatingMarketValue": 6936629202.36,
+   "circulating": 164687303,
+   "total": 164717418,
+   "openPctChg": 0,
+   "subjectIds": [
+    9011768,
+    9012065,
+    9014764,
+    9027410,
+    9030207,
+    9032010,
+    9049960,
+    9049961,
+    9051679,
+    9053845,
+    9055998
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "300686",
+   "name": "智动力",
+   "open": 13.68,
+   "high": 14.27,
+   "low": 13.29,
+   "price": 14.01,
+   "prevClose": 13.84,
+   "changeCount": 0.17,
+   "changePct": 1.23,
+   "fastChg": 0.57,
+   "volume": 87615.3,
+   "turnover": 120993429.27,
+   "avprice": 14.01,
+   "recentChange": 32.29,
+   "turnoverRate": 3.38,
+   "amplitude": 7.08,
+   "marketCap": 3648739080,
+   "circulatingMarketValue": 3628167584.49,
+   "circulating": 258969849,
+   "total": 260624220,
+   "openPctChg": -1.16,
+   "subjectIds": [
+    9019349,
+    9023110,
+    9031542,
+    9031543,
+    9037299
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "600512",
+   "name": "腾达建设",
+   "open": 1.83,
+   "high": 1.85,
+   "low": 1.81,
+   "price": 1.83,
+   "prevClose": 1.83,
+   "changeCount": 0,
+   "changePct": 0,
+   "fastChg": 0.55,
+   "volume": 158386.24,
+   "turnover": 29015227,
+   "avprice": 1.83,
+   "recentChange": -3.68,
+   "turnoverRate": 1,
+   "amplitude": 2.19,
+   "marketCap": 2904951448.29,
+   "circulatingMarketValue": 2904951448.29,
+   "circulating": 1587405163,
+   "total": 1587405163,
+   "openPctChg": 0,
+   "subjectIds": [
+    9032568
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "300300",
+   "name": "海峡创新",
+   "open": 9.63,
+   "high": 9.8,
+   "low": 9.03,
+   "price": 9.1,
+   "prevClose": 9.83,
+   "changeCount": -0.73,
+   "changePct": -7.43,
+   "fastChg": 0.55,
+   "volume": 572792.57,
+   "turnover": 534851942.17,
+   "avprice": 9.1,
+   "recentChange": 0.89,
+   "turnoverRate": 8.58,
+   "amplitude": 7.83,
+   "marketCap": 6068308264.2,
+   "circulatingMarketValue": 6067967360,
+   "circulating": 666809600,
+   "total": 666847062,
+   "openPctChg": -2.03,
+   "subjectIds": [
+    9018638,
+    9037181,
+    9037299
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "301361",
+   "name": "众智科技",
+   "open": 30.36,
+   "high": 31.86,
+   "low": 29.29,
+   "price": 30.94,
+   "prevClose": 30.67,
+   "changeCount": 0.27,
+   "changePct": 0.88,
+   "fastChg": 0.55,
+   "volume": 35293.31,
+   "turnover": 108991537.09,
+   "avprice": 30.94,
+   "recentChange": 3.48,
+   "turnoverRate": 6.26,
+   "amplitude": 8.38,
+   "marketCap": 3606416000,
+   "circulatingMarketValue": 1743035840,
+   "circulating": 56336000,
+   "total": 116336000,
+   "openPctChg": -1.01,
+   "subjectIds": [
+    9012785
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "600715",
+   "name": "文投控股",
+   "open": 3.65,
+   "high": 3.74,
+   "low": 3.5,
+   "price": 3.7,
+   "prevClose": 3.4,
+   "changeCount": 0.3,
+   "changePct": 8.82,
+   "fastChg": 0.54,
+   "volume": 9953058.65,
+   "turnover": 3631908061,
+   "avprice": 3.7,
+   "recentChange": 65.18,
+   "turnoverRate": 34.77,
+   "amplitude": 7.06,
+   "marketCap": 14980859415,
+   "circulatingMarketValue": 10590777291.7,
+   "circulating": 2862372241,
+   "total": 4059853500,
+   "openPctChg": 7.35,
+   "subjectIds": [
+    9011456,
+    9013587,
+    9020790,
+    9046336,
+    9056523,
+    9056728,
+    9059312,
+    9063449,
+    9063847,
+    9066664,
+    9066928,
+    9068034,
+    9069391,
+    9070753,
+    9072604,
+    9072887,
+    9073016,
+    9073057,
+    9073075,
+    9073151,
+    9073168,
+    9073214,
+    9073248,
+    9073252,
+    9073390,
+    9073422,
+    9073426,
+    9073459,
+    9073463,
+    9073529
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "603219",
+   "name": "富佳股份",
+   "open": 12.92,
+   "high": 13.37,
+   "low": 12.38,
+   "price": 13.04,
+   "prevClose": 12.92,
+   "changeCount": 0.12,
+   "changePct": 0.93,
+   "fastChg": 0.54,
+   "volume": 173478.15,
+   "turnover": 223617721,
+   "avprice": 13.04,
+   "recentChange": 6.62,
+   "turnoverRate": 3.09,
+   "amplitude": 7.66,
+   "marketCap": 7315042000,
+   "circulatingMarketValue": 7320656000,
+   "circulating": 561400000,
+   "total": 561400000,
+   "openPctChg": 0,
+   "subjectIds": [
+    9027744,
+    9029061
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "603716",
+   "name": "塞力医疗",
+   "open": 14.92,
+   "high": 15.67,
+   "low": 14.79,
+   "price": 14.94,
+   "prevClose": 15.02,
+   "changeCount": -0.08,
+   "changePct": -0.53,
+   "fastChg": 0.54,
+   "volume": 76576.66,
+   "turnover": 115334850,
+   "avprice": 14.94,
+   "recentChange": -6.33,
+   "turnoverRate": 3.39,
+   "amplitude": 5.86,
+   "marketCap": 3371056196.1,
+   "circulatingMarketValue": 3373314103.8,
+   "circulating": 225790770,
+   "total": 225790770,
+   "openPctChg": -0.67,
+   "subjectIds": [
+    9011558,
+    9017416,
+    9017645,
+    9034770,
+    9035149,
+    9037299
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "300370",
+   "name": "安控科技",
+   "open": 1.88,
+   "high": 1.92,
+   "low": 1.86,
+   "price": 1.88,
+   "prevClose": 1.89,
+   "changeCount": -0.01,
+   "changePct": -0.53,
+   "fastChg": 0.53,
+   "volume": 170462.6,
+   "turnover": 32308986.6,
+   "avprice": 1.88,
+   "recentChange": 0.53,
+   "turnoverRate": 1.09,
+   "amplitude": 3.17,
+   "marketCap": 2942907303,
+   "circulatingMarketValue": 2935575084.92,
+   "circulating": 1561476109,
+   "total": 1565376225,
+   "openPctChg": -0.53,
+   "subjectIds": [
+    9010818,
+    9018216,
+    9019060,
+    9024589,
+    9033292,
+    9035559,
+    9043698,
+    9050371,
+    9053800
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "300824",
+   "name": "北鼎股份",
+   "open": 7.19,
+   "high": 8.6,
+   "low": 7.11,
+   "price": 8.6,
+   "prevClose": 7.17,
+   "changeCount": 1.43,
+   "changePct": 19.94,
+   "fastChg": 0,
+   "volume": 299393.79,
+   "turnover": 244235695.65,
+   "avprice": 8.6,
+   "recentChange": 18.62,
+   "turnoverRate": 9.39,
+   "amplitude": 20.78,
+   "marketCap": 2806538465.2,
+   "circulatingMarketValue": 2743126098.6,
+   "circulating": 318968151,
+   "total": 326341682,
+   "openPctChg": 0.28,
+   "subjectIds": [
+    9011817,
+    9024955,
+    9047618,
+    9047657,
+    9073558
+   ],
+   "limitUpStreak": 1,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "600936",
+   "name": "北投科技",
+   "open": 3.73,
+   "high": 4.02,
+   "low": 3.63,
+   "price": 4.02,
+   "prevClose": 3.65,
+   "changeCount": 0.37,
+   "changePct": 10.14,
+   "fastChg": 0,
+   "volume": 441065.98,
+   "turnover": 170823219,
+   "avprice": 4.02,
+   "recentChange": 11.36,
+   "turnoverRate": 2.64,
+   "amplitude": 10.68,
+   "marketCap": 6717525480.78,
+   "circulatingMarketValue": 6717525480.78,
+   "circulating": 1671026239,
+   "total": 1671026239,
+   "openPctChg": 2.19,
+   "subjectIds": [
+    9012188,
+    9013587,
+    9016254,
+    9039625,
+    9039763,
+    9039998,
+    9043404,
+    9043546,
+    9043547,
+    9061183,
+    9061245,
+    9062256,
+    9065632,
+    9067230,
+    9067274,
+    9067278,
+    9067625,
+    9067641,
+    9067723,
+    9067735,
+    9068148,
+    9068202,
+    9068205,
+    9069996,
+    9070410,
+    9070693,
+    9073558
+   ],
+   "limitUpStreak": 1,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "600386",
+   "name": "北巴传媒",
+   "open": 3.46,
+   "high": 3.81,
+   "low": 3.39,
+   "price": 3.81,
+   "prevClose": 3.46,
+   "changeCount": 0.35,
+   "changePct": 10.12,
+   "fastChg": 0,
+   "volume": 329151.44,
+   "turnover": 122662136,
+   "avprice": 3.81,
+   "recentChange": 12.39,
+   "turnoverRate": 4.08,
+   "amplitude": 12.14,
+   "marketCap": 3072384000,
+   "circulatingMarketValue": 3072384000,
+   "circulating": 806400000,
+   "total": 806400000,
+   "openPctChg": 0,
+   "subjectIds": [
+    9010818,
+    9013587,
+    9022246,
+    9029645,
+    9040732,
+    9073558
+   ],
+   "limitUpStreak": 1,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "002148",
+   "name": "北纬科技",
+   "open": 8.75,
+   "high": 8.75,
+   "low": 7.95,
+   "price": 8.75,
+   "prevClose": 7.95,
+   "changeCount": 0.8,
+   "changePct": 10.06,
+   "fastChg": 0,
+   "volume": 1873919.32,
+   "turnover": 1612262659,
+   "avprice": 8.75,
+   "recentChange": 51.12,
+   "turnoverRate": 41.53,
+   "amplitude": 10.06,
+   "marketCap": 4889074137.5,
+   "circulatingMarketValue": 3946482846.25,
+   "circulating": 451026611,
+   "total": 558751330,
+   "openPctChg": 10.06,
+   "subjectIds": [
+    9036191,
+    9039763,
+    9053030,
+    9054729,
+    9054853,
+    9054868,
+    9054872,
+    9054936,
+    9054941,
+    9055019,
+    9055036,
+    9055118,
+    9055166,
+    9055187,
+    9055236,
+    9055250,
+    9055274,
+    9055311,
+    9055316,
+    9055346,
+    9055419,
+    9057179,
+    9069297,
+    9073463,
+    9073493,
+    9073511,
+    9073516,
+    9073529,
+    9073543,
+    9073558
+   ],
+   "limitUpStreak": 1,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "600985",
+   "name": "淮北矿业",
+   "open": 14.13,
+   "high": 14.67,
+   "low": 14.03,
+   "price": 14.64,
+   "prevClose": 14.08,
+   "changeCount": 0.56,
+   "changePct": 3.98,
+   "fastChg": 0.27,
+   "volume": 210380.33,
+   "turnover": 304011380,
+   "avprice": 14.64,
+   "recentChange": 3.54,
+   "turnoverRate": 0.78,
+   "amplitude": 4.55,
+   "marketCap": 39375442325.579994,
+   "circulatingMarketValue": 39429307499.76,
+   "circulating": 2693258709,
+   "total": 2693258709,
+   "openPctChg": 0.36,
+   "subjectIds": [
+    9012624,
+    9053637,
+    9059566,
+    9069845,
+    9073558
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "600861",
+   "name": "北京人力",
+   "open": 12.56,
+   "high": 13.02,
+   "low": 12.56,
+   "price": 12.99,
+   "prevClose": 12.65,
+   "changeCount": 0.34,
+   "changePct": 2.69,
+   "fastChg": 0,
+   "volume": 34980.1,
+   "turnover": 45056873,
+   "avprice": 12.99,
+   "recentChange": 0,
+   "turnoverRate": 0.62,
+   "amplitude": 3.64,
+   "marketCap": 7353804206.82,
+   "circulatingMarketValue": 7353804206.82,
+   "circulating": 566112718,
+   "total": 566112718,
+   "openPctChg": -0.71,
+   "subjectIds": [
+    9010818,
+    9023708,
+    9030019,
+    9032555,
+    9046051,
+    9052792,
+    9054848,
+    9073558
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "601169",
+   "name": "北京银行",
+   "open": 6.17,
+   "high": 6.31,
+   "low": 6.17,
+   "price": 6.31,
+   "prevClose": 6.16,
+   "changeCount": 0.15,
+   "changePct": 2.44,
+   "fastChg": 0,
+   "volume": 2378620.64,
+   "turnover": 1488978858,
+   "avprice": 6.31,
+   "recentChange": 7.5,
+   "turnoverRate": 1.12,
+   "amplitude": 2.27,
+   "marketCap": 133200800913.59999,
+   "circulatingMarketValue": 133412230756.32,
+   "circulating": 21142984272,
+   "total": 21142984272,
+   "openPctChg": 0.16,
+   "subjectIds": [
+    69,
+    9012323,
+    9012443,
+    9036888,
+    9073558
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "603082",
+   "name": "北自科技",
+   "open": 39.32,
+   "high": 40.98,
+   "low": 39.08,
+   "price": 39.74,
+   "prevClose": 39.05,
+   "changeCount": 0.69,
+   "changePct": 1.77,
+   "fastChg": -0.2,
+   "volume": 53378.22,
+   "turnover": 213834600,
+   "avprice": 39.74,
+   "recentChange": 4.58,
+   "turnoverRate": 13.16,
+   "amplitude": 4.87,
+   "marketCap": 6616283889.48,
+   "circulatingMarketValue": 1611731206,
+   "circulating": 40556900,
+   "total": 166573109,
+   "openPctChg": 0.69,
+   "subjectIds": [
+    9013055,
+    9024980,
+    9027744,
+    9033525,
+    9039441,
+    9039537,
+    9039703,
+    9041395,
+    9041593,
+    9042236,
+    9066143,
+    9067491,
+    9067512,
+    9067536,
+    9067541,
+    9067553,
+    9067579,
+    9067584,
+    9067635,
+    9067641,
+    9068780,
+    9068825,
+    9070082,
+    9070959,
+    9071879,
+    9071927,
+    9071932,
+    9073558
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "000582",
+   "name": "北部湾港",
+   "open": 7.98,
+   "high": 8.13,
+   "low": 7.92,
+   "price": 8.06,
+   "prevClose": 7.96,
+   "changeCount": 0.1,
+   "changePct": 1.26,
+   "fastChg": -0.12,
+   "volume": 200189.03,
+   "turnover": 161552237.04,
+   "avprice": 8.06,
+   "recentChange": -1.1,
+   "turnoverRate": 0.93,
+   "amplitude": 2.64,
+   "marketCap": 20262530064,
+   "circulatingMarketValue": 17384196677.38,
+   "circulating": 2156848223,
+   "total": 2517084480,
+   "openPctChg": 0.25,
+   "subjectIds": [
+    129,
+    9014573,
+    9044040,
+    9046101,
+    9046378,
+    9046388,
+    9046468,
+    9056609,
+    9069996,
+    9070942,
+    9071694,
+    9072164,
+    9073558
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "000597",
+   "name": "东北制药",
+   "open": 4.31,
+   "high": 4.52,
+   "low": 4.29,
+   "price": 4.32,
+   "prevClose": 4.28,
+   "changeCount": 0.04,
+   "changePct": 0.93,
+   "fastChg": -0.23,
+   "volume": 162711.59,
+   "turnover": 71248311.45,
+   "avprice": 4.32,
+   "recentChange": -0.92,
+   "turnoverRate": 1.15,
+   "amplitude": 5.37,
+   "marketCap": 6164330104.8,
+   "circulatingMarketValue": 6087760143.84,
+   "circulating": 1409203737,
+   "total": 1426928265,
+   "openPctChg": 0.7,
+   "subjectIds": [
+    1,
+    9027463,
+    9027531,
+    9038566,
+    9071013,
+    9073558
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "002385",
+   "name": "大北农",
+   "open": 2.99,
+   "high": 3.02,
+   "low": 2.97,
+   "price": 2.99,
+   "prevClose": 2.98,
+   "changeCount": 0.01,
+   "changePct": 0.34,
+   "fastChg": 0,
+   "volume": 326276.95,
+   "turnover": 97710772.05,
+   "avprice": 2.99,
+   "recentChange": 2.05,
+   "turnoverRate": 0.92,
+   "amplitude": 1.68,
+   "marketCap": 12798312175.35,
+   "circulatingMarketValue": 10661181587.29,
+   "circulating": 3565612571,
+   "total": 4280371965,
+   "openPctChg": 0.34,
+   "subjectIds": [
+    79,
+    9017354,
+    9017774,
+    9028694,
+    9039574,
+    9042007,
+    9045676,
+    9045887,
+    9045991,
+    9046449,
+    9050659,
+    9061346,
+    9071013,
+    9071034,
+    9073558
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "002307",
+   "name": "北新路桥",
+   "open": 3.19,
+   "high": 3.27,
+   "low": 3.11,
+   "price": 3.19,
+   "prevClose": 3.18,
+   "changeCount": 0.01,
+   "changePct": 0.31,
+   "fastChg": -0.31,
+   "volume": 606923.4,
+   "turnover": 193683318.33,
+   "avprice": 3.19,
+   "recentChange": -0.93,
+   "turnoverRate": 3.73,
+   "amplitude": 5.03,
+   "marketCap": 5276092979.200001,
+   "circulatingMarketValue": 5196902488.03,
+   "circulating": 1629123037,
+   "total": 1648779056,
+   "openPctChg": 0.31,
+   "subjectIds": [
+    9011782,
+    9012396,
+    9027140,
+    9027969,
+    9034544,
+    9037314,
+    9037406,
+    9042030,
+    9046101,
+    9050671,
+    9050912,
+    9053637,
+    9055097,
+    9055163,
+    9055166,
+    9055236,
+    9055250,
+    9056716,
+    9057491,
+    9058589,
+    9060192,
+    9060273,
+    9060278,
+    9060306,
+    9060565,
+    9071438,
+    9072922,
+    9072935,
+    9073558
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "600812",
+   "name": "华北制药",
+   "open": 4.74,
+   "high": 4.75,
+   "low": 4.6,
+   "price": 4.62,
+   "prevClose": 4.62,
+   "changeCount": 0,
+   "changePct": 0,
+   "fastChg": 0,
+   "volume": 360703.1,
+   "turnover": 168034603,
+   "avprice": 4.62,
+   "recentChange": -0.86,
+   "turnoverRate": 2.1,
+   "amplitude": 3.25,
+   "marketCap": 7926674309.400001,
+   "circulatingMarketValue": 7926674309.4,
+   "circulating": 1715730370,
+   "total": 1715730370,
+   "openPctChg": 2.6,
+   "subjectIds": [
+    9027463,
+    9027531,
+    9038566,
+    9046036,
+    9072065,
+    9072549,
+    9072599,
+    9072604,
+    9072640,
+    9072645,
+    9072751,
+    9073558
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "600598",
+   "name": "北大荒",
+   "open": 13.3,
+   "high": 13.45,
+   "low": 13.22,
+   "price": 13.29,
+   "prevClose": 13.34,
+   "changeCount": -0.05,
+   "changePct": -0.37,
+   "fastChg": 0,
+   "volume": 75719,
+   "turnover": 101041624,
+   "avprice": 13.29,
+   "recentChange": -2.85,
+   "turnoverRate": 0.43,
+   "amplitude": 1.72,
+   "marketCap": 23625365990.609997,
+   "circulatingMarketValue": 23625365990.61,
+   "circulating": 1777679909,
+   "total": 1777679909,
+   "openPctChg": -0.3,
+   "subjectIds": [
+    9017354,
+    9038003,
+    9039574,
+    9041842,
+    9042716,
+    9045821,
+    9045886,
+    9045887,
+    9045990,
+    9045991,
+    9046100,
+    9046101,
+    9046219,
+    9046468,
+    9064422,
+    9065152,
+    9068952,
+    9069007,
+    9071013,
+    9071998,
+    9073558
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "000802",
+   "name": "北京文化",
+   "open": 4.22,
+   "high": 4.44,
+   "low": 4.02,
+   "price": 4.16,
+   "prevClose": 4.21,
+   "changeCount": -0.05,
+   "changePct": -1.19,
+   "fastChg": 0,
+   "volume": 1814812.98,
+   "turnover": 761151249.68,
+   "avprice": 4.16,
+   "recentChange": 12.74,
+   "turnoverRate": 25.36,
+   "amplitude": 9.98,
+   "marketCap": 2970986058.2500005,
+   "circulatingMarketValue": 2976663060.8,
+   "circulating": 715544005,
+   "total": 715900255,
+   "openPctChg": 0.24,
+   "subjectIds": [
+    9011456,
+    9013587,
+    9055011,
+    9057838,
+    9066320,
+    9070753,
+    9070772,
+    9070778,
+    9070830,
+    9070855,
+    9070887,
+    9070942,
+    9071034,
+    9071106,
+    9073390,
+    9073558
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "000788",
+   "name": "北大医药",
+   "open": 5.38,
+   "high": 5.43,
+   "low": 5.29,
+   "price": 5.3,
+   "prevClose": 5.38,
+   "changeCount": -0.08,
+   "changePct": -1.49,
+   "fastChg": 0,
+   "volume": 83169.6,
+   "turnover": 44717314.2,
+   "avprice": 5.3,
+   "recentChange": -1.12,
+   "turnoverRate": 1.39,
+   "amplitude": 2.6,
+   "marketCap": 3164693226.75,
+   "circulatingMarketValue": 3158733352.5,
+   "circulating": 595987425,
+   "total": 595987425,
+   "openPctChg": 0,
+   "subjectIds": [
+    9027463,
+    9027531,
+    9034532,
+    9038566,
+    9050939,
+    9058516,
+    9059575,
+    9060340,
+    9060425,
+    9060430,
+    9060452,
+    9065775,
+    9065806,
+    9065810,
+    9065827,
+    9065861,
+    9066366,
+    9069714,
+    9070122,
+    9072549,
+    9073558
+   ],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "600197",
+   "name": "600197",
+   "price": 9.28,
+   "changePct": 0.43,
+   "subjectIds": [],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "600199",
+   "name": "600199",
+   "price": 7.65,
+   "changePct": -0.78,
+   "subjectIds": [],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "600257",
+   "name": "600257",
+   "price": 4.75,
+   "changePct": -1.66,
+   "subjectIds": [],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "600381",
+   "name": "600381",
+   "price": 3.91,
+   "changePct": 0.51,
+   "subjectIds": [],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "600519",
+   "name": "600519",
+   "price": 1447.58,
+   "changePct": 0.86,
+   "subjectIds": [],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "600559",
+   "name": "600559",
+   "price": 11.72,
+   "changePct": 1.21,
+   "subjectIds": [],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "600655",
+   "name": "600655",
+   "price": 4.45,
+   "changePct": 2.06,
+   "subjectIds": [],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "600702",
+   "name": "600702",
+   "price": 31.87,
+   "changePct": -0.93,
+   "subjectIds": [],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "600779",
+   "name": "600779",
+   "price": 27.53,
+   "changePct": 0.04,
+   "subjectIds": [],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "600809",
+   "name": "600809",
+   "price": 130.49,
+   "changePct": 0.96,
+   "subjectIds": [],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "603198",
+   "name": "603198",
+   "price": 44.69,
+   "changePct": -0.58,
+   "subjectIds": [],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "603369",
+   "name": "603369",
+   "price": 33.37,
+   "changePct": 0.3,
+   "subjectIds": [],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "603589",
+   "name": "603589",
+   "price": 17.82,
+   "changePct": 0.68,
+   "subjectIds": [],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "603919",
+   "name": "603919",
+   "price": 16.64,
+   "changePct": 4.13,
+   "subjectIds": [],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "000858",
+   "name": "000858",
+   "price": 73.52,
+   "changePct": 0.19,
+   "subjectIds": [],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "000568",
+   "name": "000568",
+   "price": 79.95,
+   "changePct": 0.44,
+   "subjectIds": [],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "000799",
+   "name": "000799",
+   "price": 33.54,
+   "changePct": -1.09,
+   "subjectIds": [],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "000596",
+   "name": "000596",
+   "price": 111.64,
+   "changePct": -0.32,
+   "subjectIds": [],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "002304",
+   "name": "002304",
+   "price": 35.63,
+   "changePct": -0.7,
+   "subjectIds": [],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "000995",
+   "name": "000995",
+   "price": 19,
+   "changePct": 3.43,
+   "subjectIds": [],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  },
+  {
+   "code": "000860",
+   "name": "000860",
+   "price": 12.7,
+   "changePct": 6.1,
+   "subjectIds": [],
+   "limitUpStreak": 0,
+   "firstSealAt": null,
+   "sealAmount": 0,
+   "leadCount": 0
+  }
+ ],
+ "quotes": {
+  "300152": {
+   "amount": 13264575,
+   "amplitude": 4.41,
+   "avprice": 1.31,
+   "brokerCount": 3,
+   "changeCount": -0.05,
+   "circulating": 712790925,
+   "circulatingMarketValue": 933756111.75,
+   "close": 1.31,
+   "current": 1.31,
+   "factor": 1,
+   "factor2": 6.887252,
+   "fastChg": 1.55,
+   "firstLetter": "STDL",
+   "high": 1.35,
+   "innerDisk": null,
+   "isBuy": null,
+   "limitDown": 1.09,
+   "limitUp": 1.63,
+   "limitUpTimes": 0,
+   "low": 1.29,
+   "marketValue": 933768000,
+   "name": "ST动力",
+   "open": 1.35,
+   "openPctChg": -0.74,
+   "outerDisk": null,
+   "pctChg": -3.68,
+   "pe": 0,
+   "pes": 0,
+   "preClose": 1.36,
+   "qaCount": 260,
+   "qaTime": "2026-11-09 21:04:10",
+   "recentChange": -9.03,
+   "reportCount": 15,
+   "reportDate": "2016-05-13 00:00:00",
+   "selectDate": null,
+   "selfSelectedTime": null,
+   "status": 2,
+   "stockId": "300152",
+   "subject": null,
+   "subjectCacheVos": [
+    {
+     "ancestors": null,
+     "fullName": null,
+     "hasSubSubject": null,
+     "level": 1,
+     "name": "碳中和",
+     "parentId": null,
+     "subjectId": 9023749,
+     "type": null
+    },
+    {
+     "ancestors": null,
+     "fullName": null,
+     "hasSubSubject": null,
+     "level": 1,
+     "name": "可再生能源替代行动",
+     "parentId": null,
+     "subjectId": 9034195,
+     "type": null
+    }
+   ],
+   "time": "140227",
+   "total": 712800000,
+   "totalMarketValue": 933768000,
+   "tradeDate": "2026-11-16 00:00:00",
+   "tradeFive": [
+    1.3,
+    457200,
+    1.29,
+    272200,
+    1.28,
+    327300,
+    1.27,
+    154100,
+    1.26,
+    350700,
+    1.31,
+    270400,
+    1.32,
+    917000,
+    1.33,
+    687000,
+    1.34,
+    324300,
+    1.35,
+    219700
+   ],
+   "turnoverRate": 1.42,
+   "vol": 101377
+  }
+ },
+ "minutes": {
+  "300152": {
+   "data": [
+    [
+     930,
+     1.34,
+     811,
+     1.3438964241676943,
+     1.35
+    ],
+    [
+     931,
+     1.33,
+     1190,
+     1.3351974012993504,
+     1.35
+    ],
+    [
+     932,
+     1.33,
+     1710.48,
+     1.32868117300915,
+     1.35
+    ],
+    [
+     933,
+     1.32,
+     2675.52,
+     1.3250900266165648,
+     1.35
+    ],
+    [
+     934,
+     1.32,
+     3835,
+     1.3187820387399727,
+     1.35
+    ],
+    [
+     935,
+     1.31,
+     857,
+     1.318461052441556,
+     1.35
+    ],
+    [
+     936,
+     1.32,
+     2418,
+     1.3170689782914722,
+     1.35
+    ],
+    [
+     937,
+     1.32,
+     1708,
+     1.3172627425189083,
+     1.35
+    ],
+    [
+     938,
+     1.32,
+     297,
+     1.3173280866984904,
+     1.35
+    ],
+    [
+     939,
+     1.32,
+     696,
+     1.3174428941844671,
+     1.35
+    ],
+    [
+     940,
+     1.31,
+     1369,
+     1.3176410314794786,
+     1.35
+    ],
+    [
+     941,
+     1.32,
+     267,
+     1.3176741056409107,
+     1.35
+    ],
+    [
+     942,
+     1.31,
+     2183,
+     1.3168376879652295,
+     1.35
+    ],
+    [
+     943,
+     1.3,
+     174,
+     1.316704472289634,
+     1.35
+    ],
+    [
+     944,
+     1.3,
+     5059,
+     1.3133647524752474,
+     1.35
+    ],
+    [
+     945,
+     1.3,
+     3049,
+     1.311948832114209,
+     1.35
+    ],
+    [
+     946,
+     1.31,
+     78,
+     1.3119378369806534,
+     1.35
+    ],
+    [
+     947,
+     1.31,
+     2522,
+     1.3109848215152593,
+     1.35
+    ],
+    [
+     948,
+     1.31,
+     54,
+     1.3109831034148547,
+     1.35
+    ],
+    [
+     949,
+     1.3,
+     390,
+     1.310915355900839,
+     1.35
+    ],
+    [
+     950,
+     1.3,
+     4536,
+     1.3090833077844979,
+     1.35
+    ],
+    [
+     951,
+     1.3,
+     2086,
+     1.3085520874489662,
+     1.35
+    ],
+    [
+     952,
+     1.31,
+     715,
+     1.3084232161323681,
+     1.35
+    ],
+    [
+     953,
+     1.3,
+     457,
+     1.3083322686971408,
+     1.35
+    ],
+    [
+     954,
+     1.3,
+     46,
+     1.3083224867927417,
+     1.35
+    ],
+    [
+     955,
+     1.31,
+     861,
+     1.3082639096993307,
+     1.35
+    ],
+    [
+     956,
+     1.31,
+     194,
+     1.3082722799343904,
+     1.35
+    ],
+    [
+     957,
+     1.31,
+     18,
+     1.3082718104133546,
+     1.35
+    ],
+    [
+     958,
+     1.3,
+     2693,
+     1.3077647907983887,
+     1.35
+    ],
+    [
+     959,
+     1.29,
+     3174,
+     1.3072293649589142,
+     1.35
+    ],
+    [
+     1000,
+     1.3,
+     200,
+     1.307155192884744,
+     1.35
+    ],
+    [
+     1001,
+     1.3,
+     686,
+     1.3069912144482971,
+     1.35
+    ],
+    [
+     1002,
+     1.3,
+     3529,
+     1.306503027424908,
+     1.35
+    ],
+    [
+     1003,
+     1.31,
+     14,
+     1.3065037980693148,
+     1.35
+    ],
+    [
+     1004,
+     1.31,
+     4502,
+     1.3067824317942385,
+     1.35
+    ],
+    [
+     1005,
+     1.32,
+     10,
+     1.3067848321952638,
+     1.35
+    ],
+    [
+     1006,
+     1.31,
+     1745,
+     1.3066248305726205,
+     1.35
+    ],
+    [
+     1007,
+     1.31,
+     88,
+     1.306630050793539,
+     1.35
+    ],
+    [
+     1008,
+     1.31,
+     208,
+     1.3066423255406707,
+     1.35
+    ],
+    [
+     1009,
+     1.3,
+     243,
+     1.306656378600823,
+     1.35
+    ],
+    [
+     1010,
+     1.31,
+     12,
+     1.3066570781032079,
+     1.35
+    ],
+    [
+     1011,
+     1.31,
+     0,
+     1.3066570781032079,
+     1.35
+    ],
+    [
+     1012,
+     1.31,
+     19,
+     1.3066581850502796,
+     1.35
+    ],
+    [
+     1013,
+     1.31,
+     48,
+     1.306660107614885,
+     1.35
+    ],
+    [
+     1014,
+     1.31,
+     60,
+     1.306658722841686,
+     1.35
+    ],
+    [
+     1015,
+     1.31,
+     79,
+     1.3066633082027586,
+     1.35
+    ],
+    [
+     1016,
+     1.3,
+     143,
+     1.3066577137015023,
+     1.35
+    ],
+    [
+     1017,
+     1.31,
+     145,
+     1.3066515711964601,
+     1.35
+    ],
+    [
+     1018,
+     1.3,
+     46,
+     1.3066480138169256,
+     1.35
+    ],
+    [
+     1019,
+     1.3,
+     53,
+     1.3066419339809845,
+     1.35
+    ],
+    [
+     1020,
+     1.3,
+     153,
+     1.3066389013182804,
+     1.35
+    ],
+    [
+     1021,
+     1.3,
+     0,
+     1.3066389013182804,
+     1.35
+    ],
+    [
+     1022,
+     1.3,
+     221,
+     1.3066317485898469,
+     1.35
+    ],
+    [
+     1023,
+     1.31,
+     1589,
+     1.3067210761733092,
+     1.35
+    ],
+    [
+     1024,
+     1.31,
+     40,
+     1.3067265995063047,
+     1.35
+    ],
+    [
+     1025,
+     1.31,
+     1456,
+     1.307041132026314,
+     1.35
+    ],
+    [
+     1026,
+     1.31,
+     67,
+     1.307044356609574,
+     1.35
+    ],
+    [
+     1027,
+     1.32,
+     127,
+     1.3070710645067039,
+     1.35
+    ],
+    [
+     1028,
+     1.33,
+     3881,
+     1.3083187502863163,
+     1.35
+    ],
+    [
+     1029,
+     1.33,
+     0,
+     1.3083187502863163,
+     1.35
+    ],
+    [
+     1030,
+     1.32,
+     86,
+     1.3083349854360788,
+     1.35
+    ],
+    [
+     1031,
+     1.32,
+     858,
+     1.3084856467613013,
+     1.35
+    ],
+    [
+     1032,
+     1.32,
+     597,
+     1.3085882019454556,
+     1.35
+    ],
+    [
+     1033,
+     1.32,
+     86,
+     1.308602825043955,
+     1.35
+    ],
+    [
+     1034,
+     1.31,
+     3,
+     1.3086028874949716,
+     1.35
+    ],
+    [
+     1035,
+     1.32,
+     120,
+     1.3086232282820471,
+     1.35
+    ],
+    [
+     1036,
+     1.32,
+     219,
+     1.3086524549335863,
+     1.35
+    ],
+    [
+     1037,
+     1.32,
+     1829,
+     1.3089520098145342,
+     1.35
+    ],
+    [
+     1038,
+     1.32,
+     0,
+     1.3089520098145342,
+     1.35
+    ],
+    [
+     1039,
+     1.32,
+     0,
+     1.3089520098145342,
+     1.35
+    ],
+    [
+     1040,
+     1.32,
+     0,
+     1.3089520098145342,
+     1.35
+    ],
+    [
+     1041,
+     1.32,
+     0,
+     1.3089520098145342,
+     1.35
+    ],
+    [
+     1042,
+     1.32,
+     0,
+     1.3089520098145342,
+     1.35
+    ],
+    [
+     1043,
+     1.32,
+     552,
+     1.309039764021937,
+     1.35
+    ],
+    [
+     1044,
+     1.32,
+     489,
+     1.3091159741774023,
+     1.35
+    ],
+    [
+     1045,
+     1.32,
+     0,
+     1.3091159741774023,
+     1.35
+    ],
+    [
+     1046,
+     1.32,
+     0,
+     1.3091159741774023,
+     1.35
+    ],
+    [
+     1047,
+     1.32,
+     0,
+     1.3091159741774023,
+     1.35
+    ],
+    [
+     1048,
+     1.32,
+     0,
+     1.3091159741774023,
+     1.35
+    ],
+    [
+     1049,
+     1.31,
+     15,
+     1.3091161626931662,
+     1.35
+    ],
+    [
+     1050,
+     1.32,
+     20,
+     1.3091192564062477,
+     1.35
+    ],
+    [
+     1051,
+     1.32,
+     1,
+     1.309119411045735,
+     1.35
+    ],
+    [
+     1052,
+     1.32,
+     15,
+     1.3091217301106897,
+     1.35
+    ],
+    [
+     1053,
+     1.32,
+     0,
+     1.3091217301106897,
+     1.35
+    ],
+    [
+     1054,
+     1.32,
+     112,
+     1.3091390145980224,
+     1.35
+    ],
+    [
+     1055,
+     1.32,
+     35,
+     1.3091404344620272,
+     1.35
+    ],
+    [
+     1056,
+     1.31,
+     12,
+     1.309140580696382,
+     1.35
+    ],
+    [
+     1057,
+     1.31,
+     0,
+     1.309140580696382,
+     1.35
+    ],
+    [
+     1058,
+     1.32,
+     78,
+     1.3091525759764353,
+     1.35
+    ],
+    [
+     1059,
+     1.32,
+     1233,
+     1.3092413044385987,
+     1.35
+    ],
+    [
+     1100,
+     1.31,
+     254,
+     1.3092725482309537,
+     1.35
+    ],
+    [
+     1101,
+     1.31,
+     34,
+     1.3092728911069522,
+     1.35
+    ],
+    [
+     1102,
+     1.31,
+     110,
+     1.309280919094747,
+     1.35
+    ],
+    [
+     1103,
+     1.31,
+     117,
+     1.3092820817556177,
+     1.35
+    ],
+    [
+     1104,
+     1.32,
+     100,
+     1.3092968728436973,
+     1.35
+    ],
+    [
+     1105,
+     1.32,
+     2,
+     1.3092971682490615,
+     1.35
+    ],
+    [
+     1106,
+     1.32,
+     1,
+     1.309297315945629,
+     1.35
+    ],
+    [
+     1107,
+     1.32,
+     484,
+     1.3093683258166664,
+     1.35
+    ],
+    [
+     1108,
+     1.32,
+     592,
+     1.3094539100637739,
+     1.35
+    ],
+    [
+     1109,
+     1.32,
+     482,
+     1.3095215000743012,
+     1.35
+    ],
+    [
+     1110,
+     1.31,
+     53,
+     1.3095231923969977,
+     1.35
+    ],
+    [
+     1111,
+     1.31,
+     235,
+     1.309551883301261,
+     1.35
+    ],
+    [
+     1112,
+     1.31,
+     29,
+     1.3095520581113802,
+     1.35
+    ],
+    [
+     1113,
+     1.31,
+     0,
+     1.3095520581113802,
+     1.35
+    ],
+    [
+     1114,
+     1.33,
+     1024,
+     1.3096953452576827,
+     1.35
+    ],
+    [
+     1115,
+     1.32,
+     200,
+     1.3097226192366735,
+     1.35
+    ],
+    [
+     1116,
+     1.32,
+     200,
+     1.309749749221266,
+     1.35
+    ],
+    [
+     1117,
+     1.32,
+     0,
+     1.309749749221266,
+     1.35
+    ],
+    [
+     1118,
+     1.32,
+     0,
+     1.309749749221266,
+     1.35
+    ],
+    [
+     1119,
+     1.32,
+     1011,
+     1.3098847281015955,
+     1.35
+    ],
+    [
+     1120,
+     1.32,
+     96,
+     1.3098973605130673,
+     1.35
+    ],
+    [
+     1121,
+     1.32,
+     17,
+     1.309899594214962,
+     1.35
+    ],
+    [
+     1122,
+     1.32,
+     1,
+     1.3098997255784313,
+     1.35
+    ],
+    [
+     1123,
+     1.32,
+     3,
+     1.309900119648338,
+     1.35
+    ],
+    [
+     1124,
+     1.32,
+     127,
+     1.3099167737830926,
+     1.35
+    ],
+    [
+     1125,
+     1.32,
+     164,
+     1.3099381988261665,
+     1.35
+    ],
+    [
+     1126,
+     1.32,
+     388,
+     1.3099885266401103,
+     1.35
+    ],
+    [
+     1127,
+     1.33,
+     243,
+     1.3100510190968206,
+     1.35
+    ],
+    [
+     1128,
+     1.32,
+     129,
+     1.3100674852135534,
+     1.35
+    ],
+    [
+     1129,
+     1.32,
+     68,
+     1.3100761431080232,
+     1.35
+    ],
+    [
+     1130,
+     1.32,
+     0,
+     1.3100761431080232,
+     1.35
+    ],
+    [
+     1300,
+     1.32,
+     336,
+     1.3101082364353454,
+     1.35
+    ],
+    [
+     1301,
+     1.32,
+     50,
+     1.3101145451994336,
+     1.35
+    ],
+    [
+     1302,
+     1.31,
+     30,
+     1.310114501383452,
+     1.35
+    ],
+    [
+     1303,
+     1.31,
+     69,
+     1.3101144007337953,
+     1.35
+    ],
+    [
+     1304,
+     1.32,
+     54,
+     1.3101144493952896,
+     1.35
+    ],
+    [
+     1305,
+     1.32,
+     0,
+     1.3101144493952896,
+     1.35
+    ],
+    [
+     1306,
+     1.32,
+     0,
+     1.3101144493952896,
+     1.35
+    ],
+    [
+     1307,
+     1.32,
+     0,
+     1.3101144493952896,
+     1.35
+    ],
+    [
+     1308,
+     1.32,
+     40,
+     1.310119480849981,
+     1.35
+    ],
+    [
+     1309,
+     1.32,
+     0,
+     1.310119480849981,
+     1.35
+    ],
+    [
+     1310,
+     1.32,
+     0,
+     1.310119480849981,
+     1.35
+    ],
+    [
+     1311,
+     1.31,
+     21,
+     1.3101194489320833,
+     1.35
+    ],
+    [
+     1312,
+     1.31,
+     1,
+     1.3101194474126088,
+     1.35
+    ],
+    [
+     1313,
+     1.31,
+     0,
+     1.3101194474126088,
+     1.35
+    ],
+    [
+     1314,
+     1.31,
+     0,
+     1.3101194474126088,
+     1.35
+    ],
+    [
+     1315,
+     1.31,
+     3806,
+     1.3101163580771191,
+     1.35
+    ],
+    [
+     1316,
+     1.31,
+     212,
+     1.310116059542539,
+     1.35
+    ],
+    [
+     1317,
+     1.31,
+     528,
+     1.310115322638832,
+     1.35
+    ],
+    [
+     1318,
+     1.31,
+     0,
+     1.310115322638832,
+     1.35
+    ],
+    [
+     1319,
+     1.31,
+     389,
+     1.3101146659963854,
+     1.35
+    ],
+    [
+     1320,
+     1.31,
+     30,
+     1.3101146248369766,
+     1.35
+    ],
+    [
+     1321,
+     1.31,
+     0,
+     1.3101146248369766,
+     1.35
+    ],
+    [
+     1322,
+     1.32,
+     1503,
+     1.3101713681241185,
+     1.35
+    ],
+    [
+     1323,
+     1.32,
+     0,
+     1.3101713681241185,
+     1.35
+    ],
+    [
+     1324,
+     1.32,
+     121,
+     1.3101853264633043,
+     1.35
+    ],
+    [
+     1325,
+     1.32,
+     50,
+     1.3101910828025478,
+     1.35
+    ],
+    [
+     1326,
+     1.31,
+     100,
+     1.3101908589237385,
+     1.35
+    ],
+    [
+     1327,
+     1.31,
+     1668,
+     1.3101872004964432,
+     1.35
+    ],
+    [
+     1328,
+     1.31,
+     77,
+     1.3101870349958666,
+     1.35
+    ],
+    [
+     1329,
+     1.31,
+     209,
+     1.3101865872515892,
+     1.35
+    ],
+    [
+     1330,
+     1.31,
+     1,
+     1.3101865851144252,
+     1.35
+    ],
+    [
+     1331,
+     1.31,
+     80,
+     1.3101864142997734,
+     1.35
+    ],
+    [
+     1332,
+     1.31,
+     0,
+     1.3101864142997734,
+     1.35
+    ],
+    [
+     1333,
+     1.3,
+     20,
+     1.3101840834725305,
+     1.35
+    ],
+    [
+     1334,
+     1.3,
+     129,
+     1.310169075227052,
+     1.35
+    ],
+    [
+     1335,
+     1.3,
+     43,
+     1.310164082303775,
+     1.35
+    ],
+    [
+     1336,
+     1.3,
+     2800,
+     1.3098491889619155,
+     1.35
+    ],
+    [
+     1337,
+     1.3,
+     100,
+     1.3098383032339354,
+     1.35
+    ],
+    [
+     1338,
+     1.3,
+     200,
+     1.309816603806877,
+     1.35
+    ],
+    [
+     1339,
+     1.3,
+     315,
+     1.3097826206411483,
+     1.35
+    ],
+    [
+     1340,
+     1.3,
+     60,
+     1.3097761743160576,
+     1.35
+    ],
+    [
+     1341,
+     1.3,
+     70,
+     1.3097686643328248,
+     1.35
+    ],
+    [
+     1342,
+     1.3,
+     3010,
+     1.3094563011908682,
+     1.35
+    ],
+    [
+     1343,
+     1.3,
+     69,
+     1.3094492685930235,
+     1.35
+    ],
+    [
+     1344,
+     1.3,
+     468,
+     1.3094025562480194,
+     1.35
+    ],
+    [
+     1345,
+     1.3,
+     111,
+     1.3093915447188782,
+     1.35
+    ],
+    [
+     1346,
+     1.3,
+     182,
+     1.3093735454861366,
+     1.35
+    ],
+    [
+     1347,
+     1.3,
+     198,
+     1.3093540420970775,
+     1.35
+    ],
+    [
+     1348,
+     1.3,
+     502,
+     1.3093049559390777,
+     1.35
+    ],
+    [
+     1349,
+     1.3,
+     124,
+     1.3092929103114201,
+     1.35
+    ],
+    [
+     1350,
+     1.3,
+     439,
+     1.3092413692764948,
+     1.35
+    ],
+    [
+     1351,
+     1.3,
+     428,
+     1.3092004469551182,
+     1.35
+    ],
+    [
+     1352,
+     1.3,
+     77,
+     1.3091931231973204,
+     1.35
+    ],
+    [
+     1353,
+     1.3,
+     241,
+     1.309170275955946,
+     1.35
+    ],
+    [
+     1354,
+     1.3,
+     153,
+     1.3091558301158301,
+     1.35
+    ],
+    [
+     1355,
+     1.3,
+     590,
+     1.3091005475106177,
+     1.35
+    ],
+    [
+     1356,
+     1.3,
+     0,
+     1.3091005475106177,
+     1.35
+    ],
+    [
+     1357,
+     1.3,
+     106,
+     1.30909058382147,
+     1.35
+    ],
+    [
+     1358,
+     1.29,
+     363,
+     1.3090200032591868,
+     1.35
+    ],
+    [
+     1359,
+     1.29,
+     3049,
+     1.3084491223217725,
+     1.35
+    ],
+    [
+     1400,
+     1.31,
+     114,
+     1.3084398156827532,
+     1.35
+    ],
+    [
+     1401,
+     1.31,
+     0,
+     1.3084398156827532,
+     1.35
+    ],
+    [
+     1402,
+     1.31,
+     0,
+     1.3084398156827532,
+     1.35
+    ]
+   ],
+   "open": 1.35,
+   "preClose": 1.36
+  }
+ },
+ "subjectDaily": {
+  "1": [
+   {
+    "date": "2026-05-21",
+    "open": 1170.48,
+    "close": 1149.13,
+    "high": 1196.71,
+    "low": 1140.88,
+    "volume": 22362594.87,
+    "amount": 36897617229.53,
+    "pctChg": -1.77
+   },
+   {
+    "date": "2026-05-22",
+    "open": 1154.26,
+    "close": 1156.41,
+    "high": 1174.5,
+    "low": 1133.42,
+    "volume": 17943765.81,
+    "amount": 31519632579.12,
+    "pctChg": 0.63
+   },
+   {
+    "date": "2026-05-25",
+    "open": 1158.67,
+    "close": 1148.25,
+    "high": 1176.63,
+    "low": 1129,
+    "volume": 21421037.8,
+    "amount": 33844512505.51,
+    "pctChg": -0.71
+   },
+   {
+    "date": "2026-05-26",
+    "open": 1145.7,
+    "close": 1130.73,
+    "high": 1158.08,
+    "low": 1113.41,
+    "volume": 19395240.97,
+    "amount": 29992250328.16,
+    "pctChg": -1.53
+   },
+   {
+    "date": "2026-05-27",
+    "open": 1130.04,
+    "close": 1120.63,
+    "high": 1147.75,
+    "low": 1100.53,
+    "volume": 18276812.66,
+    "amount": 31146658090.57,
+    "pctChg": -0.89
+   },
+   {
+    "date": "2026-05-28",
+    "open": 1119.21,
+    "close": 1114.59,
+    "high": 1136.9,
+    "low": 1093.8,
+    "volume": 18047818.67,
+    "amount": 29947090489.35,
+    "pctChg": -0.54
+   },
+   {
+    "date": "2026-05-29",
+    "open": 1114.36,
+    "close": 1116.07,
+    "high": 1143.45,
+    "low": 1094.47,
+    "volume": 20250795.17,
+    "amount": 34951321774.67,
+    "pctChg": 0.13
+   },
+   {
+    "date": "2026-06-01",
+    "open": 1113.61,
+    "close": 1121.45,
+    "high": 1141.04,
+    "low": 1096.44,
+    "volume": 16968785.91,
+    "amount": 31141805238.52,
+    "pctChg": 0.48
+   },
+   {
+    "date": "2026-06-02",
+    "open": 1119.99,
+    "close": 1105.44,
+    "high": 1133.79,
+    "low": 1090.51,
+    "volume": 15904040.35,
+    "amount": 30650339971.8,
+    "pctChg": -1.43
+   },
+   {
+    "date": "2026-06-03",
+    "open": 1103.21,
+    "close": 1093.13,
+    "high": 1117.43,
+    "low": 1077.55,
+    "volume": 16569130.88,
+    "amount": 29829415332.93,
+    "pctChg": -1.11
+   },
+   {
+    "date": "2026-06-04",
+    "open": 1089.72,
+    "close": 1075.08,
+    "high": 1102.78,
+    "low": 1063.34,
+    "volume": 15470324.05,
+    "amount": 27873486831.41,
+    "pctChg": -1.65
+   },
+   {
+    "date": "2026-06-05",
+    "open": 1081.11,
+    "close": 1077.72,
+    "high": 1102.98,
+    "low": 1064.16,
+    "volume": 14519814.1,
+    "amount": 29056672213.53,
+    "pctChg": 0.25
+   },
+   {
+    "date": "2026-06-08",
+    "open": 1061.36,
+    "close": 1048.34,
+    "high": 1084.26,
+    "low": 1033.44,
+    "volume": 15691250.43,
+    "amount": 29336788424.11,
+    "pctChg": -2.73
+   },
+   {
+    "date": "2026-06-09",
+    "open": 1053.46,
+    "close": 1053,
+    "high": 1070,
+    "low": 1032.9,
+    "volume": 13225837.75,
+    "amount": 26732200066.2,
+    "pctChg": 0.44
+   },
+   {
+    "date": "2026-06-10",
+    "open": 1047.52,
+    "close": 1050.67,
+    "high": 1066.25,
+    "low": 1025.31,
+    "volume": 14152619.9,
+    "amount": 25576772377.88,
+    "pctChg": -0.22
+   },
+   {
+    "date": "2026-06-11",
+    "open": 1044.94,
+    "close": 1041.56,
+    "high": 1062.24,
+    "low": 1023.07,
+    "volume": 13190352.06,
+    "amount": 26019805057.44,
+    "pctChg": -0.87
+   },
+   {
+    "date": "2026-06-12",
+    "open": 1048.58,
+    "close": 1060.17,
+    "high": 1075.98,
+    "low": 1029.54,
+    "volume": 17361964.32,
+    "amount": 36221518585.38,
+    "pctChg": 1.79
+   },
+   {
+    "date": "2026-06-15",
+    "open": 1060.03,
+    "close": 1063.14,
+    "high": 1082.24,
+    "low": 1043.72,
+    "volume": 15618025.84,
+    "amount": 32073213123.05,
+    "pctChg": 0.28
+   },
+   {
+    "date": "2026-06-16",
+    "open": 1061.63,
+    "close": 1058.81,
+    "high": 1076.93,
+    "low": 1037.88,
+    "volume": 15323018.11,
+    "amount": 31293026250.95,
+    "pctChg": -0.41
+   },
+   {
+    "date": "2026-06-17",
+    "open": 1056.49,
+    "close": 1051.93,
+    "high": 1073.03,
+    "low": 1034.67,
+    "volume": 15445185.35,
+    "amount": 33064020224.97,
+    "pctChg": -0.65
+   },
+   {
+    "date": "2026-06-18",
+    "open": 1053.7,
+    "close": 1060.25,
+    "high": 1082.47,
+    "low": 1036.77,
+    "volume": 17667035.48,
+    "amount": 37676765087.62,
+    "pctChg": 0.79
+   },
+   {
+    "date": "2026-06-22",
+    "open": 1058.34,
+    "close": 1061.5,
+    "high": 1072.88,
+    "low": 1017.1,
+    "volume": 20047734.07,
+    "amount": 41365727988.99,
+    "pctChg": 0.12
+   },
+   {
+    "date": "2026-06-23",
+    "open": 1060.76,
+    "close": 1089.96,
+    "high": 1117.61,
+    "low": 1051.28,
+    "volume": 23538298.29,
+    "amount": 45346235028.25,
+    "pctChg": 2.68
+   },
+   {
+    "date": "2026-06-24",
+    "open": 1089.2,
+    "close": 1080.28,
+    "high": 1116.72,
+    "low": 1063.35,
+    "volume": 21420454.39,
+    "amount": 41413042128.11,
+    "pctChg": -0.89
+   },
+   {
+    "date": "2026-06-25",
+    "open": 1073.34,
+    "close": 1065.43,
+    "high": 1091.5,
+    "low": 1035.08,
+    "volume": 20234587.24,
+    "amount": 43676307051,
+    "pctChg": -1.37
+   },
+   {
+    "date": "2026-06-26",
+    "open": 1059.64,
+    "close": 1028.16,
+    "high": 1076.16,
+    "low": 1019.04,
+    "volume": 17275348.11,
+    "amount": 38985270411.24,
+    "pctChg": -3.5
+   },
+   {
+    "date": "2026-06-29",
+    "open": 1027.86,
+    "close": 1082.93,
+    "high": 1096.6,
+    "low": 1000.88,
+    "volume": 24445071.23,
+    "amount": 52232279592.28,
+    "pctChg": 5.33
+   },
+   {
+    "date": "2026-06-30",
+    "open": 1078.04,
+    "close": 1066.95,
+    "high": 1095.65,
+    "low": 1045.56,
+    "volume": 20560241.68,
+    "amount": 42839936752.82,
+    "pctChg": -1.48
+   },
+   {
+    "date": "2026-07-01",
+    "open": 1065.36,
+    "close": 1108.57,
+    "high": 1120.55,
+    "low": 1042.28,
+    "volume": 25534428.9,
+    "amount": 51023639758.59,
+    "pctChg": 3.9
+   },
+   {
+    "date": "2026-07-02",
+    "open": 1106.04,
+    "close": 1111.24,
+    "high": 1146.69,
+    "low": 1090.06,
+    "volume": 23864778.13,
+    "amount": 45452196620.96,
+    "pctChg": 0.24
+   },
+   {
+    "date": "2026-07-03",
+    "open": 1119.75,
+    "close": 1125.59,
+    "high": 1148.01,
+    "low": 1095.35,
+    "volume": 22422675.3,
+    "amount": 44311210857.41,
+    "pctChg": 1.29
+   },
+   {
+    "date": "2026-07-06",
+    "open": 1122.7,
+    "close": 1132.15,
+    "high": 1164.46,
+    "low": 1104.69,
+    "volume": 24325036.43,
+    "amount": 47805603220.12,
+    "pctChg": 0.58
+   },
+   {
+    "date": "2026-07-07",
+    "open": 1123.53,
+    "close": 1090.14,
+    "high": 1134.31,
+    "low": 1082.2,
+    "volume": 20299249.96,
+    "amount": 38392036516.5,
+    "pctChg": -3.71
+   },
+   {
+    "date": "2026-07-08",
+    "open": 1089.83,
+    "close": 1079.49,
+    "high": 1115.96,
+    "low": 1060.91,
+    "volume": 18042968.42,
+    "amount": 34812490580.64,
+    "pctChg": -0.98
+   },
+   {
+    "date": "2026-07-09",
+    "open": 1072.21,
+    "close": 1081.59,
+    "high": 1107.6,
+    "low": 1050.95,
+    "volume": 19919372.58,
+    "amount": 36813084752.54,
+    "pctChg": 0.19
+   },
+   {
+    "date": "2026-07-10",
+    "open": 1077.57,
+    "close": 1110.9,
+    "high": 1135.87,
+    "low": 1057.88,
+    "volume": 27815464.77,
+    "amount": 47794491979.91,
+    "pctChg": 2.71
+   },
+   {
+    "date": "2026-07-13",
+    "open": 1109.37,
+    "close": 1103.93,
+    "high": 1142.88,
+    "low": 1079.38,
+    "volume": 31522374.46,
+    "amount": 50454707251,
+    "pctChg": -0.63
+   },
+   {
+    "date": "2026-07-14",
+    "open": 1099.94,
+    "close": 1129.28,
+    "high": 1143.86,
+    "low": 1075,
+    "volume": 33665276.11,
+    "amount": 50842407662.86,
+    "pctChg": 2.3
+   },
+   {
+    "date": "2026-07-15",
+    "open": 1119.23,
+    "close": 1166.48,
+    "high": 1193.82,
+    "low": 1110.4,
+    "volume": 38745527.29,
+    "amount": 65291901476.76,
+    "pctChg": 3.29
+   },
+   {
+    "date": "2026-07-16",
+    "open": 1153.79,
+    "close": 1175.72,
+    "high": 1203.36,
+    "low": 1129.75,
+    "volume": 52521366.29,
+    "amount": 75115169979.32,
+    "pctChg": 0.79
+   },
+   {
+    "date": "2026-07-17",
+    "open": 1165.12,
+    "close": 1107.68,
+    "high": 1184.26,
+    "low": 1095.22,
+    "volume": 54543658.45,
+    "amount": 69017572779.96,
+    "pctChg": -5.79
+   },
+   {
+    "date": "2026-07-20",
+    "open": 1100.74,
+    "close": 1102.52,
+    "high": 1140.4,
+    "low": 1067.81,
+    "volume": 49295581.65,
+    "amount": 62661410717.61,
+    "pctChg": -0.47
+   },
+   {
+    "date": "2026-07-21",
+    "open": 1095.77,
+    "close": 1094.71,
+    "high": 1118.82,
+    "low": 1046.77,
+    "volume": 44606836.27,
+    "amount": 61363484088.38,
+    "pctChg": -0.71
+   },
+   {
+    "date": "2026-07-22",
+    "open": 1084.92,
+    "close": 1094.31,
+    "high": 1126.61,
+    "low": 1070.52,
+    "volume": 40853781.82,
+    "amount": 59103964823.94,
+    "pctChg": -0.04
+   },
+   {
+    "date": "2026-07-23",
+    "open": 1087.17,
+    "close": 1100.89,
+    "high": 1116.54,
+    "low": 1069.85,
+    "volume": 35373605.22,
+    "amount": 49383225409.85,
+    "pctChg": 0.6
+   },
+   {
+    "date": "2026-07-24",
+    "open": 1091.23,
+    "close": 1059.38,
+    "high": 1108.55,
+    "low": 1054.4,
+    "volume": 33820542.1,
+    "amount": 43341579177.09,
+    "pctChg": -3.77
+   },
+   {
+    "date": "2026-07-27",
+    "open": 1054.65,
+    "close": 1097.77,
+    "high": 1107.72,
+    "low": 1046.8,
+    "volume": 33911313.66,
+    "amount": 43685349512.84,
+    "pctChg": 3.62
+   },
+   {
+    "date": "2026-07-28",
+    "open": 1093.16,
+    "close": 1089.09,
+    "high": 1121.41,
+    "low": 1075.34,
+    "volume": 35111226.7,
+    "amount": 42202751344.3,
+    "pctChg": -0.79
+   },
+   {
+    "date": "2026-07-29",
+    "open": 1089.73,
+    "close": 1096.02,
+    "high": 1114.54,
+    "low": 1072.34,
+    "volume": 33091837.41,
+    "amount": 44896441934.53,
+    "pctChg": 0.64
+   },
+   {
+    "date": "2026-07-30",
+    "open": 1092.19,
+    "close": 1081.02,
+    "high": 1116.5,
+    "low": 1066.75,
+    "volume": 33085122.64,
+    "amount": 48772431566.03,
+    "pctChg": -1.37
+   },
+   {
+    "date": "2026-07-31",
+    "open": 1080.03,
+    "close": 1101.89,
+    "high": 1115.51,
+    "low": 1072.13,
+    "volume": 32118643.52,
+    "amount": 48372161497.43,
+    "pctChg": 1.93
+   },
+   {
+    "date": "2026-08-03",
+    "open": 1101.79,
+    "close": 1109.99,
+    "high": 1124.21,
+    "low": 1090.23,
+    "volume": 25623395.53,
+    "amount": 35481827854.77,
+    "pctChg": 0.74
+   },
+   {
+    "date": "2026-08-04",
+    "open": 1116.44,
+    "close": 1130.15,
+    "high": 1145.43,
+    "low": 1106.18,
+    "volume": 31879953.18,
+    "amount": 44231351999.43,
+    "pctChg": 1.82
+   },
+   {
+    "date": "2026-08-05",
+    "open": 1129.04,
+    "close": 1132.76,
+    "high": 1150.14,
+    "low": 1111.14,
+    "volume": 33897032.59,
+    "amount": 50444845575.3,
+    "pctChg": 0.23
+   },
+   {
+    "date": "2026-08-06",
+    "open": 1132.74,
+    "close": 1130.66,
+    "high": 1150.28,
+    "low": 1109.1,
+    "volume": 33818366.91,
+    "amount": 51295070383.28,
+    "pctChg": -0.19
+   },
+   {
+    "date": "2026-08-07",
+    "open": 1128.34,
+    "close": 1170.64,
+    "high": 1176.58,
+    "low": 1116.14,
+    "volume": 40854354.13,
+    "amount": 63788968165.65,
+    "pctChg": 3.54
+   },
+   {
+    "date": "2026-08-10",
+    "open": 1177.58,
+    "close": 1187.52,
+    "high": 1211.9,
+    "low": 1162.4,
+    "volume": 43651599.57,
+    "amount": 70413528612.31,
+    "pctChg": 1.44
+   },
+   {
+    "date": "2026-08-11",
+    "open": 1182.06,
+    "close": 1190.92,
+    "high": 1220.65,
+    "low": 1169.68,
+    "volume": 56380683.64,
+    "amount": 77441123940.8,
+    "pctChg": 0.29
+   },
+   {
+    "date": "2026-08-12",
+    "open": 1187.02,
+    "close": 1195.86,
+    "high": 1220.6,
+    "low": 1175.01,
+    "volume": 50740671.01,
+    "amount": 63374913329.67,
+    "pctChg": 0.41
+   },
+   {
+    "date": "2026-08-13",
+    "open": 1193.18,
+    "close": 1211.33,
+    "high": 1239.57,
+    "low": 1172.38,
+    "volume": 59754501.94,
+    "amount": 78711964971.12,
+    "pctChg": 1.29
+   },
+   {
+    "date": "2026-08-14",
+    "open": 1209.68,
+    "close": 1205.33,
+    "high": 1234.38,
+    "low": 1183.06,
+    "volume": 57083080.19,
+    "amount": 64656973061.39,
+    "pctChg": -0.5
+   },
+   {
+    "date": "2026-08-17",
+    "open": 1203.77,
+    "close": 1209.82,
+    "high": 1226.18,
+    "low": 1172.99,
+    "volume": 48062245.54,
+    "amount": 59015207164.24,
+    "pctChg": 0.37
+   },
+   {
+    "date": "2026-08-18",
+    "open": 1209.81,
+    "close": 1199.34,
+    "high": 1228.88,
+    "low": 1184.46,
+    "volume": 46274821.9,
+    "amount": 56517588255.16,
+    "pctChg": -0.87
+   },
+   {
+    "date": "2026-08-19",
+    "open": 1193.62,
+    "close": 1169.84,
+    "high": 1216.94,
+    "low": 1156.57,
+    "volume": 45897365.85,
+    "amount": 57295246964.04,
+    "pctChg": -2.46
+   },
+   {
+    "date": "2026-08-20",
+    "open": 1206.14,
+    "close": 1219.34,
+    "high": 1248.8,
+    "low": 1189,
+    "volume": 56910166.65,
+    "amount": 76685754089.67,
+    "pctChg": 4.23
+   },
+   {
+    "date": "2026-08-21",
+    "open": 1199.45,
+    "close": 1180.43,
+    "high": 1218.82,
+    "low": 1158.75,
+    "volume": 56293654.77,
+    "amount": 76015872888.72,
+    "pctChg": -3.19
+   },
+   {
+    "date": "2026-08-24",
+    "open": 1179.58,
+    "close": 1149.43,
+    "high": 1193.91,
+    "low": 1134.88,
+    "volume": 42267033.96,
+    "amount": 56502169281.83,
+    "pctChg": -2.63
+   },
+   {
+    "date": "2026-08-25",
+    "open": 1145.31,
+    "close": 1176.49,
+    "high": 1186.4,
+    "low": 1129.3,
+    "volume": 42800386.87,
+    "amount": 50721854498.32,
+    "pctChg": 2.35
+   },
+   {
+    "date": "2026-08-26",
+    "open": 1179.88,
+    "close": 1185.39,
+    "high": 1213.47,
+    "low": 1164.18,
+    "volume": 43098304.74,
+    "amount": 52826768365.12,
+    "pctChg": 0.76
+   },
+   {
+    "date": "2026-08-27",
+    "open": 1182.44,
+    "close": 1200.64,
+    "high": 1213.23,
+    "low": 1169.96,
+    "volume": 45512728.05,
+    "amount": 57805840055.45,
+    "pctChg": 1.29
+   },
+   {
+    "date": "2026-08-28",
+    "open": 1198.97,
+    "close": 1192.45,
+    "high": 1217.97,
+    "low": 1175.62,
+    "volume": 44012488.97,
+    "amount": 54547338427.96,
+    "pctChg": -0.68
+   },
+   {
+    "date": "2026-08-31",
+    "open": 1179.47,
+    "close": 1173.94,
+    "high": 1194.18,
+    "low": 1155.19,
+    "volume": 36042209.73,
+    "amount": 46143601397.7,
+    "pctChg": -1.55
+   },
+   {
+    "date": "2026-09-01",
+    "open": 1171.19,
+    "close": 1187.11,
+    "high": 1200.96,
+    "low": 1160.23,
+    "volume": 39248513.58,
+    "amount": 48423835692.21,
+    "pctChg": 1.12
+   },
+   {
+    "date": "2026-09-02",
+    "open": 1182.45,
+    "close": 1173.53,
+    "high": 1197.18,
+    "low": 1160.8,
+    "volume": 33320705.86,
+    "amount": 39344549405.09,
+    "pctChg": -1.14
+   },
+   {
+    "date": "2026-09-03",
+    "open": 1173.97,
+    "close": 1167.78,
+    "high": 1189.9,
+    "low": 1152.47,
+    "volume": 34317646.13,
+    "amount": 38531483549.29,
+    "pctChg": -0.49
+   },
+   {
+    "date": "2026-09-04",
+    "open": 1168.83,
+    "close": 1160.59,
+    "high": 1188.3,
+    "low": 1148.37,
+    "volume": 33253864.52,
+    "amount": 40662780188.72,
+    "pctChg": -0.62
+   },
+   {
+    "date": "2026-09-07",
+    "open": 1160.73,
+    "close": 1164.8,
+    "high": 1178.98,
+    "low": 1147.76,
+    "volume": 28214348.13,
+    "amount": 34017774691.59,
+    "pctChg": 0.36
+   },
+   {
+    "date": "2026-09-08",
+    "open": 1164.29,
+    "close": 1183.34,
+    "high": 1193.9,
+    "low": 1151.79,
+    "volume": 41323171.4,
+    "amount": 42887814195.64,
+    "pctChg": 1.59
+   },
+   {
+    "date": "2026-09-09",
+    "open": 1177.14,
+    "close": 1168.56,
+    "high": 1190.2,
+    "low": 1157.47,
+    "volume": 32818287.93,
+    "amount": 35989081974.51,
+    "pctChg": -1.25
+   },
+   {
+    "date": "2026-09-10",
+    "open": 1165.51,
+    "close": 1144.83,
+    "high": 1171.13,
+    "low": 1136.1,
+    "volume": 30418855.29,
+    "amount": 31887620352.02,
+    "pctChg": -2.03
+   },
+   {
+    "date": "2026-09-11",
+    "open": 1138.45,
+    "close": 1120.59,
+    "high": 1146.1,
+    "low": 1104.78,
+    "volume": 29188155.78,
+    "amount": 35734586369.92,
+    "pctChg": -2.12
+   },
+   {
+    "date": "2026-09-14",
+    "open": 1117.67,
+    "close": 1139.39,
+    "high": 1149.49,
+    "low": 1107.65,
+    "volume": 27439530.57,
+    "amount": 35088367522.84,
+    "pctChg": 1.68
+   },
+   {
+    "date": "2026-09-15",
+    "open": 1138.45,
+    "close": 1120.37,
+    "high": 1149.17,
+    "low": 1114.42,
+    "volume": 26396591.45,
+    "amount": 30087262411.87,
+    "pctChg": -1.67
+   },
+   {
+    "date": "2026-09-16",
+    "open": 1118.16,
+    "close": 1128.02,
+    "high": 1137.83,
+    "low": 1106.13,
+    "volume": 24198298.53,
+    "amount": 30500100290.43,
+    "pctChg": 0.68
+   },
+   {
+    "date": "2026-09-17",
+    "open": 1124.83,
+    "close": 1137.24,
+    "high": 1152.08,
+    "low": 1117.04,
+    "volume": 27147389.17,
+    "amount": 33442446523.25,
+    "pctChg": 0.82
+   },
+   {
+    "date": "2026-09-18",
+    "open": 1141.42,
+    "close": 1151.78,
+    "high": 1173.07,
+    "low": 1132.91,
+    "volume": 33418428.96,
+    "amount": 40913674242.84,
+    "pctChg": 1.28
+   },
+   {
+    "date": "2026-09-21",
+    "open": 1155.6,
+    "close": 1189.88,
+    "high": 1199.25,
+    "low": 1149.36,
+    "volume": 41164694.05,
+    "amount": 50006022504.56,
+    "pctChg": 3.31
+   },
+   {
+    "date": "2026-09-22",
+    "open": 1187.11,
+    "close": 1193.75,
+    "high": 1211.91,
+    "low": 1172.95,
+    "volume": 38562013.67,
+    "amount": 48974000459.03,
+    "pctChg": 0.32
+   },
+   {
+    "date": "2026-09-23",
+    "open": 1191.86,
+    "close": 1190.01,
+    "high": 1214.58,
+    "low": 1175.45,
+    "volume": 35314591.09,
+    "amount": 46288667702.83,
+    "pctChg": -0.31
+   },
+   {
+    "date": "2026-09-24",
+    "open": 1187.54,
+    "close": 1167.85,
+    "high": 1204.26,
+    "low": 1161.66,
+    "volume": 30007584.17,
+    "amount": 43945000194.25,
+    "pctChg": -1.86
+   },
+   {
+    "date": "2026-09-28",
+    "open": 1170.29,
+    "close": 1161.24,
+    "high": 1187.8,
+    "low": 1145.69,
+    "volume": 27865648.63,
+    "amount": 37805238014.3,
+    "pctChg": -0.57
+   },
+   {
+    "date": "2026-09-29",
+    "open": 1158.2,
+    "close": 1159,
+    "high": 1184.06,
+    "low": 1144.06,
+    "volume": 26576627.97,
+    "amount": 34496566709.04,
+    "pctChg": -0.19
+   },
+   {
+    "date": "2026-09-30",
+    "open": 1162.21,
+    "close": 1180.04,
+    "high": 1198.03,
+    "low": 1151.73,
+    "volume": 34690005.05,
+    "amount": 45099451339.47,
+    "pctChg": 1.82
+   },
+   {
+    "date": "2026-10-08",
+    "open": 1190.29,
+    "close": 1164.14,
+    "high": 1206.87,
+    "low": 1152.33,
+    "volume": 35091586.53,
+    "amount": 45302054868.8,
+    "pctChg": -1.35
+   },
+   {
+    "date": "2026-10-09",
+    "open": 1162.17,
+    "close": 1182.06,
+    "high": 1191.83,
+    "low": 1132.7,
+    "volume": 40426337.49,
+    "amount": 49432066167.99,
+    "pctChg": 1.54
+   },
+   {
+    "date": "2026-10-12",
+    "open": 1180.05,
+    "close": 1153.8,
+    "high": 1193.67,
+    "low": 1145.25,
+    "volume": 29094518.74,
+    "amount": 37833549375.41,
+    "pctChg": -2.39
+   },
+   {
+    "date": "2026-10-13",
+    "open": 1143.43,
+    "close": 1148.1,
+    "high": 1161.92,
+    "low": 1115.1,
+    "volume": 32332389.59,
+    "amount": 39337499502,
+    "pctChg": -0.49
+   },
+   {
+    "date": "2026-10-14",
+    "open": 1145.25,
+    "close": 1134.38,
+    "high": 1159.48,
+    "low": 1124.41,
+    "volume": 24243139.76,
+    "amount": 31996427888.06,
+    "pctChg": -1.2
+   },
+   {
+    "date": "2026-10-15",
+    "open": 1119.7,
+    "close": 1119.51,
+    "high": 1151.33,
+    "low": 1106.24,
+    "volume": 31286171.42,
+    "amount": 40242191125.37,
+    "pctChg": -1.31
+   },
+   {
+    "date": "2026-10-16",
+    "open": 1130.22,
+    "close": 1114.08,
+    "high": 1162.03,
+    "low": 1101,
+    "volume": 39481412.9,
+    "amount": 47262893903.36,
+    "pctChg": -0.49
+   },
+   {
+    "date": "2026-10-19",
+    "open": 1107.19,
+    "close": 1108.27,
+    "high": 1132.18,
+    "low": 1081.24,
+    "volume": 30994490.03,
+    "amount": 39487392826.69,
+    "pctChg": -0.52
+   },
+   {
+    "date": "2026-10-20",
+    "open": 1107.36,
+    "close": 1118.29,
+    "high": 1132.73,
+    "low": 1091.85,
+    "volume": 26465571.52,
+    "amount": 36576997216.71,
+    "pctChg": 0.9
+   },
+   {
+    "date": "2026-10-21",
+    "open": 1124.26,
+    "close": 1118.37,
+    "high": 1144.67,
+    "low": 1109.63,
+    "volume": 27393212.74,
+    "amount": 35531312820.94,
+    "pctChg": 0.01
+   },
+   {
+    "date": "2026-10-22",
+    "open": 1118.81,
+    "close": 1086.61,
+    "high": 1127.64,
+    "low": 1081.1,
+    "volume": 26610928.19,
+    "amount": 34928287523.25,
+    "pctChg": -2.84
+   },
+   {
+    "date": "2026-10-23",
+    "open": 1075.75,
+    "close": 1102.79,
+    "high": 1109.08,
+    "low": 1046.28,
+    "volume": 30855182.59,
+    "amount": 42407245966.06,
+    "pctChg": 1.49
+   },
+   {
+    "date": "2026-10-26",
+    "open": 1096.29,
+    "close": 1105.87,
+    "high": 1123.25,
+    "low": 1083.99,
+    "volume": 24390501.29,
+    "amount": 38181235385.31,
+    "pctChg": 0.28
+   },
+   {
+    "date": "2026-10-27",
+    "open": 1107.69,
+    "close": 1070.02,
+    "high": 1119.76,
+    "low": 1066.2,
+    "volume": 23373568.24,
+    "amount": 34800903254.88,
+    "pctChg": -3.24
+   },
+   {
+    "date": "2026-10-28",
+    "open": 1073.54,
+    "close": 1084.84,
+    "high": 1100.91,
+    "low": 1059.39,
+    "volume": 25709407.78,
+    "amount": 39105580788.13,
+    "pctChg": 1.39
+   },
+   {
+    "date": "2026-10-29",
+    "open": 1081.73,
+    "close": 1065.79,
+    "high": 1095.08,
+    "low": 1057.54,
+    "volume": 23647249.6,
+    "amount": 33329393998.44,
+    "pctChg": -1.76
+   },
+   {
+    "date": "2026-10-30",
+    "open": 1057.75,
+    "close": 1060.13,
+    "high": 1102.26,
+    "low": 1038.85,
+    "volume": 33261486.32,
+    "amount": 42433061056.25,
+    "pctChg": -0.53
+   },
+   {
+    "date": "2026-11-02",
+    "open": 1062.76,
+    "close": 1078.48,
+    "high": 1089.4,
+    "low": 1040.81,
+    "volume": 31446258.86,
+    "amount": 42482582921.89,
+    "pctChg": 1.73
+   },
+   {
+    "date": "2026-11-03",
+    "open": 1074.1,
+    "close": 1072.52,
+    "high": 1098.22,
+    "low": 1054.1,
+    "volume": 30040651.37,
+    "amount": 41091431193.65,
+    "pctChg": -0.55
+   },
+   {
+    "date": "2026-11-04",
+    "open": 1071.7,
+    "close": 1096.58,
+    "high": 1105.31,
+    "low": 1056.88,
+    "volume": 34493934.11,
+    "amount": 46442425842.35,
+    "pctChg": 2.24
+   },
+   {
+    "date": "2026-11-05",
+    "open": 1096.4,
+    "close": 1118.67,
+    "high": 1130.01,
+    "low": 1088.98,
+    "volume": 31692251.37,
+    "amount": 45100397163.04,
+    "pctChg": 2.01
+   },
+   {
+    "date": "2026-11-06",
+    "open": 1094.33,
+    "close": 1102.42,
+    "high": 1124.09,
+    "low": 1084.41,
+    "volume": 25914554.46,
+    "amount": 36848228590.36,
+    "pctChg": -1.45
+   },
+   {
+    "date": "2026-11-09",
+    "open": 1110.25,
+    "close": 1097.97,
+    "high": 1123.42,
+    "low": 1089.88,
+    "volume": 21750164.47,
+    "amount": 30933573327.88,
+    "pctChg": -0.4
+   },
+   {
+    "date": "2026-11-10",
+    "open": 1107.68,
+    "close": 1105.79,
+    "high": 1121.07,
+    "low": 1091.77,
+    "volume": 21257714.47,
+    "amount": 29892115918.86,
+    "pctChg": 0.71
+   },
+   {
+    "date": "2026-11-11",
+    "open": 1102.87,
+    "close": 1104.65,
+    "high": 1116.3,
+    "low": 1088.77,
+    "volume": 20800298.1,
+    "amount": 29156911002.44,
+    "pctChg": -0.1
+   },
+   {
+    "date": "2026-11-12",
+    "open": 1104.06,
+    "close": 1098.17,
+    "high": 1120.87,
+    "low": 1087.61,
+    "volume": 25645665.5,
+    "amount": 35452870607.09,
+    "pctChg": -0.59
+   },
+   {
+    "date": "2026-11-13",
+    "open": 1095.68,
+    "close": 1071.34,
+    "high": 1107.06,
+    "low": 1064.64,
+    "volume": 25745889.13,
+    "amount": 32501254201.2,
+    "pctChg": -2.44
+   }
+  ],
+  "9073558": [
+   {
+    "date": "2026-05-21",
+    "open": 1223.42,
+    "close": 1206.22,
+    "high": 1252.58,
+    "low": 1187.73,
+    "volume": 6538116.19,
+    "amount": 5010850877.12,
+    "pctChg": -1.91
+   },
+   {
+    "date": "2026-05-22",
+    "open": 1207.27,
+    "close": 1202.67,
+    "high": 1223.11,
+    "low": 1179.55,
+    "volume": 5813546.52,
+    "amount": 4284164855.7,
+    "pctChg": -0.29
+   },
+   {
+    "date": "2026-05-25",
+    "open": 1205.65,
+    "close": 1208.76,
+    "high": 1230.02,
+    "low": 1184.66,
+    "volume": 6294799.82,
+    "amount": 4903034601.68,
+    "pctChg": 0.51
+   },
+   {
+    "date": "2026-05-26",
+    "open": 1202.12,
+    "close": 1195.72,
+    "high": 1217.95,
+    "low": 1179.28,
+    "volume": 5509288.09,
+    "amount": 4392480617.39,
+    "pctChg": -1.08
+   },
+   {
+    "date": "2026-05-27",
+    "open": 1191.43,
+    "close": 1171.48,
+    "high": 1208.57,
+    "low": 1155.82,
+    "volume": 6171508.5,
+    "amount": 4806161699.13,
+    "pctChg": -2.03
+   },
+   {
+    "date": "2026-05-28",
+    "open": 1172.08,
+    "close": 1170.25,
+    "high": 1197.15,
+    "low": 1149.42,
+    "volume": 5361469.67,
+    "amount": 3994561141.77,
+    "pctChg": -0.1
+   },
+   {
+    "date": "2026-05-29",
+    "open": 1170.37,
+    "close": 1168.35,
+    "high": 1193.71,
+    "low": 1147.87,
+    "volume": 6035658.89,
+    "amount": 4488015554.53,
+    "pctChg": -0.16
+   },
+   {
+    "date": "2026-06-01",
+    "open": 1163.91,
+    "close": 1191.89,
+    "high": 1204.59,
+    "low": 1151.63,
+    "volume": 5545339.71,
+    "amount": 4335607140.52,
+    "pctChg": 2.01
+   },
+   {
+    "date": "2026-06-02",
+    "open": 1191.47,
+    "close": 1188.97,
+    "high": 1212.55,
+    "low": 1161.19,
+    "volume": 6118269.74,
+    "amount": 4827536387.1,
+    "pctChg": -0.25
+   },
+   {
+    "date": "2026-06-03",
+    "open": 1184.83,
+    "close": 1185.97,
+    "high": 1206.71,
+    "low": 1162.12,
+    "volume": 6949032.6,
+    "amount": 5806478839.2,
+    "pctChg": -0.25
+   },
+   {
+    "date": "2026-06-04",
+    "open": 1179.88,
+    "close": 1168.63,
+    "high": 1215.76,
+    "low": 1148.23,
+    "volume": 8022029.98,
+    "amount": 6896500642.09,
+    "pctChg": -1.46
+   },
+   {
+    "date": "2026-06-05",
+    "open": 1169.14,
+    "close": 1174.6,
+    "high": 1198.29,
+    "low": 1146.7,
+    "volume": 6740814.81,
+    "amount": 5355037754.93,
+    "pctChg": 0.51
+   },
+   {
+    "date": "2026-06-08",
+    "open": 1154.87,
+    "close": 1147.87,
+    "high": 1186.5,
+    "low": 1129.68,
+    "volume": 6089841.56,
+    "amount": 4504333288.83,
+    "pctChg": -2.28
+   },
+   {
+    "date": "2026-06-09",
+    "open": 1153.16,
+    "close": 1149.66,
+    "high": 1168.4,
+    "low": 1127.67,
+    "volume": 5277115.15,
+    "amount": 3924567432.14,
+    "pctChg": 0.16
+   },
+   {
+    "date": "2026-06-10",
+    "open": 1143.05,
+    "close": 1134.65,
+    "high": 1163.5,
+    "low": 1114.78,
+    "volume": 5688730.71,
+    "amount": 4001481925.03,
+    "pctChg": -1.31
+   },
+   {
+    "date": "2026-06-11",
+    "open": 1127.56,
+    "close": 1112.34,
+    "high": 1143.73,
+    "low": 1099.22,
+    "volume": 4959477.3,
+    "amount": 3149484213.25,
+    "pctChg": -1.97
+   },
+   {
+    "date": "2026-06-12",
+    "open": 1116.3,
+    "close": 1124.46,
+    "high": 1145.7,
+    "low": 1100.6,
+    "volume": 7053057.44,
+    "amount": 4014840223.08,
+    "pctChg": 1.09
+   },
+   {
+    "date": "2026-06-15",
+    "open": 1124.41,
+    "close": 1132.75,
+    "high": 1152.97,
+    "low": 1109.26,
+    "volume": 5918392.32,
+    "amount": 3968460984.26,
+    "pctChg": 0.74
+   },
+   {
+    "date": "2026-06-16",
+    "open": 1133.32,
+    "close": 1121.31,
+    "high": 1142.54,
+    "low": 1102.42,
+    "volume": 4956863.95,
+    "amount": 3116323152.52,
+    "pctChg": -1.01
+   },
+   {
+    "date": "2026-06-17",
+    "open": 1116.01,
+    "close": 1113.6,
+    "high": 1133.67,
+    "low": 1095.61,
+    "volume": 4513943.75,
+    "amount": 3084104595.42,
+    "pctChg": -0.69
+   },
+   {
+    "date": "2026-06-18",
+    "open": 1109.11,
+    "close": 1103.88,
+    "high": 1127.14,
+    "low": 1082.24,
+    "volume": 5597399.59,
+    "amount": 3807928028.85,
+    "pctChg": -0.87
+   },
+   {
+    "date": "2026-06-22",
+    "open": 1102.03,
+    "close": 1112.63,
+    "high": 1118.08,
+    "low": 1068.8,
+    "volume": 5490309.8,
+    "amount": 3510680404.26,
+    "pctChg": 0.79
+   },
+   {
+    "date": "2026-06-23",
+    "open": 1100.49,
+    "close": 1117.98,
+    "high": 1142.53,
+    "low": 1092.39,
+    "volume": 5306369.7,
+    "amount": 3873035090.99,
+    "pctChg": 0.48
+   },
+   {
+    "date": "2026-06-24",
+    "open": 1111.82,
+    "close": 1081.34,
+    "high": 1127.14,
+    "low": 1069.82,
+    "volume": 5426902.45,
+    "amount": 3712521237.7,
+    "pctChg": -3.28
+   },
+   {
+    "date": "2026-06-25",
+    "open": 1072.25,
+    "close": 1058.74,
+    "high": 1083.13,
+    "low": 1041.68,
+    "volume": 5416270.99,
+    "amount": 3869794144.54,
+    "pctChg": -2.09
+   },
+   {
+    "date": "2026-06-26",
+    "open": 1055.39,
+    "close": 1028.04,
+    "high": 1071.6,
+    "low": 1019.66,
+    "volume": 5288646.03,
+    "amount": 3533930457.29,
+    "pctChg": -2.9
+   },
+   {
+    "date": "2026-06-29",
+    "open": 1025.53,
+    "close": 1033.37,
+    "high": 1051.62,
+    "low": 990.25,
+    "volume": 5716228.64,
+    "amount": 3396001442.48,
+    "pctChg": 0.52
+   },
+   {
+    "date": "2026-06-30",
+    "open": 1030.58,
+    "close": 1021.71,
+    "high": 1048.05,
+    "low": 1005.97,
+    "volume": 4544817.74,
+    "amount": 2754115550.97,
+    "pctChg": -1.13
+   },
+   {
+    "date": "2026-07-01",
+    "open": 1020.32,
+    "close": 1056.55,
+    "high": 1066.96,
+    "low": 1010.16,
+    "volume": 5757696.1,
+    "amount": 3231605999.43,
+    "pctChg": 3.41
+   },
+   {
+    "date": "2026-07-02",
+    "open": 1055.33,
+    "close": 1058.15,
+    "high": 1086.44,
+    "low": 1043.95,
+    "volume": 5687633.9,
+    "amount": 3408447652.59,
+    "pctChg": 0.15
+   },
+   {
+    "date": "2026-07-03",
+    "open": 1067.4,
+    "close": 1071.61,
+    "high": 1087.3,
+    "low": 1053.8,
+    "volume": 4228773.46,
+    "amount": 2622985875.9,
+    "pctChg": 1.27
+   },
+   {
+    "date": "2026-07-06",
+    "open": 1071.97,
+    "close": 1083.35,
+    "high": 1100.49,
+    "low": 1055.65,
+    "volume": 6152690.72,
+    "amount": 3923461395.87,
+    "pctChg": 1.1
+   },
+   {
+    "date": "2026-07-07",
+    "open": 1079.15,
+    "close": 1051.05,
+    "high": 1087.68,
+    "low": 1042.3,
+    "volume": 4741228.54,
+    "amount": 2934858318.79,
+    "pctChg": -2.98
+   },
+   {
+    "date": "2026-07-08",
+    "open": 1049.42,
+    "close": 1060.87,
+    "high": 1081.91,
+    "low": 1033.11,
+    "volume": 5270394.58,
+    "amount": 3314539040.45,
+    "pctChg": 0.93
+   },
+   {
+    "date": "2026-07-09",
+    "open": 1051.82,
+    "close": 1058.15,
+    "high": 1072.71,
+    "low": 1030.01,
+    "volume": 4985113.79,
+    "amount": 3019070592.44,
+    "pctChg": -0.26
+   },
+   {
+    "date": "2026-07-10",
+    "open": 1053.01,
+    "close": 1071.16,
+    "high": 1088.98,
+    "low": 1038.02,
+    "volume": 5800735.42,
+    "amount": 3241656306.54,
+    "pctChg": 1.23
+   },
+   {
+    "date": "2026-07-13",
+    "open": 1067.37,
+    "close": 1050.15,
+    "high": 1082.64,
+    "low": 1037.17,
+    "volume": 5051953.07,
+    "amount": 2852117527.59,
+    "pctChg": -1.96
+   },
+   {
+    "date": "2026-07-14",
+    "open": 1044.84,
+    "close": 1070.64,
+    "high": 1079.2,
+    "low": 1030.15,
+    "volume": 5815487.88,
+    "amount": 3471552965.96,
+    "pctChg": 1.95
+   },
+   {
+    "date": "2026-07-15",
+    "open": 1064.75,
+    "close": 1089.63,
+    "high": 1102.03,
+    "low": 1056.16,
+    "volume": 5869152.59,
+    "amount": 3341632063.01,
+    "pctChg": 1.77
+   },
+   {
+    "date": "2026-07-16",
+    "open": 1084.69,
+    "close": 1098.37,
+    "high": 1112.59,
+    "low": 1070.09,
+    "volume": 5229707.08,
+    "amount": 3011724214.13,
+    "pctChg": 0.8
+   },
+   {
+    "date": "2026-07-17",
+    "open": 1094.37,
+    "close": 1060.98,
+    "high": 1109.8,
+    "low": 1053.38,
+    "volume": 5833605.37,
+    "amount": 3372108712.97,
+    "pctChg": -3.4
+   },
+   {
+    "date": "2026-07-20",
+    "open": 1060.31,
+    "close": 1063.62,
+    "high": 1091.84,
+    "low": 1039.11,
+    "volume": 6192167.55,
+    "amount": 3636278860.84,
+    "pctChg": 0.25
+   },
+   {
+    "date": "2026-07-21",
+    "open": 1061.22,
+    "close": 1055.06,
+    "high": 1074.75,
+    "low": 1025.19,
+    "volume": 5894364.21,
+    "amount": 3513849646.86,
+    "pctChg": -0.81
+   },
+   {
+    "date": "2026-07-22",
+    "open": 1050.68,
+    "close": 1062.45,
+    "high": 1083.25,
+    "low": 1036.15,
+    "volume": 6503867.35,
+    "amount": 4113671441.03,
+    "pctChg": 0.7
+   },
+   {
+    "date": "2026-07-23",
+    "open": 1058.64,
+    "close": 1085.66,
+    "high": 1088.7,
+    "low": 1047.38,
+    "volume": 5311883.68,
+    "amount": 3374211129.41,
+    "pctChg": 2.18
+   },
+   {
+    "date": "2026-07-24",
+    "open": 1078.2,
+    "close": 1058.79,
+    "high": 1095.72,
+    "low": 1053.26,
+    "volume": 4401629.2,
+    "amount": 2830448024.77,
+    "pctChg": -2.47
+   },
+   {
+    "date": "2026-07-27",
+    "open": 1056.63,
+    "close": 1092.67,
+    "high": 1100.09,
+    "low": 1050.3,
+    "volume": 4915019.94,
+    "amount": 3135238085.84,
+    "pctChg": 3.2
+   },
+   {
+    "date": "2026-07-28",
+    "open": 1086.05,
+    "close": 1093.29,
+    "high": 1111.98,
+    "low": 1074.71,
+    "volume": 4383068.6,
+    "amount": 2958141564.76,
+    "pctChg": 0.06
+   },
+   {
+    "date": "2026-07-29",
+    "open": 1095.58,
+    "close": 1112.4,
+    "high": 1122.96,
+    "low": 1083.67,
+    "volume": 5668528.47,
+    "amount": 3567375034.35,
+    "pctChg": 1.75
+   },
+   {
+    "date": "2026-07-30",
+    "open": 1106.95,
+    "close": 1116.11,
+    "high": 1138.61,
+    "low": 1094.62,
+    "volume": 6725830.6,
+    "amount": 4155327020.14,
+    "pctChg": 0.33
+   },
+   {
+    "date": "2026-07-31",
+    "open": 1107.97,
+    "close": 1118.15,
+    "high": 1134.34,
+    "low": 1097.78,
+    "volume": 6291289.77,
+    "amount": 3931593572.2,
+    "pctChg": 0.18
+   },
+   {
+    "date": "2026-08-03",
+    "open": 1118.75,
+    "close": 1139.98,
+    "high": 1150.74,
+    "low": 1109.14,
+    "volume": 6375648.11,
+    "amount": 4060688520.69,
+    "pctChg": 1.95
+   },
+   {
+    "date": "2026-08-04",
+    "open": 1146.49,
+    "close": 1139.24,
+    "high": 1157.13,
+    "low": 1122.75,
+    "volume": 6131695.97,
+    "amount": 3930560762.61,
+    "pctChg": -0.06
+   },
+   {
+    "date": "2026-08-05",
+    "open": 1137.49,
+    "close": 1140.91,
+    "high": 1155.03,
+    "low": 1120.24,
+    "volume": 6069511.2,
+    "amount": 3948002797.62,
+    "pctChg": 0.15
+   },
+   {
+    "date": "2026-08-06",
+    "open": 1145.07,
+    "close": 1144.13,
+    "high": 1162.97,
+    "low": 1122,
+    "volume": 6878973.93,
+    "amount": 4378554085.04,
+    "pctChg": 0.28
+   },
+   {
+    "date": "2026-08-07",
+    "open": 1139.4,
+    "close": 1143.86,
+    "high": 1157.17,
+    "low": 1111.24,
+    "volume": 6624429.99,
+    "amount": 4247049402,
+    "pctChg": -0.02
+   },
+   {
+    "date": "2026-08-10",
+    "open": 1150.02,
+    "close": 1180.2,
+    "high": 1190.86,
+    "low": 1140.19,
+    "volume": 6959990.76,
+    "amount": 4832608607.26,
+    "pctChg": 3.18
+   },
+   {
+    "date": "2026-08-11",
+    "open": 1182.84,
+    "close": 1182.62,
+    "high": 1201.64,
+    "low": 1168.06,
+    "volume": 5110108.67,
+    "amount": 3758380214.23,
+    "pctChg": 0.2
+   },
+   {
+    "date": "2026-08-12",
+    "open": 1188.38,
+    "close": 1194.95,
+    "high": 1206.26,
+    "low": 1173.72,
+    "volume": 5530019.17,
+    "amount": 3891419050.76,
+    "pctChg": 1.04
+   },
+   {
+    "date": "2026-08-13",
+    "open": 1199.97,
+    "close": 1194.94,
+    "high": 1219.88,
+    "low": 1178.22,
+    "volume": 6669625.01,
+    "amount": 4528084007.95,
+    "pctChg": 0
+   },
+   {
+    "date": "2026-08-14",
+    "open": 1193.12,
+    "close": 1176.73,
+    "high": 1213.23,
+    "low": 1157.11,
+    "volume": 9013549.31,
+    "amount": 6296722599.05,
+    "pctChg": -1.52
+   },
+   {
+    "date": "2026-08-17",
+    "open": 1166.81,
+    "close": 1173.61,
+    "high": 1186.11,
+    "low": 1144.97,
+    "volume": 5346158.7,
+    "amount": 3691430485.66,
+    "pctChg": -0.27
+   },
+   {
+    "date": "2026-08-18",
+    "open": 1170.35,
+    "close": 1185.27,
+    "high": 1206.92,
+    "low": 1150.49,
+    "volume": 11570730.52,
+    "amount": 6877419203.4,
+    "pctChg": 0.99
+   },
+   {
+    "date": "2026-08-19",
+    "open": 1174.15,
+    "close": 1152.62,
+    "high": 1197.21,
+    "low": 1136.67,
+    "volume": 11033873.33,
+    "amount": 7158585311.06,
+    "pctChg": -2.76
+   },
+   {
+    "date": "2026-08-20",
+    "open": 1147.84,
+    "close": 1163.24,
+    "high": 1184.18,
+    "low": 1127.05,
+    "volume": 10629238.47,
+    "amount": 6312595222.05,
+    "pctChg": 0.92
+   },
+   {
+    "date": "2026-08-21",
+    "open": 1151.06,
+    "close": 1144.15,
+    "high": 1167.65,
+    "low": 1120.21,
+    "volume": 7621417.81,
+    "amount": 4726514003.51,
+    "pctChg": -1.64
+   },
+   {
+    "date": "2026-08-24",
+    "open": 1140.76,
+    "close": 1128.29,
+    "high": 1159.86,
+    "low": 1110.64,
+    "volume": 7509912.66,
+    "amount": 4737113721.76,
+    "pctChg": -1.39
+   },
+   {
+    "date": "2026-08-25",
+    "open": 1120.29,
+    "close": 1160.38,
+    "high": 1176.6,
+    "low": 1112.06,
+    "volume": 7545790.32,
+    "amount": 4919878468.4,
+    "pctChg": 2.84
+   },
+   {
+    "date": "2026-08-26",
+    "open": 1154.06,
+    "close": 1161.07,
+    "high": 1177.42,
+    "low": 1144.32,
+    "volume": 6045215.5,
+    "amount": 3756658698.06,
+    "pctChg": 0.06
+   },
+   {
+    "date": "2026-08-27",
+    "open": 1157.61,
+    "close": 1165.97,
+    "high": 1177.87,
+    "low": 1145.47,
+    "volume": 6820289.67,
+    "amount": 4270199017.73,
+    "pctChg": 0.42
+   },
+   {
+    "date": "2026-08-28",
+    "open": 1164.07,
+    "close": 1178.5,
+    "high": 1191.72,
+    "low": 1152.7,
+    "volume": 6109951.83,
+    "amount": 4014721532.54,
+    "pctChg": 1.07
+   },
+   {
+    "date": "2026-08-31",
+    "open": 1173.73,
+    "close": 1179.06,
+    "high": 1197.77,
+    "low": 1153.15,
+    "volume": 12197908.18,
+    "amount": 7698550076.97,
+    "pctChg": 0.05
+   },
+   {
+    "date": "2026-09-01",
+    "open": 1177.84,
+    "close": 1202.86,
+    "high": 1216.55,
+    "low": 1165.72,
+    "volume": 12230364.4,
+    "amount": 7903267470.46,
+    "pctChg": 2.02
+   },
+   {
+    "date": "2026-09-02",
+    "open": 1193.33,
+    "close": 1179.33,
+    "high": 1207.32,
+    "low": 1167.65,
+    "volume": 8977856.77,
+    "amount": 5948846456.32,
+    "pctChg": -1.96
+   },
+   {
+    "date": "2026-09-03",
+    "open": 1180.58,
+    "close": 1175.85,
+    "high": 1205.22,
+    "low": 1162.1,
+    "volume": 8870233.64,
+    "amount": 5746674396.5,
+    "pctChg": -0.29
+   },
+   {
+    "date": "2026-09-04",
+    "open": 1176.1,
+    "close": 1189.67,
+    "high": 1213.77,
+    "low": 1164.05,
+    "volume": 9847470.4,
+    "amount": 6026178479.57,
+    "pctChg": 1.18
+   },
+   {
+    "date": "2026-09-07",
+    "open": 1193.72,
+    "close": 1196.68,
+    "high": 1215.01,
+    "low": 1177.11,
+    "volume": 8414883.08,
+    "amount": 5650323474.03,
+    "pctChg": 0.59
+   },
+   {
+    "date": "2026-09-08",
+    "open": 1193.43,
+    "close": 1214.11,
+    "high": 1233.25,
+    "low": 1175.31,
+    "volume": 10177327.92,
+    "amount": 7016939919.72,
+    "pctChg": 1.46
+   },
+   {
+    "date": "2026-09-09",
+    "open": 1207.61,
+    "close": 1203.99,
+    "high": 1226.88,
+    "low": 1186.96,
+    "volume": 7621578.34,
+    "amount": 5104916757.87,
+    "pctChg": -0.83
+   },
+   {
+    "date": "2026-09-10",
+    "open": 1202.46,
+    "close": 1190.98,
+    "high": 1215.41,
+    "low": 1174.64,
+    "volume": 7755326.83,
+    "amount": 4815936213.06,
+    "pctChg": -1.08
+   },
+   {
+    "date": "2026-09-11",
+    "open": 1185.97,
+    "close": 1175.36,
+    "high": 1200.76,
+    "low": 1152.8,
+    "volume": 7472574.46,
+    "amount": 4787089904.38,
+    "pctChg": -1.31
+   },
+   {
+    "date": "2026-09-14",
+    "open": 1171.99,
+    "close": 1166.73,
+    "high": 1199.08,
+    "low": 1151.83,
+    "volume": 6806332.16,
+    "amount": 4588363108.1,
+    "pctChg": -0.73
+   },
+   {
+    "date": "2026-09-15",
+    "open": 1161.93,
+    "close": 1146.93,
+    "high": 1181.63,
+    "low": 1126.9,
+    "volume": 6196509.44,
+    "amount": 4378140288.33,
+    "pctChg": -1.7
+   },
+   {
+    "date": "2026-09-16",
+    "open": 1147.77,
+    "close": 1148.62,
+    "high": 1161.86,
+    "low": 1128.23,
+    "volume": 5277678.2,
+    "amount": 3947032822.3,
+    "pctChg": 0.15
+   },
+   {
+    "date": "2026-09-17",
+    "open": 1146.57,
+    "close": 1140.92,
+    "high": 1161.11,
+    "low": 1123.66,
+    "volume": 5928725.73,
+    "amount": 4678338316.65,
+    "pctChg": -0.67
+   },
+   {
+    "date": "2026-09-18",
+    "open": 1140.43,
+    "close": 1143.76,
+    "high": 1163.28,
+    "low": 1130.81,
+    "volume": 5009266,
+    "amount": 3682823505.12,
+    "pctChg": 0.25
+   },
+   {
+    "date": "2026-09-21",
+    "open": 1144.89,
+    "close": 1168.8,
+    "high": 1176.69,
+    "low": 1135.54,
+    "volume": 6253128.68,
+    "amount": 3977748538.09,
+    "pctChg": 2.19
+   },
+   {
+    "date": "2026-09-22",
+    "open": 1169.72,
+    "close": 1173.49,
+    "high": 1191.71,
+    "low": 1153.11,
+    "volume": 6398675.3,
+    "amount": 4437416398.08,
+    "pctChg": 0.4
+   },
+   {
+    "date": "2026-09-23",
+    "open": 1173.74,
+    "close": 1145.84,
+    "high": 1178.23,
+    "low": 1141.35,
+    "volume": 4975961.81,
+    "amount": 3243048898.68,
+    "pctChg": -2.36
+   },
+   {
+    "date": "2026-09-24",
+    "open": 1144.83,
+    "close": 1132.6,
+    "high": 1158.91,
+    "low": 1128.12,
+    "volume": 4581415,
+    "amount": 2893544988.4,
+    "pctChg": -1.16
+   },
+   {
+    "date": "2026-09-28",
+    "open": 1132.5,
+    "close": 1120.78,
+    "high": 1147.31,
+    "low": 1104.42,
+    "volume": 4835288.77,
+    "amount": 3152797893.72,
+    "pctChg": -1.04
+   },
+   {
+    "date": "2026-09-29",
+    "open": 1116.83,
+    "close": 1123.65,
+    "high": 1140.5,
+    "low": 1107.28,
+    "volume": 3879365.33,
+    "amount": 2566340444.55,
+    "pctChg": 0.26
+   },
+   {
+    "date": "2026-09-30",
+    "open": 1128.78,
+    "close": 1127.37,
+    "high": 1142.45,
+    "low": 1114.32,
+    "volume": 4046912.48,
+    "amount": 2499391482.94,
+    "pctChg": 0.33
+   },
+   {
+    "date": "2026-10-08",
+    "open": 1140.5,
+    "close": 1133.04,
+    "high": 1155.04,
+    "low": 1120.38,
+    "volume": 4968399.26,
+    "amount": 2973860678.48,
+    "pctChg": 0.5
+   },
+   {
+    "date": "2026-10-09",
+    "open": 1134.41,
+    "close": 1160.28,
+    "high": 1169.7,
+    "low": 1116.25,
+    "volume": 6564329.27,
+    "amount": 4017091202.22,
+    "pctChg": 2.4
+   },
+   {
+    "date": "2026-10-12",
+    "open": 1176.23,
+    "close": 1164.63,
+    "high": 1197.57,
+    "low": 1149.68,
+    "volume": 7991332.35,
+    "amount": 5272243192.87,
+    "pctChg": 0.37
+   },
+   {
+    "date": "2026-10-13",
+    "open": 1151.93,
+    "close": 1160.79,
+    "high": 1178.63,
+    "low": 1126.94,
+    "volume": 7373809.48,
+    "amount": 4691085530.77,
+    "pctChg": -0.33
+   },
+   {
+    "date": "2026-10-14",
+    "open": 1152.82,
+    "close": 1150.65,
+    "high": 1181.1,
+    "low": 1135.95,
+    "volume": 7264030.6,
+    "amount": 4593120858.43,
+    "pctChg": -0.87
+   },
+   {
+    "date": "2026-10-15",
+    "open": 1132.44,
+    "close": 1139.38,
+    "high": 1163.92,
+    "low": 1115.7,
+    "volume": 8810486.89,
+    "amount": 5524348264.58,
+    "pctChg": -0.98
+   },
+   {
+    "date": "2026-10-16",
+    "open": 1143.97,
+    "close": 1140.2,
+    "high": 1172.48,
+    "low": 1126.08,
+    "volume": 7731346.91,
+    "amount": 4906287055.74,
+    "pctChg": 0.07
+   },
+   {
+    "date": "2026-10-19",
+    "open": 1131.57,
+    "close": 1130.57,
+    "high": 1151.31,
+    "low": 1111.41,
+    "volume": 6262803.36,
+    "amount": 3891107242.54,
+    "pctChg": -0.84
+   },
+   {
+    "date": "2026-10-20",
+    "open": 1128.28,
+    "close": 1132.77,
+    "high": 1146.76,
+    "low": 1114.22,
+    "volume": 5919201.54,
+    "amount": 3703467839.83,
+    "pctChg": 0.19
+   },
+   {
+    "date": "2026-10-21",
+    "open": 1133.4,
+    "close": 1133.96,
+    "high": 1158.2,
+    "low": 1117.14,
+    "volume": 6292613.03,
+    "amount": 3743303190.87,
+    "pctChg": 0.1
+   },
+   {
+    "date": "2026-10-22",
+    "open": 1139.5,
+    "close": 1102.85,
+    "high": 1145.33,
+    "low": 1094.99,
+    "volume": 8775213.45,
+    "amount": 4633506645.74,
+    "pctChg": -2.74
+   },
+   {
+    "date": "2026-10-23",
+    "open": 1096.79,
+    "close": 1113.36,
+    "high": 1123.46,
+    "low": 1061.36,
+    "volume": 9394291.07,
+    "amount": 4925548963.07,
+    "pctChg": 0.95
+   },
+   {
+    "date": "2026-10-26",
+    "open": 1106.08,
+    "close": 1108.26,
+    "high": 1130,
+    "low": 1090.27,
+    "volume": 6730334.5,
+    "amount": 3530729114.25,
+    "pctChg": -0.46
+   },
+   {
+    "date": "2026-10-27",
+    "open": 1108.8,
+    "close": 1089.52,
+    "high": 1127.81,
+    "low": 1079.88,
+    "volume": 7032321.78,
+    "amount": 3867362818.23,
+    "pctChg": -1.69
+   },
+   {
+    "date": "2026-10-28",
+    "open": 1089.96,
+    "close": 1093.83,
+    "high": 1106.69,
+    "low": 1072.24,
+    "volume": 5822439.1,
+    "amount": 3126965978.13,
+    "pctChg": 0.4
+   },
+   {
+    "date": "2026-10-29",
+    "open": 1087.34,
+    "close": 1080.27,
+    "high": 1105.22,
+    "low": 1066.94,
+    "volume": 5739567.79,
+    "amount": 3166137319.94,
+    "pctChg": -1.24
+   },
+   {
+    "date": "2026-10-30",
+    "open": 1069.5,
+    "close": 1057.61,
+    "high": 1091.25,
+    "low": 1048.63,
+    "volume": 5954383.83,
+    "amount": 3162122841.67,
+    "pctChg": -2.1
+   },
+   {
+    "date": "2026-11-02",
+    "open": 1058.92,
+    "close": 1085.16,
+    "high": 1093.55,
+    "low": 1037.95,
+    "volume": 9127149.49,
+    "amount": 5383509619.62,
+    "pctChg": 2.6
+   },
+   {
+    "date": "2026-11-03",
+    "open": 1086.77,
+    "close": 1082.46,
+    "high": 1109.55,
+    "low": 1064.82,
+    "volume": 6759960.78,
+    "amount": 3768292146.87,
+    "pctChg": -0.25
+   },
+   {
+    "date": "2026-11-04",
+    "open": 1083.52,
+    "close": 1097.02,
+    "high": 1109.18,
+    "low": 1070.57,
+    "volume": 7062416.65,
+    "amount": 3991790100.62,
+    "pctChg": 1.35
+   },
+   {
+    "date": "2026-11-05",
+    "open": 1100,
+    "close": 1116.02,
+    "high": 1124.51,
+    "low": 1086.56,
+    "volume": 6708435.18,
+    "amount": 3890328123.56,
+    "pctChg": 1.73
+   },
+   {
+    "date": "2026-11-06",
+    "open": 1092.64,
+    "close": 1104.15,
+    "high": 1121.79,
+    "low": 1084.37,
+    "volume": 6889411.97,
+    "amount": 3660279161.7,
+    "pctChg": -1.06
+   },
+   {
+    "date": "2026-11-09",
+    "open": 1109.76,
+    "close": 1106.49,
+    "high": 1128.75,
+    "low": 1095.54,
+    "volume": 5937111.66,
+    "amount": 3259894397.43,
+    "pctChg": 0.21
+   },
+   {
+    "date": "2026-11-10",
+    "open": 1110.34,
+    "close": 1114.64,
+    "high": 1123.65,
+    "low": 1098.83,
+    "volume": 5629409.41,
+    "amount": 3018219535.6,
+    "pctChg": 0.74
+   },
+   {
+    "date": "2026-11-11",
+    "open": 1110.43,
+    "close": 1122.09,
+    "high": 1131.94,
+    "low": 1098.36,
+    "volume": 5824260.99,
+    "amount": 3212325801.68,
+    "pctChg": 0.67
+   },
+   {
+    "date": "2026-11-12",
+    "open": 1124.73,
+    "close": 1118.64,
+    "high": 1139.65,
+    "low": 1103.25,
+    "volume": 7149714.28,
+    "amount": 4063463307.4,
+    "pctChg": -0.31
+   },
+   {
+    "date": "2026-11-13",
+    "open": 1123.22,
+    "close": 1119.09,
+    "high": 1143.51,
+    "low": 1104.37,
+    "volume": 8796479.92,
+    "amount": 4812138518.36,
+    "pctChg": 0.04
+   }
+  ]
+ },
+ "events": [
+  {
+   "id": "bridge-limitup-0",
+   "type": "limitup",
+   "subjectId": 9036191,
+   "subjectName": "北纬科技",
+   "title": "【涨停】北纬科技 封板",
+   "body": "北纬科技（002148）涨停；市值 44.4 亿；来源：原始应用市场宽度快照 2026-11-16 14:02:00。",
+   "source": "桥接·市场宽度",
+   "changePct": 10.06,
+   "tone": "up",
+   "time": "14:02"
+  },
+  {
+   "id": "bridge-rank-1",
+   "type": "rank",
+   "subjectId": 9012188,
+   "subjectName": "建筑设计",
+   "title": "【题材异动】建筑设计 涨幅靠前",
+   "body": "建筑设计 成分股 1 只，平均涨幅 10.14%；来源：桥接快照题材聚合。",
+   "source": "桥接·题材聚合",
+   "changePct": 10.14,
+   "tone": "up",
+   "time": "14:02"
+  },
+  {
+   "id": "bridge-rt-1",
+   "type": "rank",
+   "subjectId": 1,
+   "subjectName": "医药医疗",
+   "title": "【题材实时】医药医疗 -1.14%",
+   "body": "医药医疗 最新 1059.08，开 1069.58 / 高 1082.21 / 低 1048.03，成交额 223.0 亿；来源：原文题材实时接口（明文）。",
+   "source": "桥接·题材实时",
+   "changePct": -1.14,
+   "tone": "down",
+   "time": "14:02"
+  },
+  {
+   "id": "bridge-rt-9014348",
+   "type": "rank",
+   "subjectId": 9014348,
+   "subjectName": "酒-白酒",
+   "title": "【题材实时】酒-白酒 +0.75%",
+   "body": "酒-白酒 最新 494.75，开 488.2 / 高 503.66 / 低 482.33，成交额 109.6 亿；来源：原文题材实时接口（明文）。",
+   "source": "桥接·题材实时",
+   "changePct": 0.75,
+   "tone": "up",
+   "time": "14:02"
+  },
+  {
+   "id": "bridge-rt-9073558",
+   "type": "rank",
+   "subjectId": 9073558,
+   "subjectName": "北字头",
+   "title": "【题材实时】北字头 +3.81%",
+   "body": "北字头 最新 1161.33，开 1131.1 / 高 1179.73 / 低 1108.91，成交额 58.0 亿；来源：原文题材实时接口（明文）。",
+   "source": "桥接·题材实时",
+   "changePct": 3.81,
+   "tone": "up",
+   "time": "14:02"
+  }
+ ]
+}

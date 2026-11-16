@@ -10,7 +10,7 @@
 
 - Electron 主进程 + preload 桥 + 本地打包的 Vue 3 SPA
 - `shared/domain.mjs`：纯计算的题材领域引擎（热度、连板梯队、龙头、阶段、象限、轮动）
-- `server/live-source.mjs`：把真实行情映射成领域 state 的数据源适配层
+- `server/public-source.mjs` / `server/bridge-source.mjs`：把公开行情 / 桥接快照映射成领域 state 的数据源适配层
 - 主进程拉起本地服务，按契约同形的 REST + SSE 推送聚合快照
 - 单实例、托盘、窗口控制 IPC、版本检查、启动日志、打包/更新配置
 - 题材工作台：题材树、题材详情、连板梯队、成分股、四象限、轮动日历、情报流
@@ -68,36 +68,18 @@
 
 未连接数据源时 state 为空对象，所有函数返回空数组/零值，不会抛错也不会造数据。
 
-## 数据源：Lumi 只读行情
+## 数据源
 
-本机同花顺 AI（Lumi）提供只读通道，服务端通过 `client_exec_script` 拉真实行情与题材成分。
+复刻版不依赖任何第三方账号，提供三种可选数据模式：
 
-```bash
-node server/local-services.mjs                        # 启动，连不上会打印原因并保持空状态
-REPLICA_LIVE_FORCE=1 node server/local-services.mjs   # 忽略 6 小时题材缓存，重新问财取成分
-```
-
-前置：客户端已启动并登录，`http://127.0.0.1:23816` 可访问。token 每次请求现读，
-定位顺序为 `LUMI_TOKEN_FILE` 环境变量 → 自动发现 `~/lumi/users/*/mcp/auth-token.json`，
-不缓存、不落盘、不写日志，仓库里不含任何个人路径。
-
-### 能力边界
-
-| 数据 | 来源 | 说明 |
+| 模式 | 启动 | 说明 |
 | --- | --- | --- |
-| 现价 / 昨收 / 涨跌幅 / 开高低 / 量 / 额 | `realtime_query` | 字段 10 / 6 / 199112 / 7,8,9 / 13 / 19 |
-| 题材成分股 | 问财 `xxx概念股` | 取返回的全部成分，不截断 |
-| 连板天数 | 问财 `连续N天涨停` | 集合竞价时点会返回空，此时退化为盘中实时判定 |
-| 当日涨停名单 | 问财 `今日涨停` | 开盘后每 60 秒刷新，补全题材池外个股 |
-| 封板时间 / 封单额 | 通道不提供 | 界面显示 `—` |
-| 日线历史 | 通道不提供 | K 线区显示“无日线数据”，不生成假 K 线 |
+| 公开行情源（推荐） | `npm run public` / `--public` | 新浪/东财公开接口：全 A 股约 5500+、概念/行业板块 220+、指数、五档、分时，约 10-15 秒轮询 |
+| 快照桥接 | `npm run bridge` / `--bridge` | 加载 `server/bridge-fixtures.json`（原始应用明文抓包快照） |
+| 空状态 | `node server/local-services.mjs` | 未连接数据源时不生成任何数据，界面显示“未连接行情源” |
 
-盘中数据一律带 `asOf` 与 `sessionState`（集合竞价 / 盘中未收盘 / 午间休市 / 非交易时段），
-`GET /meta` 可查，界面顶部与状态栏同步展示，不当作收盘值使用。
-
-```bash
-npm run check:lumi     # 连通性 + 返回结构探测
-```
+公开源说明见 `server/public-source.mjs`，桥接说明见 `server/bridge-source.mjs`。
+盘中数据一律带 `asOf` 与 `sessionState`，`GET /meta` 可查，界面顶部与状态栏同步展示。
 
 ## 题材层级与情报
 
@@ -147,7 +129,7 @@ npm start          # 启动 Electron 窗口
 ```bash
 npm install --ignore-scripts
 npm run build
-node server/local-services.mjs   # 另开一个终端，需客户端已登录
+node server/local-services.mjs   # 另开一个终端（空状态）
 npm run serve                    # http://127.0.0.1:4173
 ```
 
@@ -155,8 +137,8 @@ npm run serve                    # http://127.0.0.1:4173
 
 ```
 shared/domain.mjs              题材领域引擎（纯计算，无数据）
-server/lumi-client.mjs         Lumi 只读通道客户端
-server/live-source.mjs         行情 → 领域 state 的适配层
+server/public-source.mjs       公开行情源（全A/板块/指数/分时）
+server/bridge-source.mjs       桥接快照 → 领域 state
 server/local-services.mjs      REST + SSE，8080/8087/8088/8886
 src/main/index.js              主进程：单实例、窗口、托盘、IPC、日志
 src/preload/index.js           contextBridge
@@ -166,7 +148,6 @@ src/renderer/src/components/   SubjectList / SubjectDetail / SubjectIntel /
                                MarketHeader / KLineChart / TitleBar
 scripts/build.mjs              构建：vite 产物 + 主进程 + 图标
 scripts/serve.mjs              静态预览
-scripts/check-lumi.mjs         通道连通性探测
 electron-builder.yml           打包与更新通道
 ```
 

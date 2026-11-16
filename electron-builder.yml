@@ -9,9 +9,17 @@ directories:
 files:
   - out/**/*
   - server/**/*
+  - shared/**/*
   - package.json
 
 asar: true
+asarUnpack:
+  - server/**
+  - shared/**
+  - out/resources/**
+  - out/icon.png
+
+electronDist: node_modules/electron/dist
 
 win:
   target:

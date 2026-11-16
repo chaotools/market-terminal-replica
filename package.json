@@ -9,15 +9,28 @@
     "dev": "vite --host 127.0.0.1",
     "serve": "node scripts/serve.mjs",
     "start": "electron .",
-    "check": "node --check src/main/index.js && node --check src/preload/index.js && node --check server/local-services.mjs && node --check server/lumi-client.mjs && node --check server/live-source.mjs && node --check shared/domain.mjs && node --check scripts/build.mjs && node --check scripts/serve.mjs && node --check scripts/check-lumi.mjs",
-    "check:lumi": "node scripts/check-lumi.mjs"
+    "check": "node --check src/main/index.js && node --check src/preload/index.js && node --check server/local-services.mjs && node --check shared/domain.mjs && node --check scripts/build.mjs && node --check scripts/serve.mjs && node --check scripts/test-domain.mjs && node --check scripts/test-api.mjs && node --check server/bridge-source.mjs && node --check scripts/build-bridge-fixtures.mjs && node --check server/public-source.mjs",
+    "test": "node --test scripts/test-domain.mjs scripts/test-api.mjs",
+    "screenshot": "electron . --screenshot=default --out=out/screens",
+    "smoke": "electron . --smoke",
+    "dist": "npm run build && electron-builder --win --x64",
+    "dist:dir": "npm run build && electron-builder --win --x64 --dir",
+    "bridge": "electron . --bridge",
+    "bridge:fixtures": "node scripts/build-bridge-fixtures.mjs",
+    "public": "electron . --public",
+    "public:serve": "node server/local-services.mjs"
   },
   "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.0",
     "electron": "^38.0.0",
-    "vite": "^7.0.0",
-    "@vitejs/plugin-vue": "^6.0.0"
+    "electron-builder": "^26.18.0",
+    "vite": "^7.0.0"
   },
   "dependencies": {
-    "vue": "^3.5.0"
-  }
+    "pdfjs-dist": "^4.10.38",
+    "pinia": "^3.0.4",
+    "vue": "^3.5.0",
+    "vue-router": "^4.6.5"
+  },
+  "author": "Local Replica"
 }

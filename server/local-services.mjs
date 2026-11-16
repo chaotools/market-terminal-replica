@@ -3,7 +3,8 @@ import {
   toSnapshot, deriveLadder, deriveSubjectStocks,
   deriveRotation, deriveSubjects, detectEvents
 } from '../shared/domain.mjs'
-import { createLiveEngine, refreshLive, liveMeta, pushHistoryRow } from './live-source.mjs'
+import { loadBridgeFixtures, buildBridgeState } from './bridge-source.mjs'
+import { createPublicEngine } from './public-source.mjs'
 
 const PORTS = (process.env.REPLICA_PORTS || '8080,8087,8088,8886')
   .split(',')
@@ -14,7 +15,10 @@ const PORTS = (process.env.REPLICA_PORTS || '8080,8087,8088,8886')
 const emptyState = () => ({ subjectDefs: [], stocks: {}, flow: {}, history: [], day: 0, tick: 0 })
 
 let state = emptyState()
-let live = null
+let bridge = null
+let publicEngine = null
+const BRIDGE_ENABLED = process.env.REPLICA_BRIDGE === '1'
+const PUBLIC_ENABLED = process.env.REPLICA_PUBLIC === '1'
 let meta = {
   source: 'none',
   sessionState: 'unknown',
@@ -23,10 +27,19 @@ let meta = {
 }
 const sseClients = new Set()
 let eventLog = []
+let dpuConditions = []
+let liveChatLog = []
+let liveTickCount = 0
+let dpuSeq = 1
 let lastAggregate = null
 
 // 列表/推送只带聚合结果，不携带全量股票池
-const aggregate = () => ({ ...toSnapshot(state, { includeEngine: false }), meta })
+const aggregate = () => {
+  const base = { ...toSnapshot(state, { includeEngine: false }), meta }
+  const extraMarket = bridge?.market || publicEngine?.market
+  if (extraMarket) base.market = { ...base.market, ...extraMarket }
+  return base
+}
 const snapshot = () => ({ ...aggregate(), events: eventLog.slice(-40) })
 
 /** 对比前后两份聚合快照，产出题材事件（同题材同类型 5 分钟内去重） */
@@ -71,30 +84,52 @@ function recordEvents(next) {
 }
 
 async function initSource() {
-  try {
-    live = await createLiveEngine({
-      force: process.env.REPLICA_LIVE_FORCE === '1',
-      onProgress: (message) => console.log(`[live] ${message}`)
-    })
-    state = live.state
-    meta = liveMeta(live)
-    pushHistoryRow(state, deriveSubjects)
-    console.log(`[source] Lumi 实时 · ${meta.subjectCount} 个题材 / ${meta.stockCount} 只成分股 · ${meta.asOf}`)
-    return true
-  } catch (error) {
-    live = null
-    state = emptyState()
-    meta = {
-      source: 'none',
-      sessionState: 'unknown',
-      asOf: null,
-      error: error.message,
-      notes: ['Lumi 不可用，未加载任何数据']
+  if (BRIDGE_ENABLED) {
+    try {
+      const fixtures = loadBridgeFixtures(new URL('./bridge-fixtures.json', import.meta.url))
+      state = buildBridgeState(fixtures)
+      bridge = {
+        fixtures,
+        market: fixtures.market || {},
+        quotes: fixtures.quotes || {},
+        minutes: fixtures.minutes || {},
+        subjectDaily: fixtures.subjectDaily || {}
+      }
+      meta = {
+        source: 'bridge-capture',
+        sessionState: 'static-capture',
+        asOf: fixtures.market?.updatedAt || fixtures.meta?.capturedAt || null,
+        subjectCount: state.subjectDefs.length,
+        stockCount: Object.keys(state.stocks).length,
+        notes: ['桥接原始应用明文抓包快照 · ' + (fixtures.meta?.note || '')]
+      }
+      console.log(`[source] 桥接快照 · ${meta.subjectCount} 个题材 / ${meta.stockCount} 只成分股 · ${meta.asOf}`)
+      return true
+    } catch (error) {
+      console.error('[bridge] fixtures 加载失败:', error.message)
+      bridge = null
     }
-    console.error(`[source] Lumi 不可用：${error.message}`)
-    console.error('[source] 请确认同花顺 AI 客户端已启动并登录，127.0.0.1:23816 可访问')
-    return false
   }
+  if (PUBLIC_ENABLED) {
+    try {
+      publicEngine = await createPublicEngine({ onProgress: (message) => console.log('[public] ' + message) })
+      state = publicEngine.state
+      meta = publicEngine.meta
+      console.log(`[source] 公开数据源 · ${meta.subjectCount} 个题材 / ${meta.stockCount} 只成分股 · ${meta.asOf}`)
+      return true
+    } catch (error) {
+      console.error('[public] 公开数据源初始化失败:', error.message)
+      publicEngine = null
+    }
+  }
+  state = emptyState()
+  meta = {
+    source: 'none',
+    sessionState: 'idle',
+    asOf: null,
+    notes: ['未连接数据源；可用 --public（公开行情源）或 --bridge（快照桥接）']
+  }
+  return false
 }
 
 await initSource()
@@ -117,15 +152,33 @@ eventLog.push({
   weekday: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'][bootAt.getDay()],
   time: `${bootPad(bootAt.getHours())}:${bootPad(bootAt.getMinutes())}`
 })
-const subjectById = (id) => snapshot().subjects.find((s) => s.subjectId === id) || null
+if (bridge?.fixtures?.events?.length) {
+  for (const event of bridge.fixtures.events) {
+    const eventTime = String(event.time || '').split(' ').pop().slice(0, 5)
+    eventLog.push({
+      ...event,
+      ts: bootAt.getTime(),
+      date: `${bootAt.getFullYear()}-${bootPad(bootAt.getMonth() + 1)}-${bootPad(bootAt.getDate())}`,
+      weekday: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'][bootAt.getDay()],
+      time: eventTime || '14:02',
+      changePct: event.changePct ?? 0
+    })
+  }
+}
+const subjectById = (id) => snapshot().subjects.find((s) => String(s.subjectId) === String(id)) || null
 
-function subjectDetail(id) {
+async function subjectDetail(id) {
   const subject = subjectById(id)
   if (!subject) return null
+  let candles = bridge?.subjectDaily?.[id] || bridge?.subjectDaily?.[String(id)] || []
+  if (!candles.length && publicEngine) {
+    try { candles = (await publicEngine.boardKline(id)).candles } catch { candles = [] }
+  }
   return {
     ...subject,
     ladder: deriveLadder(state, id),
-    stocks: deriveSubjectStocks(state, id)
+    stocks: deriveSubjectStocks(state, id),
+    candles
   }
 }
 
@@ -160,7 +213,7 @@ function json(res, body, status = 200) {
   res.end(payload)
 }
 
-function route(pathname, query) {
+async function route(pathname, query) {
   const snap = snapshot()
   const id = query.get('subjectId') || query.get('id') || ''
   const code = query.get('code') || ''
@@ -191,12 +244,18 @@ function route(pathname, query) {
   // 题材详情族
   if (parts[0] === 'app' && parts[1] === 'subject') {
     const subjectId = parts[3] || id
-    if (parts[2] === 'query') return subjectDetail(subjectId)
+    if (parts[2] === 'query') return await subjectDetail(subjectId)
     if (parts[2] === 'child-stock-tree') return { subjectId, stocks: deriveSubjectStocks(state, subjectId) }
     if (parts[2] === 'realtime') return subjectById(subjectId) || { error: 'not_found' }
     if (parts[2] === 'lead-days') return { subjectId, leadDays: subjectById(subjectId)?.sustainDays || 0 }
     if (parts[2] === 'stock-subject-lead') return { subjectId, leadStock: subjectById(subjectId)?.leadStock || null }
-    if (parts[2] === 'daily') return { subjectId, date: tail, history: snap.rotation }
+    if (parts[2] === 'daily') {
+      let candles = bridge?.subjectDaily?.[subjectId] || bridge?.subjectDaily?.[String(subjectId)] || []
+      if (!candles.length && publicEngine) {
+        try { candles = (await publicEngine.boardKline(subjectId)).candles } catch { /* ignore */ }
+      }
+      return { subjectId, date: tail, candles, history: snap.rotation }
+    }
     if (parts[2] === 'parents') {
       const target = parts[3] || id
       const group = snap.tree.find((g) => g.childIds.includes(target))
@@ -265,8 +324,10 @@ function route(pathname, query) {
   return null
 }
 
-function handle8080(req, res) {
+async function handle8080(req, res) {
   const url = new URL(req.url || '/', 'http://127.0.0.1')
+  // 本地 API 契约层：仿真原始应用 https://app.txcfgl.com/api 的响应形状
+  if (url.pathname.startsWith('/api/')) return handleApi(req, res, url)
   if (url.pathname === '/push') {
     res.writeHead(200, {
       'content-type': 'text/event-stream; charset=utf-8',
@@ -279,15 +340,282 @@ function handle8080(req, res) {
     req.on('close', () => sseClients.delete(res))
     return
   }
-  const result = route(url.pathname, url.searchParams)
+  const result = await route(url.pathname, url.searchParams)
   if (result === null) return json(res, { error: 'not_found', pathname: url.pathname }, 404)
   return json(res, result)
+}
+
+/**
+ * 本地 API 契约层（仿真 app.txcfgl.com/api）。
+ * 响应统一为 { code: 200, msg: 'success', data }；401 语义由前端协议层处理。
+ * 原则：不伪造业务数据——行情/题材来自数据源（公开行情源/桥接快照），未连接时返回空集合。
+ */
+function tradeDates(n, base = new Date()) {
+  const days = []
+  const cursor = new Date(base)
+  while (days.length < n) {
+    const week = cursor.getDay()
+    if (week !== 0 && week !== 6) days.push(cursor.toISOString().slice(0, 10))
+    cursor.setDate(cursor.getDate() - 1)
+  }
+  return days
+}
+
+async function apiData(pathname, query, body) {
+  const snap = snapshot()
+  const market = snap.market || {}
+  const subjects = snap.subjects || []
+  const stocks = Object.values(state.stocks || {})
+  const parts = pathname.split('/').filter(Boolean).slice(1) // 去掉 api
+  const joined = '/' + parts.join('/')
+  const tail = parts[parts.length - 1] || ''
+
+  if (joined === '/app/config/app-version') {
+    return { pcVersion: 100, curVersion: 100, pcDownloadUrl: '', pcResourceUrl: '', updateContent: ['本地复刻版更新通道（不下载第三方安装包）'], pcForceUpdate: 0 }
+  }
+  if (joined === '/app/config/info') {
+    return {
+      type: '行情',
+      riskInfo: '软件局限性说明:技术指标将随市场行情实时动态更新，决策时点所观测信号可能因行情演变而调整;特定交易策略仅严格适用于对应操作场景。本页面为逐项复刻演示，不构成任何投资建议。',
+      sourceInfo: '数据来源说明：基于本地 API 契约 server；未连接真实行情源时为空，不伪造数据。'
+    }
+  }
+  if (joined === '/app/ad/pc') return []
+  if (joined === '/app/user/info/v2') {
+    return {
+      userId: 'local-demo',
+      nickName: '本地复刻用户',
+      avatar: '',
+      phone: '',
+      vip: { isVip: false, isTempVip: false, vipTime: null },
+      svip: { isVip: false, isTempVip: false, svipTime: null },
+      ssvip: { isVip: false },
+      trainingCampVip: { isVip: false },
+      pcLogincount: 0,
+      pcLoginLimitCount: 1,
+      unionId: ''
+    }
+  }
+  if (parts[0] === 'trade-date' && parts[1] === 'recent') {
+    return { list: tradeDates(Number(parts[2]) || 10) }
+  }
+  if (joined === '/app/subject/list/v2') return { list: subjects, total: subjects.length }
+  if (parts[0] === 'app' && parts[1] === 'subject' && parts[2] === 'realtime' && parts[3]) {
+    const subject = subjectById(parts[3])
+    if (!subject) return null
+    return {
+      subjectId: subject.subjectId,
+      fullName: subject.subjectName,
+      preClose: null, open: null, high: null, low: null, close: null,
+      changeCount: null, pctChg: subject.changePct, amount: subject.turnover,
+      tradeDate: new Date().toISOString().slice(0, 10), time: null,
+      createTime: null, subjectDailyId: null, updateBy: null, updateTime: null
+    }
+  }
+  if (parts[0] === 'app' && parts[1] === 'subject' && parts[2] === 'query') {
+    const id = parts[3] || query.get('subjectId') || ''
+    return (await subjectDetail(id)) || { error: 'not_found', subjectId: id }
+  }
+  if (joined === '/app/subject/realtime') return subjects.map((s) => ({ subjectId: s.subjectId, pctChg: s.changePct }))
+  if (joined === '/app/stock/realtime') {
+    return stocks.map((s) => ({ stockId: s.code, current: s.price, pctChg: s.changePct }))
+  }
+  if (joined === '/app/stock/realtime-rank/v2') {
+    return { __envelope: true, rows: stockRankRows(), total: Object.keys(state.stocks || {}).length }
+  }
+  if (joined === '/app/stock/summary/pctChg') {
+    const stocks = Object.values(state.stocks || {})
+    const up = stocks.filter((s) => (s.changePct || 0) > 0).length
+    const down = stocks.filter((s) => (s.changePct || 0) < 0).length
+    const limitUp = stocks.filter((s) => (s.limitUpStreak || 0) > 0).length
+    const limitDown = stocks.filter((s) => (s.changePct || 0) <= -9.9).length
+    return { up, down, flat: Math.max(0, stocks.length - up - down), limitUp, limitDown, total: stocks.length }
+  }
+  if (joined === '/app/realtime/market/time') return []
+  if (joined === '/app/realtime/stock-minute-data') {
+    const stockId = String(query.get('stockId') || '')
+    const bridged = bridge?.minutes?.[stockId]
+    if (bridged) return { ...bridged, stockId }
+    if (publicEngine) {
+      try {
+        const minute = await publicEngine.stockMinute(stockId)
+        if (minute) return { ...minute, stockId }
+      } catch (error) {
+        console.error('[public] minute failed:', error.message)
+      }
+    }
+    return { data: [], open: 0, preClose: 0 }
+  }
+  if (joined === '/app/realtime/stock-realtime-data') {
+    const stockId = String(query.get('stockId') || '')
+    const bridgedQuote = bridge?.quotes?.[stockId]
+    if (!bridgedQuote && publicEngine) {
+      try {
+        const quote = await publicEngine.stockQuote(stockId)
+        if (quote) return quote
+      } catch (error) {
+        console.error('[public] quote failed:', error.message)
+      }
+    }
+    if (bridgedQuote) {
+      const preClose = Number(bridgedQuote.preClose) || null
+      const current = Number(bridgedQuote.current) || null
+      return {
+        ...bridgedQuote,
+        stockId,
+        close: current,
+        current,
+        changeCount: preClose && current ? Number((current - preClose).toFixed(2)) : bridgedQuote.changeCount,
+        volume: bridgedQuote.vol ?? bridgedQuote.volume ?? null,
+        limitUpPrice: bridgedQuote.limitUp ?? null,
+        limitDownPrice: bridgedQuote.limitDown ?? null,
+        totalMarketValue: bridgedQuote.totalMarketValue ?? bridgedQuote.marketValue ?? null
+      }
+    }
+    const stock = (state.stocks || {})[stockId]
+    if (!stock) return null
+    const preClose = Number(stock.prevClose) || null
+    const current = Number(stock.price) || null
+    return {
+      stockId, name: stock.name, code: stock.code,
+      preClose, open: stock.open ?? null, high: stock.high ?? null, low: stock.low ?? null, close: current,
+      current, changeCount: preClose && current ? Number((current - preClose).toFixed(2)) : null,
+      pctChg: Number(stock.changePct) || null,
+      amount: stock.turnover ?? null, volume: stock.volume ?? null,
+      amplitude: stock.amplitude ?? null, avprice: stock.avprice ?? null,
+      turnoverRate: stock.turnoverRate ?? null, circulating: stock.circulating ?? null,
+      circulatingMarketValue: stock.marketCap ?? null, totalMarketValue: stock.marketCap ?? null,
+      pe: stock.pe ?? null, peDynamic: stock.peDynamic ?? null,
+      limitUpPrice: preClose ? Number((preClose * 1.1).toFixed(2)) : null,
+      limitDownPrice: preClose ? Number((preClose * 0.9).toFixed(2)) : null,
+      brokerCount: null, fastChg: stock.fastChg ?? null, factor: null, factor2: null,
+      firstLetter: String(stock.name || '')[0] || '', innerDisk: null, isBuy: null, outerDisk: null
+    }
+  }
+  if (joined === '/app/realtime/index-amount') {
+    return {
+      amount: bridge?.market?.amount ?? publicEngine?.market?.amount ?? 0,
+      addAmount: bridge?.market?.addAmount ?? publicEngine?.market?.addAmount ?? 0
+    }
+  }
+  if (joined === '/app/realtime/market/time') {
+    return {
+      data: bridge?.market?.series || publicEngine?.market?.series || [],
+      updatedAt: bridge?.market?.updatedAt || publicEngine?.market?.updatedAt || null
+    }
+  }
+  if (joined === '/app/realtime/index/v2') {
+    const indices = bridge?.market?.indices || publicEngine?.market?.indices || []
+    return indices
+  }
+  if (joined === '/app/self-optional/listGroup') {
+    return {
+      list: [
+        { groupId: 'g-main', groupName: '主线关注', objectType: 1 },
+        { groupId: 'g-watch', groupName: '异动观察', objectType: 1 }
+      ]
+    }
+  }
+  if (joined === '/app/self-optional/group/stock-list') return { list: limitUpStocks(1) }
+  if (joined === '/app/search/v2') {
+    const keyword = String(query.get('keyword') || '').trim()
+    if (!keyword) return { list: [], total: 0 }
+    const hit = subjects.filter((s) => String(s.subjectName || '').includes(keyword))
+    return { list: hit, total: hit.length }
+  }
+  if (joined === '/app/push-message/type') return [{ typeId: 1, typeName: '系统通知' }, { typeId: 2, typeName: '题材提醒' }]
+  if (joined === '/app/push-message') return { rows: [], total: 0 }
+  if (joined === '/app/live/events') return { list: liveChatLog.slice(-30) }
+  if (joined === '/app/stock/qa/v2') return { rows: [], total: 0 }
+  if (joined === '/app/stock-report/v2/list') return { rows: [], total: 0 }
+  if (joined === '/app/lecturer/subscribe') return { rows: [], total: 0 }
+  if (joined === '/dpu/condition-stock') return { rows: [], total: 0 }
+  if (joined === '/dpu/user-config/stock-condition/list') return { list: dpuConditions.slice() }
+  if (joined === '/dpu/user-config/stock-condition/add' && body && body.name) {
+    dpuConditions.push({ id: dpuSeq++, createdAt: new Date().toISOString(), ...body })
+    return { list: dpuConditions.slice(), accepted: true }
+  }
+  if (joined === '/dpu/user-config/stock-condition/update' && body && body.id) {
+    const index = dpuConditions.findIndex((item) => String(item.id) === String(body.id))
+    if (index >= 0) dpuConditions[index] = { ...dpuConditions[index], ...body }
+    return { list: dpuConditions.slice(), accepted: true }
+  }
+  if (joined === '/dpu/condition-stock/preview' || joined === '/dpu/condition-stock/preview/v2') {
+    return { rows: [], total: 0 }
+  }
+  if (joined === '/app/stock/kline/config/list') return { list: [] }
+  if (joined === '/app/vip-order/' || joined === '/app/vip-order') return { rows: [], total: 0 }
+  return null
+}
+
+function substances(subjects, up, down) {
+  return Math.max(0, subjects.length - up - down)
+}
+
+function formatAmountShort(value) {
+  const n = Number(value)
+  if (!Number.isFinite(n) || n === 0) return '--'
+  const abs = Math.abs(n)
+  if (abs >= 1e8) return (n / 1e8).toFixed(2) + '亿'
+  if (abs >= 1e4) return (n / 1e4).toFixed(1) + '万'
+  return String(Math.round(n))
+}
+
+/** 全部A股表格行（与原始 15 列可见口径对齐；未知列以 '--' 表示）。 */
+function stockRankRows() {
+  const defs = state.subjectDefs || []
+  const nameOf = (id) => defs.find((d) => d.id === id)?.name || id
+  const rows = Object.values(state.stocks || {}).map((s) => {
+    const subj = s.subjectIds || []
+    return {
+      code: s.code, name: s.name, price: s.price, changePct: s.changePct,
+      limitUpStreak: s.limitUpStreak, changeCount: (s.price || 0) - (s.prevClose || 0),
+      subjectCount: subj.length, subjectNames: subj.slice(0, 4).map(nameOf).join('、'),
+      amount: s.turnover, turnover: s.turnover,
+      marketCap: s.marketCap, volume: s.volume
+    }
+  }).sort((a, b) => (b.changePct || 0) - (a.changePct || 0))
+  return rows.map((row, index) => [
+    String(index + 1), row.name, row.code,
+    Number.isFinite(row.price) ? row.price.toFixed(2) : '--',
+    Number.isFinite(row.changePct) ? row.changePct.toFixed(2) : '--',
+    '--',
+    row.limitUpStreak ? String(row.limitUpStreak) : '--',
+    '--',
+    Number.isFinite(row.changeCount) ? row.changeCount.toFixed(2) : '--',
+    formatAmountShort(row.marketCap),
+    String(row.subjectCount),
+    row.subjectNames || '--',
+    formatAmountShort(row.volume),
+    formatAmountShort(row.amount),
+    '--'
+  ])
+}
+
+async function handleApi(req, res, url) {
+  let bodyText = ''
+  req.on('data', (chunk) => { bodyText += chunk; if (bodyText.length > 1_000_000) req.destroy() })
+  req.on('end', async () => {
+    try {
+      let body = null
+      try { body = bodyText ? JSON.parse(bodyText) : null } catch { body = null }
+      const data = await apiData(url.pathname, url.searchParams, body)
+      if (data === null) return json(res, { code: 404, msg: 'not_found', data: null })
+      if (data && data.__envelope) {
+        const { __envelope, ...rest } = data
+        return json(res, { code: 200, msg: '操作成功', ...rest })
+      }
+      return json(res, { code: 200, msg: '操作成功', data })
+    } catch (error) {
+      return json(res, { code: 500, msg: error.message, data: null })
+    }
+  })
 }
 
 function start(port) {
   const server = http.createServer((req, res) => {
     try {
-      if (port === 8080) return handle8080(req, res)
+      if (port === PORTS[0]) return handle8080(req, res)
       if (port === 8087) return json(res, { role: 'cache', ...snapshot() })
       if (port === 8088) return json(res, { role: 'pyindex', ...snapshot().market, quadrants: snapshot().quadrants.counts })
       if (port === 8886) return json(res, { role: 'reserved', note: '预留端口，暂无服务' })
@@ -304,22 +632,15 @@ PORTS.forEach(start)
 
 // 全量股票池下每轮行情拉取需要数秒，刷新间隔相应放宽
 const REFRESH_MS = 8000
-const RETRY_MS = 30000
-let lastRetryAt = 0
 
 setInterval(async () => {
-  if (!live) {
-    // 数据源断开时定期重连，不做本地数据兜底
-    if (Date.now() - lastRetryAt > RETRY_MS) {
-      lastRetryAt = Date.now()
-      await initSource()
-    }
-  } else {
+  if (BRIDGE_ENABLED && bridge) {
+    // 桥接模式：静态快照，不重连外部数据源
+  } else if (PUBLIC_ENABLED && publicEngine) {
     try {
-      await refreshLive(live)
-      state = live.state
-      meta = liveMeta(live)
-      pushHistoryRow(state, deriveSubjects)
+      await publicEngine.refresh()
+      state = publicEngine.state
+      meta = publicEngine.meta
     } catch (error) {
       meta = { ...meta, lastError: error.message, stale: true }
     }
@@ -327,6 +648,27 @@ setInterval(async () => {
   const next = aggregate()
   recordEvents(next)
   const frame = `event: tick\ndata: ${JSON.stringify({ ...next, events: eventLog.slice(-40) })}\n\n`
+  liveTickCount += 1
+  if (liveTickCount % 3 === 0) {
+    const names = (state.subjectDefs || []).slice(0, 5).map((d) => d.name)
+    const kinds = ['ENTER', 'CHAT', 'STATUS', 'LEAVE']
+    const kind = kinds[liveTickCount % kinds.length]
+    const text = kind === 'ENTER' ? '进入直播间' : kind === 'LEAVE' ? '离开直播间' : kind === 'CHAT' ? '直播讲解：关注题材梯队与龙头切换' : '直播状态：开播中'
+    const liveMessage = {
+      id: 'live-' + liveTickCount,
+      kind,
+      time: new Date().toISOString(),
+      text,
+      room: names[liveTickCount % Math.max(1, names.length)] || '本地示例直播',
+      source: '本地 broadcast-room 模拟'
+    }
+    liveChatLog.push(liveMessage)
+    if (liveChatLog.length > 60) liveChatLog = liveChatLog.slice(-60)
+    const liveFrame = `event: live\ndata: ${JSON.stringify(liveMessage)}\n\n`
+    for (const client of sseClients) {
+      try { client.write(liveFrame) } catch { sseClients.delete(client) }
+    }
+  }
   for (const client of sseClients) {
     try { client.write(frame) } catch { sseClients.delete(client) }
   }

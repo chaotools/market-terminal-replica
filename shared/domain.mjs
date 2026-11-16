@@ -2,7 +2,7 @@
  * 题材领域引擎（纯计算层）
  *
  * 这里只有派生逻辑，没有任何内置数据：
- * 输入 state 由数据源适配层提供（见 server/live-source.mjs），
+ * 输入 state 由数据源适配层提供（见 server/public-source.mjs / server/bridge-source.mjs），
  * 结构为 { subjectDefs, stocks, flow, history, day, tick }。
  * 数据源不可用时 state 为空对象，所有派生函数返回空结果而不是演示数据。
  */
@@ -102,7 +102,7 @@ export function deriveSubjects(state) {
 
 /** 连板梯队：按连板高度分组 */
 export function deriveLadder(state, subjectId) {
-  const members = Object.values(state?.stocks || {}).filter((s) => s.subjectIds?.includes(subjectId))
+  const members = Object.values(state?.stocks || {}).filter((s) => (s.subjectIds || []).some((id) => String(id) === String(subjectId)))
   const groups = {}
   for (const s of members) {
     if (s.limitUpStreak <= 0) continue
@@ -285,7 +285,7 @@ export function detectEvents(prev, next) {
 /** 题材成分股实时行情 */
 export function deriveSubjectStocks(state, subjectId) {
   return Object.values(state?.stocks || {})
-    .filter((s) => s.subjectIds?.includes(subjectId))
+    .filter((s) => (s.subjectIds || []).some((id) => String(id) === String(subjectId)))
     .map((s) => ({
       code: s.code, name: s.name, price: s.price, changePct: s.changePct,
       prevClose: s.prevClose, limitUpStreak: s.limitUpStreak,

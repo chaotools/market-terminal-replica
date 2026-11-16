@@ -16,8 +16,10 @@ fs.mkdirSync(path.join(root, 'out'), { recursive: true })
 fs.cpSync(path.join(root, 'src', 'main'), path.join(root, 'out', 'main'), { recursive: true })
 fs.cpSync(path.join(root, 'src', 'preload'), path.join(root, 'out', 'preload'), { recursive: true })
 
-console.log('[build] 3/3 生成图标并写入构建元信息')
+console.log('[build] 3/3 生成图标、示例PDF、复制资源并写入构建元信息')
 execFileSync(process.execPath, [path.join('scripts', 'make-icon.mjs')], { stdio: 'inherit' })
+execFileSync(process.execPath, [path.join('scripts', 'make-sample-pdf.mjs')], { stdio: 'inherit' })
+fs.cpSync(path.join(root, 'resources'), path.join(root, 'out', 'resources'), { recursive: true })
 fs.writeFileSync(
   path.join(root, 'out', 'build-info.json'),
   JSON.stringify({
@@ -27,7 +29,8 @@ fs.writeFileSync(
     layout: {
       main: 'out/main/index.js',
       preload: 'out/preload/index.js',
-      renderer: 'out/renderer/index.html'
+      renderer: 'out/renderer/index.html',
+      resources: 'out/resources'
     }
   }, null, 2)
 )

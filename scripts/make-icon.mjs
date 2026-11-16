@@ -69,9 +69,10 @@ function makePng(size) {
   ])
 }
 
-const png = makePng(32)
-for (const target of [path.join(root, 'out', 'icon.png'), path.join(root, 'build', 'icon.png')]) {
-  fs.mkdirSync(path.dirname(target), { recursive: true })
-  fs.writeFileSync(target, png)
-}
-console.log('[icon] 已生成 out/icon.png 与 build/icon.png')
+const trayIcon = makePng(32)
+const buildIcon = makePng(256)
+fs.mkdirSync(path.join(root, 'out'), { recursive: true })
+fs.writeFileSync(path.join(root, 'out', 'icon.png'), trayIcon)
+fs.mkdirSync(path.join(root, 'build'), { recursive: true })
+fs.writeFileSync(path.join(root, 'build', 'icon.png'), buildIcon)
+console.log('[icon] 已生成 out/icon.png(32) 与 build/icon.png(256)')
