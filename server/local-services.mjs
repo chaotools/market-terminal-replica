@@ -3,7 +3,6 @@ import {
   toSnapshot, deriveLadder, deriveSubjectStocks,
   deriveRotation, deriveSubjects, detectEvents
 } from '../shared/domain.mjs'
-import { createLiveEngine, refreshLive, liveMeta, pushHistoryRow } from './live-source.mjs'
 import { loadBridgeFixtures, buildBridgeState } from './bridge-source.mjs'
 import { createPublicEngine } from './public-source.mjs'
 
@@ -16,7 +15,6 @@ const PORTS = (process.env.REPLICA_PORTS || '8080,8087,8088,8886')
 const emptyState = () => ({ subjectDefs: [], stocks: {}, flow: {}, history: [], day: 0, tick: 0 })
 
 let state = emptyState()
-let live = null
 let bridge = null
 let publicEngine = null
 const BRIDGE_ENABLED = process.env.REPLICA_BRIDGE === '1'
@@ -124,30 +122,14 @@ async function initSource() {
       publicEngine = null
     }
   }
-  try {
-    live = await createLiveEngine({
-      force: process.env.REPLICA_LIVE_FORCE === '1',
-      onProgress: (message) => console.log(`[live] ${message}`)
-    })
-    state = live.state
-    meta = liveMeta(live)
-    pushHistoryRow(state, deriveSubjects)
-    console.log(`[source] Lumi 实时 · ${meta.subjectCount} 个题材 / ${meta.stockCount} 只成分股 · ${meta.asOf}`)
-    return true
-  } catch (error) {
-    live = null
-    state = emptyState()
-    meta = {
-      source: 'none',
-      sessionState: 'unknown',
-      asOf: null,
-      error: error.message,
-      notes: ['Lumi 不可用，未加载任何数据']
-    }
-    console.error(`[source] Lumi 不可用：${error.message}`)
-    console.error('[source] 请确认同花顺 AI 客户端已启动并登录，127.0.0.1:23816 可访问')
-    return false
+  state = emptyState()
+  meta = {
+    source: 'none',
+    sessionState: 'idle',
+    asOf: null,
+    notes: ['未连接数据源；可用 --public（公开行情源）或 --bridge（快照桥接）']
   }
+  return false
 }
 
 await initSource()
@@ -366,7 +348,7 @@ async function handle8080(req, res) {
 /**
  * 本地 API 契约层（仿真 app.txcfgl.com/api）。
  * 响应统一为 { code: 200, msg: 'success', data }；401 语义由前端协议层处理。
- * 原则：不伪造业务数据——行情/题材来自真实数据源（Lumi），未连接时返回空集合。
+ * 原则：不伪造业务数据——行情/题材来自数据源（公开行情源/桥接快照），未连接时返回空集合。
  */
 function tradeDates(n, base = new Date()) {
   const days = []
@@ -650,8 +632,6 @@ PORTS.forEach(start)
 
 // 全量股票池下每轮行情拉取需要数秒，刷新间隔相应放宽
 const REFRESH_MS = 8000
-const RETRY_MS = 30000
-let lastRetryAt = 0
 
 setInterval(async () => {
   if (BRIDGE_ENABLED && bridge) {
@@ -661,21 +641,6 @@ setInterval(async () => {
       await publicEngine.refresh()
       state = publicEngine.state
       meta = publicEngine.meta
-    } catch (error) {
-      meta = { ...meta, lastError: error.message, stale: true }
-    }
-  } else if (!live) {
-    // 数据源断开时定期重连，不做本地数据兜底
-    if (Date.now() - lastRetryAt > RETRY_MS) {
-      lastRetryAt = Date.now()
-      await initSource()
-    }
-  } else {
-    try {
-      await refreshLive(live)
-      state = live.state
-      meta = liveMeta(live)
-      pushHistoryRow(state, deriveSubjects)
     } catch (error) {
       meta = { ...meta, lastError: error.message, stale: true }
     }

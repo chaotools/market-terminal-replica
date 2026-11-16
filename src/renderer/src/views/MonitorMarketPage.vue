@@ -80,7 +80,7 @@ onUnmounted(() => { stopStream?.(); clearInterval(timer) })
       <div style="padding: 10px; font-size: 12px; color: var(--muted); line-height: 1.8">
         <template v-if="rightTab === '异动'">
           原始页面：/app/subject/realtime 与实时推送驱动的盘中异动（封板/开板/涨速/大单）。
-          本地契约未连接行情源时为空态；接入 Lumi 后此处显示事件流。
+          本地契约未连接行情源时为空态；接入公开行情源/桥接数据后此处显示事件流。
         </template>
         <template v-else>
           短线精灵依赖 /app/stock/stock-pool-config 与 pick-rank 接口（加密响应），复刻版以本地事件引擎近似。

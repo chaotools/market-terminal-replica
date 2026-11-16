@@ -45,7 +45,7 @@ async function fetchJson(pathname, { port = 8080, timeout = 1500 } = {}) {
 export async function loadSnapshot() {
   try {
     const data = await fetchJson('/snapshot')
-    if (Array.isArray(data?.subjects)) return { ...data, source: data.meta?.source || 'lumi' }
+    if (Array.isArray(data?.subjects)) return { ...data, source: data.meta?.source || 'none' }
   } catch { /* 服务未启动 */ }
   return emptySnapshot()
 }
@@ -95,7 +95,7 @@ export function connectStream(onSnapshot) {
       const handler = (event) => {
         try {
           const data = JSON.parse(event.data)
-          if (Array.isArray(data.subjects)) onSnapshot({ ...data, source: data.meta?.source || 'lumi' })
+          if (Array.isArray(data.subjects)) onSnapshot({ ...data, source: data.meta?.source || 'none' })
         } catch { /* 忽略坏帧 */ }
       }
       source.addEventListener('snapshot', handler)

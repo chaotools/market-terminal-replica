@@ -16,11 +16,13 @@ const SESSION = {
 }
 const sessionLabel = computed(() => SESSION[props.meta?.sessionState] || '—')
 const sourceLabel = computed(() => ({
-  lumi: '同花顺问财',
+  local: '本地契约',
+  'public-sina': '公开行情源',
+  'bridge-capture': '桥接快照',
   none: '未连接'
 }[props.source] || props.source))
 const asOf = computed(() => props.meta?.asOf || '—')
-const isLive = computed(() => props.source === 'lumi')
+const isLive = computed(() => props.source !== 'none')
 </script>
 
 <template>

@@ -11,7 +11,8 @@ const act = (channel) => desktop && desktopInvoke(channel)
 
 const sourceLabel = computed(() => ({
   local: '本地 API 契约',
-  lumi: 'Lumi 实时行情',
+  'public-sina': '公开行情源',
+  'bridge-capture': '桥接快照',
   none: '未连接行情源'
 }[app.source] || '未知来源'))
 const initial = computed(() => (user.userInfo.nickName || '复')[0])
