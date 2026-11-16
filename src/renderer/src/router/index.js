@@ -26,6 +26,10 @@ import SubjectExcavatePage from '../views/SubjectExcavatePage.vue'
 import SubjectPeriodicPage from '../views/SubjectPeriodicPage.vue'
 import SubjectAllPage from '../views/SubjectAllPage.vue'
 import StockQuotationPage from '../views/StockQuotationPage.vue'
+import UserProfilePage from '../views/UserProfilePage.vue'
+import UserOrderPage from '../views/UserOrderPage.vue'
+import UserPwdPage from '../views/UserPwdPage.vue'
+import DpuPage from '../views/DpuPage.vue'
 
 const placeholder = (title, stage, apis, notes, origin) => ({
   name: title,
@@ -88,16 +92,16 @@ const routes = [
       { path: 'svip-subject-main/monitoring/line', ...placeholder('主线题材', 'P2', ['/app/selected-subject/realtime'], ['主线题材监控']), meta: { title: '主线题材', auth: 1, stage: 'P2' } },
       { path: 'svip-subject-main/monitoring/continuous', ...placeholder('持续题材', 'P2', ['/app/subject/sustain-subject/v2'], ['持续题材监控']), meta: { title: '持续题材', auth: 1, stage: 'P2' } },
 
-      { path: 'dpu', ...placeholder('战法库', 'P1', ['/dpu/condition-stock', '/dpu/condition-stock/preview/v2', '/dpu/user-config/stock-condition/list', '/dpu/user-config/stock-condition/add', '/dpu/user-config/stock-condition/update'], ['组合/K线/条件筛选', '自定义条件持久化']), meta: { title: '战法库', auth: 1, stage: 'P1' } },
+      { path: 'dpu', name: 'DpuMain', component: DpuPage, meta: { title: '战法库', auth: 1, stage: 'P1' } },
 
       { path: 'buy-qz', ...placeholder('圈子', 'P2', [], ['二维码图 + 客服提示（原始 webview/本地图）']), meta: { title: '圈子', auth: 1, stage: 'P2' } },
       { path: 'buy-vip', ...placeholder('题材库会员', 'P1', ['/app/vip-order/'], ['权益矩阵：题材库会员', '原始为 webview 活动页，本复刻为本地权益介绍页']), meta: { title: '题材库会员', auth: 1, stage: 'P1' } },
       { path: 'buy-svip', ...placeholder('甄选版', 'P1', ['/app/vip-order/'], ['权益矩阵：甄选版', '原始为 webview 活动页，本复刻为本地权益介绍页']), meta: { title: '甄选版', auth: 1, stage: 'P1' } },
 
       { path: 'user', redirect: '/user/profile' },
-      { path: 'user/profile', ...placeholder('我的资料', 'P1', ['/app/user/info/v2', '/app/user', '/app/user/bind-phone/v3', '/app/user/bind-wx/v2', '/app/user/merge'], ['头像/昵称/简介', '绑定手机/微信合并（本地模拟）']), meta: { title: '我的资料', auth: 1, stage: 'P1' } },
-      { path: 'user/order', ...placeholder('我的订单', 'P1', ['/app/vip-order/'], ['已支付/未支付订单（本地模拟数据）']), meta: { title: '我的订单', auth: 1, stage: 'P1' } },
-      { path: 'user/pwd', ...placeholder('修改密码', 'P1', ['/app/user/password', '/app/sms/no-login/:phone'], ['短信验证码 + 新密码']), meta: { title: '修改密码', auth: 1, stage: 'P1' } },
+      { path: 'user/profile', name: 'UserProfile', component: UserProfilePage, meta: { title: '我的资料', auth: 1, stage: 'P1' } },
+      { path: 'user/order', name: 'UserOrder', component: UserOrderPage, meta: { title: '我的订单', auth: 1, stage: 'P1' } },
+      { path: 'user/pwd', name: 'UserPwd', component: UserPwdPage, meta: { title: '修改密码', auth: 1, stage: 'P1' } },
       { path: 'user-complain', ...placeholder('一键投诉', 'P2', ['/app/complaint-link/list', '/app/complaint-link/menu-click-log'], ['原始 webview 加载 BC_PC 投诉链接']), meta: { title: '一键投诉', auth: 1, stage: 'P2' } },
 
       { path: 'privacy', ...placeholder('隐私政策', 'P1', [], ['本地复刻版说明：不收集、不上传任何数据；所有数据来自本地 API 契约 server。']), meta: { title: '隐私政策', auth: 0, hidden: true, plain: false, stage: 'P1' } }

@@ -118,6 +118,11 @@ export const api = {
   getMarketMinute: (stockId, date) => request('/app/realtime/stock-minute-data', { params: { stockId, date } }),
   getSelfOptionalGroups: (type = 1) => request('/app/self-optional/listGroup', { params: { type } }),
   getSelfOptionalStockList: (groupId) => request('/app/self-optional/group/stock-list', { params: { groupId } }),
+  getOrders: () => request('/app/vip-order/'),
+  getDpuConditions: () => request('/dpu/user-config/stock-condition/list'),
+  addDpuCondition: (data) => request('/dpu/user-config/stock-condition/add', { method: 'POST', data }),
+  updateDpuCondition: (data) => request('/dpu/user-config/stock-condition/update', { method: 'POST', data }),
+  previewDpu: (data) => request('/dpu/condition-stock/preview/v2', { method: 'POST', data }),
   getSearch: (keyword) => request('/app/search/v2', { params: { keyword } }),
   getPushMessageTypes: () => request('/app/push-message/type'),
   getPushMessages: (params) => request('/app/push-message', { params })

@@ -23,6 +23,8 @@ let meta = {
 }
 const sseClients = new Set()
 let eventLog = []
+let dpuConditions = []
+let dpuSeq = 1
 let lastAggregate = null
 
 // 列表/推送只带聚合结果，不携带全量股票池
@@ -302,7 +304,7 @@ function tradeDates(n, base = new Date()) {
   return days
 }
 
-function apiData(pathname, query) {
+function apiData(pathname, query, body) {
   const snap = snapshot()
   const market = snap.market || {}
   const subjects = snap.subjects || []
@@ -421,6 +423,19 @@ function apiData(pathname, query) {
   if (joined === '/app/stock-report/v2/list') return { rows: [], total: 0 }
   if (joined === '/app/lecturer/subscribe') return { rows: [], total: 0 }
   if (joined === '/dpu/condition-stock') return { rows: [], total: 0 }
+  if (joined === '/dpu/user-config/stock-condition/list') return { list: dpuConditions.slice() }
+  if (joined === '/dpu/user-config/stock-condition/add' && body && body.name) {
+    dpuConditions.push({ id: dpuSeq++, createdAt: new Date().toISOString(), ...body })
+    return { list: dpuConditions.slice(), accepted: true }
+  }
+  if (joined === '/dpu/user-config/stock-condition/update' && body && body.id) {
+    const index = dpuConditions.findIndex((item) => String(item.id) === String(body.id))
+    if (index >= 0) dpuConditions[index] = { ...dpuConditions[index], ...body }
+    return { list: dpuConditions.slice(), accepted: true }
+  }
+  if (joined === '/dpu/condition-stock/preview' || joined === '/dpu/condition-stock/preview/v2') {
+    return { rows: [], total: 0 }
+  }
   if (joined === '/app/stock/kline/config/list') return { list: [] }
   if (joined === '/app/vip-order/' || joined === '/app/vip-order') return { rows: [], total: 0 }
   return null
@@ -471,10 +486,12 @@ function stockRankRows() {
 }
 
 function handleApi(req, res, url) {
-  let body = ''
-  req.on('data', (chunk) => { body += chunk; if (body.length > 1_000_000) req.destroy() })
+  let bodyText = ''
+  req.on('data', (chunk) => { bodyText += chunk; if (bodyText.length > 1_000_000) req.destroy() })
   req.on('end', () => {
-    const data = apiData(url.pathname, url.searchParams)
+    let body = null
+    try { body = bodyText ? JSON.parse(bodyText) : null } catch { body = null }
+    const data = apiData(url.pathname, url.searchParams, body)
     if (data === null) return json(res, { code: 404, msg: 'not_found', data: null })
     if (data && data.__envelope) {
       const { __envelope, ...rest } = data
