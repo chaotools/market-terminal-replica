@@ -47,6 +47,7 @@ const toggle = (id) => { collapsed.value = { ...collapsed.value, [id]: !collapse
       >{{ s.label }}</button>
     </div>
     <div class="panel-body">
+      <div v-if="!groups.length" class="empty-hint">未连接行情源</div>
       <div v-for="g in groups" :key="g.groupId" class="subj-group">
         <div class="group-row" @click="toggle(g.groupId)">
           <span class="caret">{{ collapsed[g.groupId] ? '&#9656;' : '&#9662;' }}</span>

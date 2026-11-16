@@ -3,7 +3,7 @@ import { computed } from 'vue'
 
 const props = defineProps({
   market: { type: Object, default: () => ({}) },
-  source: { type: String, default: 'mock' },
+  source: { type: String, default: 'none' },
   meta: { type: Object, default: () => ({}) }
 })
 const num = (v, n = 1) => Number(v || 0).toFixed(n)
@@ -12,15 +12,12 @@ const SESSION = {
   auction: '集合竞价',
   open: '盘中未收盘',
   lunch: '午间休市',
-  closed: '非交易时段',
-  browser: '浏览器引擎',
-  mock: '模拟'
+  closed: '非交易时段'
 }
 const sessionLabel = computed(() => SESSION[props.meta?.sessionState] || '—')
 const sourceLabel = computed(() => ({
   lumi: '同花顺问财',
-  mock: '内置模拟',
-  browser: '浏览器引擎'
+  none: '未连接'
 }[props.source] || props.source))
 const asOf = computed(() => props.meta?.asOf || '—')
 const isLive = computed(() => props.source === 'lumi')
@@ -62,7 +59,7 @@ const isLive = computed(() => props.source === 'lumi')
       </div>
     </div>
     <div class="mh-clock">
-      <span class="mh-source" :class="isLive ? 'live' : 'mock'">{{ sourceLabel }}</span>
+      <span class="mh-source" :class="isLive ? 'live' : 'off'">{{ sourceLabel }}</span>
       <span class="mh-asof num">{{ asOf }}</span>
       <span class="mh-session" :class="{ live: isLive }">{{ sessionLabel }}</span>
     </div>

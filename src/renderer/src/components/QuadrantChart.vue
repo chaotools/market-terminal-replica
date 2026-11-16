@@ -92,7 +92,7 @@ function draw() {
       ctx.stroke()
     }
     ctx.fillStyle = '#4a515c'
-    const label = String(p.subjectName || '').replace('示例·', '')
+    const label = String(p.subjectName || '')
     ctx.fillText(label, x + 8, y - 6)
     hitBoxes.push({ x, y, id: p.subjectId })
   }

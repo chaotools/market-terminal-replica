@@ -30,11 +30,11 @@ const value = (row) => {
     <div class="rank-list">
       <div v-for="(row, i) in list" :key="row.subjectId" class="rank-row" @click="emit('select', row.subjectId)">
         <span class="rank-no num">{{ i + 1 }}</span>
-        <span class="rank-name">{{ row.subjectName.replace('示例·', '') }}</span>
+        <span class="rank-name">{{ row.subjectName }}</span>
         <span class="chip mini" :class="'stage-' + row.stage">{{ row.stage }}</span>
         <span class="rank-val num" :class="Number(value(row).replace(/[^\d.+-]/g, '')) >= 0 ? 'up' : 'down'">{{ value(row) }}</span>
       </div>
-      <div v-if="!list.length" class="rank-row"><span class="rank-name">计算中…</span></div>
+      <div v-if="!list.length" class="rank-row"><span class="rank-name">暂无数据</span></div>
     </div>
 
   </div>

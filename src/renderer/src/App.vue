@@ -9,12 +9,12 @@ import RotationHeatmap from './components/RotationHeatmap.vue'
 import RankPanel from './components/RankPanel.vue'
 import SubjectIntel from './components/SubjectIntel.vue'
 import {
-  loadSnapshot, connectStream, fetchDetail, localSnapshot,
+  loadSnapshot, connectStream, fetchDetail, emptySnapshot,
   isDesktop, desktopVersion, desktopServiceStatus
 } from './data.js'
 
-const snap = ref(localSnapshot())
-const selectedId = ref(snap.value.subjects[0]?.subjectId || 'SUB01')
+const snap = ref(emptySnapshot())
+const selectedId = ref('')
 const selectedCode = ref('')
 const centerTab = ref('detail')
 const version = ref('0.1.0')
@@ -32,28 +32,29 @@ const detail = ref({ ladder: { tiers: [], total: 0, highest: 0 }, stocks: [], ca
 const nowTime = () => new Date().toLocaleTimeString('zh-CN', { hour12: false })
 
 async function loadDetail() {
+  if (!selectedId.value) {
+    detail.value = { ladder: { tiers: [], total: 0, highest: 0 }, stocks: [], candles: [], code: '' }
+    return
+  }
   detail.value = await fetchDetail(snap.value, selectedId.value, selectedCode.value)
 }
 
 const SOURCE_TEXT = {
   lumi: 'Lumi 实时（同花顺问财）',
-  mock: '内置模拟引擎',
-  browser: '浏览器内引擎'
+  none: '未连接行情源'
 }
 const SESSION_TEXT = {
   auction: '集合竞价',
   open: '盘中未收盘',
   lunch: '午间休市',
   closed: '非交易时段',
-  browser: '浏览器引擎',
-  mock: '模拟',
   unknown: '—'
 }
 const sourceText = computed(() => SOURCE_TEXT[snap.value.source] || snap.value.source || '—')
 const sessionText = computed(() => SESSION_TEXT[snap.value.meta?.sessionState] || '—')
 const footNote = computed(() => snap.value.source === 'lumi'
   ? '题材成分来自问财概念，行情为盘中实时值'
-  : '虚构题材与演示数据，非真实行情')
+  : '未连接行情源，请启动本地服务并确认客户端已登录')
 
 function selectSubject(id) {
   selectedId.value = id
@@ -62,6 +63,7 @@ function selectSubject(id) {
 
 function applySnapshot(data) {
   snap.value = data
+  if (!selectedId.value && data.subjects?.length) selectedId.value = data.subjects[0].subjectId
 }
 
 onMounted(async () => {

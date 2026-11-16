@@ -139,10 +139,14 @@ const selectedStock = computed(() => {
       </div>
 
       <div class="kline-box">
-        <div class="block-title"><span>个股 K 线 · {{ selectedStock.name }}</span><span class="hint">示意日线（该通道不提供历史 K 线）</span></div>
-        <div class="kline-inner">
+        <div class="block-title">
+          <span>个股 K 线 · {{ selectedStock.name }}</span>
+          <span class="hint">{{ detail.candles.length ? '日线' : '该通道不提供历史 K 线' }}</span>
+        </div>
+        <div v-if="detail.candles.length" class="kline-inner">
           <KLineChart :candles="detail.candles" :quote="selectedStock" />
         </div>
+        <div v-else class="empty-hint">无日线数据</div>
       </div>
     </div>
   </section>

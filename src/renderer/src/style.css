@@ -64,7 +64,7 @@ body {
 .titlebar .conn { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #b9c4d6; }
 .dot { width: 7px; height: 7px; border-radius: 50%; background: #6b7280; }
 .dot.live { background: #3ddc84; }
-.dot.mock { background: #f0b429; }
+.dot.off { background: #f0b429; }
 .win-btn {
   width: 38px; height: 30px; border: 0; background: transparent; color: #c9d3e3;
   font-size: 14px; cursor: pointer; border-radius: 4px;
@@ -244,7 +244,7 @@ body {
 .mh-session.live { color: #a32d2d; font-weight: 500; }
 .mh-source { font-size: 10px; color: var(--muted); border: 1px solid var(--border); border-radius: 4px; padding: 1px 6px; }
 .mh-source.live { color: var(--down); border-color: #9fe1cb; }
-.mh-source.mock { color: #92590a; border-color: #fac775; }
+.mh-source.off { color: #92590a; border-color: #fac775; }
 
 .sort-tabs { display: flex; gap: 2px; padding: 8px 10px; border-bottom: 1px solid var(--border); flex: none; }
 .sort-tabs.compact { padding: 4px 0 8px; border: 0; }

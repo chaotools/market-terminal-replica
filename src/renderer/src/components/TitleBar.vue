@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { isDesktop, desktopInvoke } from '../data.js'
 
 const props = defineProps({
-  source: { type: String, default: 'mock' },
+  source: { type: String, default: 'none' },
   version: { type: String, default: '0.1.0' }
 })
 
@@ -11,10 +11,9 @@ const desktop = isDesktop()
 const act = (channel) => desktop && desktopInvoke(channel)
 const label = computed(() => ({
   lumi: 'Lumi 实时行情',
-  mock: '内置模拟数据',
-  browser: '浏览器内引擎'
+  none: '未连接行情源'
 }[props.source] || '未知来源'))
-const dotClass = computed(() => (props.source === 'lumi' ? 'live' : 'mock'))
+const dotClass = computed(() => (props.source === 'lumi' ? 'live' : 'off'))
 </script>
 
 <template>

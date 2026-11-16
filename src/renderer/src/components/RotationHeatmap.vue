@@ -11,7 +11,7 @@ const color = (v) => {
     ? `rgba(24,95,165,${(0.05 + t * 0.24).toFixed(3)})`
     : `rgba(214,48,49,${(0.10 + (t - 0.5) * 1.35).toFixed(3)})`
 }
-const short = (name) => String(name || '').replace('示例·', '')
+const short = (name) => String(name || '')
 </script>
 
 <template>

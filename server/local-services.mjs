@@ -1,7 +1,7 @@
 import http from 'node:http'
 import {
-  createInitialState, advance, toSnapshot, deriveLadder, deriveSubjectStocks,
-  deriveRotation, deriveCandles, deriveSubjects, detectEvents, SUBJECT_DEFS
+  toSnapshot, deriveLadder, deriveSubjectStocks,
+  deriveRotation, deriveSubjects, detectEvents
 } from '../shared/domain.mjs'
 import { createLiveEngine, refreshLive, liveMeta, pushHistoryRow } from './live-source.mjs'
 
@@ -10,14 +10,16 @@ const PORTS = (process.env.REPLICA_PORTS || '8080,8087,8088,8886')
   .map((v) => Number(v.trim()))
   .filter(Boolean)
 
-const SOURCE = (process.env.REPLICA_SOURCE || 'auto').toLowerCase()
-let state = createInitialState()
+// 不做本地数据兜底：未连接数据源就是空状态，界面显示未连接
+const emptyState = () => ({ subjectDefs: [], stocks: {}, flow: {}, history: [], day: 0, tick: 0 })
+
+let state = emptyState()
 let live = null
 let meta = {
-  source: 'mock',
+  source: 'none',
   sessionState: 'unknown',
   asOf: null,
-  notes: ['内置模拟引擎（未连接 Lumi）']
+  notes: ['未连接行情源']
 }
 const sseClients = new Set()
 let eventLog = []
@@ -69,10 +71,6 @@ function recordEvents(next) {
 }
 
 async function initSource() {
-  if (SOURCE === 'mock') {
-    console.log('[source] 强制使用 mock 引擎')
-    return
-  }
   try {
     live = await createLiveEngine({
       force: process.env.REPLICA_LIVE_FORCE === '1',
@@ -82,16 +80,20 @@ async function initSource() {
     meta = liveMeta(live)
     pushHistoryRow(state, deriveSubjects)
     console.log(`[source] Lumi 实时 · ${meta.subjectCount} 个题材 / ${meta.stockCount} 只成分股 · ${meta.asOf}`)
+    return true
   } catch (error) {
     live = null
-    state = createInitialState()
+    state = emptyState()
     meta = {
-      source: 'mock',
+      source: 'none',
       sessionState: 'unknown',
       asOf: null,
-      notes: [`Lumi 不可用，已降级模拟引擎：${error.message}`]
+      error: error.message,
+      notes: ['Lumi 不可用，未加载任何数据']
     }
-    console.log(`[source] Lumi 不可用，降级 mock：${error.message}`)
+    console.error(`[source] Lumi 不可用：${error.message}`)
+    console.error('[source] 请确认同花顺 AI 客户端已启动并登录，127.0.0.1:23816 可访问')
+    return false
   }
 }
 
@@ -105,8 +107,8 @@ eventLog.push({
   subjectId: '',
   subjectName: '系统',
   title: '【系统：题材情报引擎启动】',
-  body: `数据源 ${meta.source}，题材 ${meta.subjectCount || SUBJECT_DEFS.length} 个，行情通道时间 ${meta.asOf || '—'}。`,
-  text: `领域引擎启动 · 数据源 ${meta.source} · 题材 ${meta.subjectCount || SUBJECT_DEFS.length} 个`,
+  body: `数据源 ${meta.source}，题材 ${meta.subjectCount || 0} 个，行情通道时间 ${meta.asOf || '—'}。`,
+  text: `领域引擎启动 · 数据源 ${meta.source} · 题材 ${meta.subjectCount || 0} 个`,
   source: '本地引擎',
   changePct: 0,
   tone: '',
@@ -128,7 +130,7 @@ function subjectDetail(id) {
 }
 
 function allLadders() {
-  return SUBJECT_DEFS.map((s) => ({
+  return (state.subjectDefs || []).map((s) => ({
     subjectId: s.id,
     subjectName: s.name,
     ladder: deriveLadder(state, s.id)
@@ -136,7 +138,7 @@ function allLadders() {
 }
 
 function limitUpStocks(minStreak = 2) {
-  return Object.values(state.stocks)
+  return Object.values(state.stocks || {})
     .filter((s) => s.limitUpStreak >= minStreak)
     .map((s) => ({
       code: s.code, name: s.name, price: s.price, changePct: s.changePct,
@@ -167,7 +169,7 @@ function route(pathname, query) {
 
   // 领域总览
   if (pathname === '/snapshot' || pathname === '/') return { ...snap, service: 'local-domain-engine' }
-  if (pathname === '/api/version') return { version: '0.1.0', build: 100, day: snap.day, tick: snap.tick, source: snap.meta?.source || 'mock' }
+  if (pathname === '/api/version') return { version: '0.1.0', build: 100, day: snap.day, tick: snap.tick, source: snap.meta?.source || 'none' }
   if (pathname === '/meta') return snap.meta
 
   // 题材列表 / 实时 / 榜单
@@ -246,13 +248,19 @@ function route(pathname, query) {
   if (pathname === '/API/MarketHeat') return { heat: snap.market.heat, series: snap.market.series.map((value, t) => ({ t, value })) }
   if (pathname === '/API/MarketAttention') return { attention: snap.market.attention, series: snap.market.series.map((value, t) => ({ t, value })) }
   if (pathname === '/API/FactorTiming') return { score: snap.market.factor, series: snap.market.series.map((value, t) => ({ t, value })) }
-  if (pathname === '/API/StockHistoryDay') return deriveCandles(state, code || 'MKT001')
+  // 该通道不提供日线历史：返回空序列，而不是本地生成假 K 线
+  if (pathname === '/API/StockHistoryDay') return { code, candles: [], available: false }
 
   // 应用级
   if (pathname === '/app/config/info') {
-    return { appName: 'Market Terminal Replica', mock: true, domain: 'subject-rotation', subjectCount: SUBJECT_DEFS.length }
+    return {
+      appName: 'Market Terminal Replica',
+      domain: 'subject-rotation',
+      live: Boolean(live),
+      subjectCount: (state.subjectDefs || []).length
+    }
   }
-  if (pathname === '/app/user/info') return { nickname: '演示用户', loggedIn: false, mock: true }
+  if (pathname === '/app/user/info') return { loggedIn: false }
   if (pathname === '/health') return { ok: true, tick: snap.tick, day: snap.day }
   return null
 }
@@ -295,10 +303,18 @@ function start(port) {
 PORTS.forEach(start)
 
 // 全量股票池下每轮行情拉取需要数秒，刷新间隔相应放宽
-const REFRESH_MS = live ? 8000 : 1500
+const REFRESH_MS = 8000
+const RETRY_MS = 30000
+let lastRetryAt = 0
 
 setInterval(async () => {
-  if (live) {
+  if (!live) {
+    // 数据源断开时定期重连，不做本地数据兜底
+    if (Date.now() - lastRetryAt > RETRY_MS) {
+      lastRetryAt = Date.now()
+      await initSource()
+    }
+  } else {
     try {
       await refreshLive(live)
       state = live.state
@@ -307,8 +323,6 @@ setInterval(async () => {
     } catch (error) {
       meta = { ...meta, lastError: error.message, stale: true }
     }
-  } else {
-    advance(state)
   }
   const next = aggregate()
   recordEvents(next)
@@ -322,4 +336,4 @@ process.on('SIGTERM', () => process.exit(0))
 process.on('message', (message) => {
   if (message === 'shutdown') process.exit(0)
 })
-console.log(`[service] 题材领域引擎已启动, 数据源=${meta.source}, 题材=${live ? meta.subjectCount : SUBJECT_DEFS.length}, ports=${PORTS.join(',')}`)
+console.log(`[service] 题材领域引擎已启动, 数据源=${meta.source}, 题材=${meta.subjectCount || 0}, ports=${PORTS.join(',')}`)
