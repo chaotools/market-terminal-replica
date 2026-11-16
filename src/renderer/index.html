@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Market Terminal Replica</title>
+    <script>
+      window.addEventListener('error', function (event) {
+        document.title = 'ERR: ' + (event.message || 'unknown')
+      })
+      window.addEventListener('unhandledrejection', function (event) {
+        var reason = event.reason
+        document.title = 'REJ: ' + (reason && (reason.message || reason) || 'unknown')
+      })
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

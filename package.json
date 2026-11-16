@@ -1,0 +1,25 @@
+{
+  "name": "market-terminal-replica",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Subject-domain replica of an Electron market terminal. Own code, isomorphic domain engine, mock data, no third-party service.",
+  "main": "out/main/index.js",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "vite --host 127.0.0.1",
+    "serve": "node scripts/serve.mjs",
+    "start": "electron .",
+    "check": "node --check src/main/index.js && node --check src/preload/index.js && node --check server/local-services.mjs && node --check server/lumi-client.mjs && node --check server/live-source.mjs && node --check shared/domain.mjs && node --check scripts/build.mjs && node --check scripts/serve.mjs && node --check scripts/check-domain.mjs",
+    "check:domain": "node scripts/check-domain.mjs",
+    "check:lumi": "node scripts/check-lumi.mjs",
+    "check:mapping": "node scripts/check-mapping.mjs"
+  },
+  "devDependencies": {
+    "electron": "^38.0.0",
+    "vite": "^7.0.0",
+    "@vitejs/plugin-vue": "^6.0.0"
+  },
+  "dependencies": {
+    "vue": "^3.5.0"
+  }
+}

@@ -1,0 +1,31 @@
+appId: com.example.market-terminal-replica
+productName: Market Terminal Replica
+copyright: Local demo build
+
+directories:
+  output: dist
+  buildResources: build
+
+files:
+  - out/**/*
+  - server/**/*
+  - package.json
+
+asar: true
+
+win:
+  target:
+    - nsis
+  artifactName: ${productName}-Setup-${version}.${ext}
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  shortcutName: Market Terminal Replica
+
+publish:
+  provider: generic
+  url: ''
+  channel: latest-x64
+  updaterCacheDirName: replica-updater
